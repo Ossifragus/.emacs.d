@@ -21,10 +21,14 @@
 
 (setq default-directory "~/")
 (add-to-list 'load-path "~/Dropbox/.Emacs")
+(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
 ;; show current buffer name in title bar
 (setq frame-title-format "%b")
 
+;; Add the below lines *at the end* of your .emacs. This
+;; ensures that packages installed with package manager
+;; overrides other local installation
 (require 'package)
 ;; (add-to-list 'package-archives
 ;;              '("melpa-stable" . "https://stable.melpa.org/packages/"))
@@ -277,87 +281,9 @@ Frame must be declared as an environment."
 	 "wmctrl" nil nil nil "-i" "-R"
 	 (frame-parameter (selected-frame) 'outer-window-id))))
 
-;ESS ESS ESS ESS ESS ESS ESS ESS ESS ESS ESS ESS ESS ESS ESS 
-(setq ess-swv-plug-into-AUCTeX-p t)
-(setq ess-ask-for-ess-directory nil)
-(setq comint-scroll-to-bottom-on-input t)
-(setq comint-scroll-to-bottom-on-output t)
-(setq comint-move-point-for-output t)
-(setq ess-eval-visibly-p nil)
-;; (add-to-list 'load-path "~/Dropbox/.Emacs/ess-18.10.2/lisp")
-;; (require 'ess-site)
-(require 'ess-r-mode)
-(ess-toggle-underscore nil)
-;; (setq ess-long+replacement "")
+(require 'init-ess)
 
-  (setq ess-R-font-lock-keywords
-	'((ess-R-fl-keyword:keywords . t)
-          (ess-R-fl-keyword:constants  . t)
-          (ess-R-fl-keyword:modifiers  . t)
-          (ess-R-fl-keyword:fun-defs   . t)
-          (ess-R-fl-keyword:assign-ops . t)
-          (ess-fl-keyword:fun-calls . t)
-          (ess-fl-keyword:numbers)
-          (ess-fl-keyword:operators . t)
-          (ess-fl-keyword:delimiters)
-          (ess-fl-keyword:= . t)
-          (ess-R-fl-keyword:F&T . t)))
-  (setq inferior-R-font-lock-keywords
-	'(;; comint is bad at prompt highlighting
-	  (ess-S-fl-keyword:prompt . t)
-          (ess-R-fl-keyword:keywords . t)
-          (ess-R-fl-keyword:constants . t)
-          (ess-R-fl-keyword:modifiers . t)
-          (ess-R-fl-keyword:messages . t)
-          (ess-R-fl-keyword:fun-defs . t)
-          (ess-R-fl-keyword:assign-ops . t)
-          (ess-fl-keyword:matrix-labels . t)
-          (ess-fl-keyword:fun-calls . t)
-          (ess-fl-keyword:numbers)
-          (ess-fl-keyword:operators . t)
-          (ess-fl-keyword:delimiters)
-          (ess-fl-keyword:= . t)
-          (ess-R-fl-keyword:F&T . t)))
-  (setq ess-R-font-lock-keywords
-	'((ess-R-fl-keyword:keywords . t)
-          (ess-R-fl-keyword:constants  . t)
-          (ess-R-fl-keyword:modifiers  . t)
-          (ess-R-fl-keyword:fun-defs   . t)
-          (ess-R-fl-keyword:assign-ops . t)
-          (ess-fl-keyword:fun-calls . t)
-          (ess-fl-keyword:numbers)
-          (ess-fl-keyword:operators . t)
-          (ess-fl-keyword:delimiters)
-          (ess-fl-keyword:= . t)
-          (ess-R-fl-keyword:F&T . t)))
-  (setq inferior-R-font-lock-keywords
-	'(;; comint is bad at prompt highlighting
-	  (ess-S-fl-keyword:prompt . t)
-          (ess-R-fl-keyword:keywords . t)
-          (ess-R-fl-keyword:constants . t)
-          (ess-R-fl-keyword:modifiers . t)
-          (ess-R-fl-keyword:messages . t)
-          (ess-R-fl-keyword:fun-defs . t)
-          (ess-R-fl-keyword:assign-ops . t)
-          (ess-fl-keyword:matrix-labels . t)
-          (ess-fl-keyword:fun-calls . t)
-          (ess-fl-keyword:numbers)
-          (ess-fl-keyword:operators . t)
-          (ess-fl-keyword:delimiters)
-          (ess-fl-keyword:= . t)
-          (ess-R-fl-keyword:F&T . t)))
-
-;;C++C++C++C++C++C++C++C++C++C++C++C++C++C++C++C++C++C++C++
-;; (set 'compile-command' "R CMD SHLIB ")
-
-;; Add the below lines *at the end* of your .emacs. This
-;; ensures that packages installed with package manager
-;; overrides other local installation
-;; (require 'package)
-;; ;; (add-to-list 'package-archives
-;; ;;              '("melpa-stable" . "https://stable.melpa.org/packages/"))
-;; (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-;; (package-initialize)
+;; Python
 ;; (elpy-enable)
 ;; (setq python-shell-virtualenv-path "/home/ossifragus/anaconda3/")
 ;; (setq elpy-rpc-python-command "/home/ossifragus/anaconda3/bin/python")
@@ -562,7 +488,6 @@ Frame must be declared as an environment."
 
 (global-set-key "\C-cy" 'browse-kill-ring)
 
-(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 (require 'init-term)
 
 (provide 'init)
