@@ -2,20 +2,20 @@
 (cond
  ((string-equal (system-name) "T1700")
   (progn
-       (setq default-frame-alist
+    (setq default-frame-alist
 	  '((top . 0) (left . 0) (height . 100) (width . 81)))
-       (add-to-list 'default-frame-alist '(font . "Monospace-14"))))
+    (add-to-list 'default-frame-alist '(font . "Monospace-14"))))
  ((string-equal (system-name) "W319")
   (progn
-       (setq default-frame-alist
+    (setq default-frame-alist
 	  '((top . 0) (left . 0) (height . 760) (width . 81)))
-       (add-to-list 'default-frame-alist '(font . "Monospace-16"))))
+    (add-to-list 'default-frame-alist '(font . "Monospace-16"))))
  ((string-equal (system-name) "xp7390")
   (progn
-       (setq default-frame-alist
+    (setq default-frame-alist
 	  '((top . 0) (left . 0) (height . 760) (width . 81)))
-       (add-to-list 'default-frame-alist '(font . "Monospace-16"))))
-)
+    (add-to-list 'default-frame-alist '(font . "Monospace-16"))))
+ )
 
 (set-frame-font "16")
 
