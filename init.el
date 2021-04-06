@@ -22,21 +22,7 @@
  '(markdown-command "/usr/bin/pandoc")
  '(org-agenda-files '("~/Dropbox/mydoc/web/web.org"))
  '(package-selected-packages
-   '(anaconda-mode elpy
-     auctex
-     auto-highlight-symbol
-     beacon
-     browse-kill-ring gnu-elpa-keyring-update
-     company-math
-     eglot eglot-jl
-     highlight-numbers
-     lsp-mode lsp-julia
-     magit
-     org
-     polymode poly-R poly-markdown
-     use-package
-     vterm
-     )))
+   '(anaconda-mode elpy auctex auto-highlight-symbol beacon browse-kill-ring gnu-elpa-keyring-update company-math eglot eglot-jl highlight-numbers lsp-mode lsp-julia magit org pdf-tools pdf-view-restore polymode poly-R poly-markdown use-package vterm)))
 
 ;color color color
 (set-background-color "Black")
@@ -428,7 +414,18 @@ Frame must be declared as an environment."
 ;; (add-hook 'edit-server-start-hook 'org-mode)
 (add-hook 'edit-server-done-hook  'edit-server-maybe-htmlize-buffer)
 
-;; (pdf-tools-install)
+(use-package pdf-tools
+  :ensure t
+  :config
+  ;; (pdf-tools-install)
+  (pdf-loader-install)
+  )
+(use-package pdf-view-restore
+  :after pdf-tools
+  :config
+  (add-hook 'pdf-view-mode-hook 'pdf-view-restore-mode))
+(setq pdf-view-restore-filename "~/.emacs.d/.emacs.tmp/.pdf-view-restore")
+
 (global-auto-revert-mode 1)
 
 ;; self defined poly mode
