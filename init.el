@@ -1,9 +1,23 @@
-;; w319
-(setq default-frame-alist '((top . 0) (left . 760) (height . 56) (width . 81)))
-(add-to-list 'default-frame-alist '(font . "Monospace-16"))
+;; set frame for different computers
+(cond
+ ((string-equal (system-name) "T1700")
+  (progn
+       (setq default-frame-alist
+	  '((top . 0) (left . 0) (height . 100) (width . 81)))
+       (add-to-list 'default-frame-alist '(font . "Monospace-14"))))
+ ((string-equal (system-name) "W319")
+  (progn
+       (setq default-frame-alist
+	  '((top . 0) (left . 0) (height . 760) (width . 81)))
+       (add-to-list 'default-frame-alist '(font . "Monospace-16"))))
+ ((string-equal (system-name) "xp7390")
+  (progn
+       (setq default-frame-alist
+	  '((top . 0) (left . 0) (height . 760) (width . 81)))
+       (add-to-list 'default-frame-alist '(font . "Monospace-16"))))
+)
 
 (set-frame-font "16")
-;; (set-default-font "16")
 
 (setq default-directory "~/")
 (add-to-list 'load-path "~/Dropbox/.Emacs")
