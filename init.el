@@ -353,11 +353,11 @@ Frame must be declared as an environment."
 ;; Add the below lines *at the end* of your .emacs. This
 ;; ensures that packages installed with package manager
 ;; overrides other local installation
-(require 'package)
-;; (add-to-list 'package-archives
-;;              '("melpa-stable" . "https://stable.melpa.org/packages/"))
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-(package-initialize)
+;; (require 'package)
+;; ;; (add-to-list 'package-archives
+;; ;;              '("melpa-stable" . "https://stable.melpa.org/packages/"))
+;; (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+;; (package-initialize)
 ;; (elpy-enable)
 ;; (setq python-shell-virtualenv-path "/home/ossifragus/anaconda3/")
 ;; (setq elpy-rpc-python-command "/home/ossifragus/anaconda3/bin/python")
