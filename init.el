@@ -36,24 +36,7 @@
  '(markdown-command "/usr/bin/pandoc")
  '(org-agenda-files '("~/Dropbox/mydoc/web/web.org"))
  '(package-selected-packages
-   '(anaconda-mode elpy ;
-     auctex ;
-     auto-highlight-symbol ;
-     beacon ;
-     browse-kill-ring gnu-elpa-keyring-update ;
-     company-math ;
-     edit-server edit-server-htmlize ;
-     eglot eglot-jl ;
-     highlight-parentheses ;
-     highlight-numbers ;
-     lsp-mode lsp-julia ;
-     magit ;
-     org ;
-     pdf-tools pdf-view-restore ;
-     polymode poly-R poly-markdown ;
-     use-package ;
-     vterm ;
-     )))
+   '(anaconda-mode elpy auctex auto-highlight-symbol beacon browse-kill-ring gnu-elpa-keyring-update company-math edit-server edit-server-htmlize eglot eglot-jl ess highlight-parentheses highlight-numbers lsp-mode lsp-julia magit org pdf-tools pdf-view-restore polymode poly-R poly-markdown use-package vterm)))
 
 ;color color color
 (set-background-color "Black")
@@ -295,11 +278,68 @@ Frame must be declared as an environment."
 (setq comint-scroll-to-bottom-on-output t)
 (setq comint-move-point-for-output t)
 (setq ess-eval-visibly-p nil)
-(add-to-list 'load-path "~/Dropbox/.Emacs/ess-18.10.2/lisp")
+;; (add-to-list 'load-path "~/Dropbox/.Emacs/ess-18.10.2/lisp")
 ;; (require 'ess-site)
 (require 'ess-r-mode)
 (ess-toggle-underscore nil)
 ;; (setq ess-long+replacement "")
+
+  (setq ess-R-font-lock-keywords
+	'((ess-R-fl-keyword:keywords . t)
+          (ess-R-fl-keyword:constants  . t)
+          (ess-R-fl-keyword:modifiers  . t)
+          (ess-R-fl-keyword:fun-defs   . t)
+          (ess-R-fl-keyword:assign-ops . t)
+          (ess-fl-keyword:fun-calls . t)
+          (ess-fl-keyword:numbers)
+          (ess-fl-keyword:operators . t)
+          (ess-fl-keyword:delimiters)
+          (ess-fl-keyword:= . t)
+          (ess-R-fl-keyword:F&T . t)))
+  (setq inferior-R-font-lock-keywords
+	'(;; comint is bad at prompt highlighting
+	  (ess-S-fl-keyword:prompt . t)
+          (ess-R-fl-keyword:keywords . t)
+          (ess-R-fl-keyword:constants . t)
+          (ess-R-fl-keyword:modifiers . t)
+          (ess-R-fl-keyword:messages . t)
+          (ess-R-fl-keyword:fun-defs . t)
+          (ess-R-fl-keyword:assign-ops . t)
+          (ess-fl-keyword:matrix-labels . t)
+          (ess-fl-keyword:fun-calls . t)
+          (ess-fl-keyword:numbers)
+          (ess-fl-keyword:operators . t)
+          (ess-fl-keyword:delimiters)
+          (ess-fl-keyword:= . t)
+          (ess-R-fl-keyword:F&T . t)))
+  (setq ess-R-font-lock-keywords
+	'((ess-R-fl-keyword:keywords . t)
+          (ess-R-fl-keyword:constants  . t)
+          (ess-R-fl-keyword:modifiers  . t)
+          (ess-R-fl-keyword:fun-defs   . t)
+          (ess-R-fl-keyword:assign-ops . t)
+          (ess-fl-keyword:fun-calls . t)
+          (ess-fl-keyword:numbers)
+          (ess-fl-keyword:operators . t)
+          (ess-fl-keyword:delimiters)
+          (ess-fl-keyword:= . t)
+          (ess-R-fl-keyword:F&T . t)))
+  (setq inferior-R-font-lock-keywords
+	'(;; comint is bad at prompt highlighting
+	  (ess-S-fl-keyword:prompt . t)
+          (ess-R-fl-keyword:keywords . t)
+          (ess-R-fl-keyword:constants . t)
+          (ess-R-fl-keyword:modifiers . t)
+          (ess-R-fl-keyword:messages . t)
+          (ess-R-fl-keyword:fun-defs . t)
+          (ess-R-fl-keyword:assign-ops . t)
+          (ess-fl-keyword:matrix-labels . t)
+          (ess-fl-keyword:fun-calls . t)
+          (ess-fl-keyword:numbers)
+          (ess-fl-keyword:operators . t)
+          (ess-fl-keyword:delimiters)
+          (ess-fl-keyword:= . t)
+          (ess-R-fl-keyword:F&T . t)))
 
 ;;C++C++C++C++C++C++C++C++C++C++C++C++C++C++C++C++C++C++C++
 ;; (set 'compile-command' "R CMD SHLIB ")
