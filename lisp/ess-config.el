@@ -132,5 +132,5 @@
 ;; (use-package stan-mode
 ;;   :ensure t)
 
-(provide 'init-ess)
-;;; init-ess.el ends here
+(provide 'ess-config)
+

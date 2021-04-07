@@ -106,5 +106,4 @@
     )
   (add-hook 'vterm-mode-hook #'set-vterm-keys))
 
-(provide 'init-term)
-;;; init-term.el ends here
+(provide 'term-config)

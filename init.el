@@ -283,7 +283,7 @@ Frame must be declared as an environment."
 	 "wmctrl" nil nil nil "-i" "-R"
 	 (frame-parameter (selected-frame) 'outer-window-id))))
 
-(require 'init-ess)
+(require 'ess-config)
 
 ;; Python
 ;; (elpy-enable)
@@ -382,7 +382,7 @@ Frame must be declared as an environment."
   )
 (add-hook 'markdown-mode-hook 'my-markdown-hook)
 
-(require 'init-julia)
+(require 'julia-config)
 
 (setq auto-save-visited-file-name t)
 (setq default-input-method "TeX")
@@ -476,7 +476,7 @@ Frame must be declared as an environment."
 
 (global-set-key "\C-cy" 'browse-kill-ring)
 
-(require 'init-term)
+(require 'term-config)
 
 (provide 'init)
 ;;; init ends here
