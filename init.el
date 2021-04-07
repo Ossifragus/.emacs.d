@@ -116,35 +116,8 @@
 (prefer-coding-system 'utf-8)
 
 ;; ;;; Match Parentheses, enable skeleton-pair insert globally
-;; (setq skeleton-pair t)
-;; (global-set-key (kbd "(") 'skeleton-pair-insert-maybe)
-;; (global-set-key (kbd "[") 'skeleton-pair-insert-maybe)
-;; (global-set-key (kbd "{") 'skeleton-pair-insert-maybe)
-;; (global-set-key (kbd "\"") 'skeleton-pair-insert-maybe)
-
-;; (add-hook 'c-mode-common-hook 'hpm-on)
-;; (defun my-c-mode-auto-pair ()
-;;   (setq skeleton-pair t)
-;;   (local-set-key (kbd "(") 'skeleton-pair-insert-maybe)
-;;   (local-set-key (kbd "{") 'skeleton-pair-insert-maybe)
-;;   (local-set-key (kbd "`") 'skeleton-pair-insert-maybe)
-;;   (local-set-key (kbd "[") 'skeleton-pair-insert-maybe))
-;; (add-hook 'c-mode-hook 'my-c-mode-auto-pair)
-;; (add-hook 'c++-mode-hook 'my-c-mode-auto-pair)
-;; ;; (add-hook 'html-mode-hook 'my-c-mode-auto-pair)
-
 (electric-pair-mode 1)
 (setq electric-pair-preserve-balance nil)
-
-;; ;;; find matched Parentheses
-;; ;; (global-set-key "@" 'match-paren)
-;; (global-set-key ( kbd "C-c @") 'match-paren)
-;; (defun match-paren (arg)
-;;   "Go to the matching paren if on a paren; otherwise insert %."
-;;   (interactive "p")
-;;   (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
-;; 	((looking-at "\\s\)") (forward-char 1) (backward-list 1))
-;; 	(t (self-insert-command (or arg 1)))))
 
 ;; CUA mode
 ;; (cua-mode nil)
@@ -205,20 +178,11 @@
 
 (defun my-LaTeX-hook ()
   (local-set-key (kbd "C-c C-f") 'tex-frame)
-  ;; (setq skeleton-pair t)
-  ;; (local-set-key (kbd "(") 'skeleton-pair-insert-maybe)
-  ;; (local-set-key (kbd "{") 'skeleton-pair-insert-maybe)
-  ;; (local-set-key (kbd "[") 'skeleton-pair-insert-maybe)
-  ;; (local-set-key (kbd "\"") 'skeleton-pair-insert-maybe)
   (local-set-key (kbd "$") 'insert-dollor-sign)
   (setq TeX-parse-self t)
   (define-key LaTeX-mode-map (kbd "TAB") 'TeX-complete-symbol)
   (tex-fold-mode t)
   (flyspell-mode t)
-  ;; (local-set-key (kbd "C-c f") 'beamer-template-frame)
-  ;; (local-set-key (kbd "`") 'skeleton-pair-insert-maybe)
-  ;; (local-set-key (kbd "C-c m") 'flymake-start-syntax-check)
-  ;; (local-set-key (kbd "C-c n") 'flymake-goto-next-error)
   ;; flymake replaced by flycheck
   ;; (outline-minor-mode t)
   )
@@ -243,16 +207,6 @@ Frame must be declared as an environment."
       (TeX-pin-region beg (point))
       (letf (( (symbol-function 'TeX-command-query) (lambda (x) "LaTeX")))
         (TeX-command-region)))))
-
-;; (defun beamer-template-frame ()
-;;   "Create a simple template and move point to after \\frametitle."
-;;   (interactive)
-;;   (LaTeX-environment-menu "frame")
-;;   ;; ;; (insert "\\frametitle{}\timing")
-;;   ;; (insert "\\timing")
-;;   ;; (newline-and-indent)
-;;   ;; ;; (backward-char 8)
-;;   )
 
 (setq bibtex-align-at-equal-sign t)
 
@@ -347,10 +301,6 @@ Frame must be declared as an environment."
 ;; (cua-selection-mode t)
 ;; (setq cua-auto-tabify-rectangles nil) 
 
-; show line number
-;; (when (version<= "26.0.50" emacs-version )
-;;   (global-display-line-numbers-mode))
-
 ;; ;; (load "~/Emacs/htmlize.el")
 ;; (require 'htmlize)
 ;; ;;(setq htmlize-output-type "css")
@@ -370,11 +320,6 @@ Frame must be declared as an environment."
  )
 
 (defun my-markdown-hook ()
-  ;; (setq skeleton-pair t)
-  ;; (local-set-key (kbd "(") 'skeleton-pair-insert-maybe)
-  ;; (local-set-key (kbd "{") 'skeleton-pair-insert-maybe)
-  ;; (local-set-key (kbd "[") 'skeleton-pair-insert-maybe)
-  ;; (local-set-key (kbd "\"") 'skeleton-pair-insert-maybe)
   (tex-fold-mode t)
   (flyspell-mode t)
   (visual-line-mode t)
