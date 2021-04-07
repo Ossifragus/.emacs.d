@@ -46,7 +46,7 @@
  '(markdown-command "/usr/bin/pandoc")
  '(org-agenda-files '("~/Dropbox/mydoc/web/web.org"))
  '(package-selected-packages
-   '(anaconda-mode elpy auctex auto-highlight-symbol beacon browse-kill-ring gnu-elpa-keyring-update company-math edit-server edit-server-htmlize eglot eglot-jl ess highlight-parentheses highlight-numbers lsp-mode lsp-julia magit org pdf-tools pdf-view-restore polymode poly-R poly-markdown use-package vterm)))
+   '(julia-repl anaconda-mode elpy auctex auto-highlight-symbol beacon browse-kill-ring gnu-elpa-keyring-update company-math edit-server edit-server-htmlize eglot eglot-jl ess highlight-parentheses highlight-numbers lsp-mode lsp-julia magit org pdf-tools pdf-view-restore polymode poly-R poly-markdown use-package vterm)))
 
 ;color color color
 (set-background-color "Black")
