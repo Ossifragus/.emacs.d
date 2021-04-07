@@ -8,13 +8,13 @@
  ((string-equal (system-name) "W319")
   (progn
     (setq default-frame-alist
-	  '((top . 0) (left . 0) (height . 760) (width . 81)))
+	  '((top . 0) (left . 760) (height . 56) (width . 81)))
     (add-to-list 'default-frame-alist '(font . "Monospace-16"))))
- ((string-equal (system-name) "xp7390")
+ ((string-equal (system-name) "XPS7390")
   (progn
     (setq default-frame-alist
-	  '((top . 0) (left . 0) (height . 760) (width . 81)))
-    (add-to-list 'default-frame-alist '(font . "Monospace-16"))))
+	  '((top . 0) (left . 0) (height . 100) (width . 81)))
+    (add-to-list 'default-frame-alist '(font . "Monospace-14"))))
  )
 
 (set-frame-font "16")
