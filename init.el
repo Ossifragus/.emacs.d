@@ -148,11 +148,14 @@
 ;; (desktop-save-mode 1)
 
 ;;;;;;;;; IDO
-(require 'ido)
-(ido-mode t)
-(setq ido-enable-flex-matching t) ;; enable fuzzy matchings
+;; (require 'ido)
+;; (ido-mode t)
+;; (setq ido-enable-flex-matching t) ;; enable fuzzy matchings
+(setq ido-enable-flex-matching t)
+(setq ido-everywhere t)
 (setq ido-ignore-files '("\.synctex.gz" "\.pdf"))
 (setq ido-save-directory-list-file "~/.emacs.d/.emacs.tmp/ido.last")
+(ido-mode 1)
 
 (require 'ediff)
 ;; (require 'dictem)
