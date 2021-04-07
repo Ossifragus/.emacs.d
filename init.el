@@ -93,6 +93,8 @@
 ;; disable scrollbar
 (scroll-bar-mode -1)
 
+(window-divider-mode 1)
+
 ;; disable the welcome window
 (setq inhibit-startup-message t)
 
