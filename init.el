@@ -382,21 +382,7 @@ Frame must be declared as an environment."
   )
 (add-hook 'markdown-mode-hook 'my-markdown-hook)
 
-(add-to-list 'load-path "~/Dropbox/.Emacs/julia-emacs")
-(require 'julia-mode)
-(add-to-list 'load-path "~/Dropbox/.Emacs/julia-repl")
-(require 'julia-repl)
-(julia-repl-set-terminal-backend 'vterm)
-(setq vterm-kill-buffer-on-exit nil)
-
-(defun my-julia-hook ()
-  (highlight-indentation-mode t)
-  (auto-highlight-symbol-mode t)
-  (julia-repl-mode t)
-  )
-(add-hook 'julia-mode-hook 'my-julia-hook)
-;; (add-hook 'julia-mode-hook 'julia-repl-mode) ;; always use minor mode
-(setenv "JULIA_NUM_THREADS" "4")
+(require 'init-julia)
 
 (setq auto-save-visited-file-name t)
 (setq default-input-method "TeX")
