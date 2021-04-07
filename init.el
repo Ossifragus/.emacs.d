@@ -20,7 +20,7 @@
 (set-frame-font "16")
 
 (setq default-directory "~/")
-(add-to-list 'load-path "~/Dropbox/.Emacs")
+;; (add-to-list 'load-path "~/Dropbox/mydoc/reinstallOS/Lisp")
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
 ;; show current buffer name in title bar
