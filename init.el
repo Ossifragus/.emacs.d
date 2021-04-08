@@ -74,9 +74,8 @@
 (setq ido-save-directory-list-file "~/.emacs.d/.emacs.tmp/ido.last")
 (ido-mode 1)
 
-;; Add the below lines *at the end* of your .emacs. This
-;; ensures that packages installed with package manager
-;; overrides other local installation
+;; move the below lines *at the end* of .emacs to ensures  packages
+;; installed with package manager overrides other local installation
 (require 'package)
 ;; (add-to-list 'package-archives
 ;;              '("melpa-stable" . "https://stable.melpa.org/packages/"))
@@ -94,7 +93,7 @@
  '(markdown-command "/usr/bin/pandoc")
  '(org-agenda-files '("~/Dropbox/mydoc/web/web.org"))
  '(package-selected-packages
-   '(auctex auto-highlight-symbol beacon browse-kill-ring gnu-elpa-keyring-update company-math edit-server edit-server-htmlize eglot eglot-jl ess highlight-indentation highlight-numbers highlight-parentheses julia-repl lsp-mode lsp-julia magit org pdf-tools pdf-view-restore polymode poly-R poly-markdown use-package vterm)))
+   '(auctex auto-highlight-symbol beacon browse-kill-ring gnu-elpa-keyring-update company-math edit-server edit-server-htmlize eglot eglot-jl ess highlight-indentation highlight-numbers highlight-parentheses julia-repl lsp-mode lsp-julia magit org pdf-tools pdf-view-restore polymode poly-R poly-markdown use-package vterm which-key)))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -102,6 +101,9 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+(require 'which-key)
+(which-key-mode)
 
 (require 'company-config)
 (require 'edit-server-config)
