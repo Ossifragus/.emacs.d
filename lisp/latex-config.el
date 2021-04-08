@@ -1,20 +1,18 @@
-(add-hook 'text-mode-hook 'flyspell-mode)
-(add-hook 'text-mode-hook 'visual-line-mode)
-
-;Tex Tex Tex Tex Tex Tex Tex Tex Tex Tex Tex Tex Tex Tex 
-;; (require 'tex-site)
- ;; '(LaTeX-command "latex --shell-escape -synctex=1")
-
-;; (add-hook 'latex-mode-hook 'turn-on-reftex)
-(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
 (setq reftex-plug-into-auctex t)
 (setq preview-scale-function 1.5)
-(setq TeX-auto-save nil)
-;; (setq TeX-auto-save t)
+;; (setq TeX-auto-save nil)
+(setq TeX-auto-save t)
 (setq TeX-PDF-mode t)
 (setq TeX-save-query  nil)
-(add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
-(add-hook 'LaTeX-mode-hook 'visual-line-mode)
+(setq bibtex-align-at-equal-sign t)
+(setq TeX-source-correlate-mode t)
+;; Alternative 3: Use the external wmctrl tool in order to
+;; force Emacs into the focus.
+(setq TeX-raise-frame-function
+      (lambda ()
+	(call-process
+	 "wmctrl" nil nil nil "-i" "-R"
+	 (frame-parameter (selected-frame) 'outer-window-id))))
 
 (defun my-LaTeX-hook ()
   (local-set-key (kbd "C-c C-f") 'tex-frame)
@@ -23,20 +21,18 @@
   (define-key LaTeX-mode-map (kbd "TAB") 'TeX-complete-symbol)
   (tex-fold-mode t)
   (flyspell-mode t)
-  ;; flymake replaced by flycheck
+  (LaTeX-math-mode t)
+  (visual-line-mode t)
+  (flyspell-mode t)
   ;; (outline-minor-mode t)
   )
-
 (defun insert-dollor-sign ()
   (interactive)
   (insert "$$")
   (backward-char 1))
-
-(add-hook 'LaTeX-mode-hook 'my-LaTeX-hook)
-
 (defun tex-frame ()
   "Run pdflatex on current frame.  
-Frame must be declared as an environment."
+  Frame must be declared as an environment."
   (interactive)
   (let (beg)
     (save-excursion
@@ -46,16 +42,14 @@ Frame must be declared as an environment."
       (LaTeX-find-matching-end)
       (TeX-pin-region beg (point))
       (letf (( (symbol-function 'TeX-command-query) (lambda (x) "LaTeX")))
-        (TeX-command-region)))))
+            (TeX-command-region)))))
 
-(setq bibtex-align-at-equal-sign t)
+(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+;; (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
+;; (add-hook 'LaTeX-mode-hook 'visual-line-mode)
+(add-hook 'LaTeX-mode-hook 'my-LaTeX-hook)
 
-;; (require 'flymake)
-;; (defun flymake-get-tex-args (file-name)
-;; (list "pdflatex"
-;; (list "-file-line-error" "-draftmode" "-interaction=nonstopmode" file-name)))
-
-(setq TeX-source-correlate-mode t)
+(provide 'latex-config)
 
 ;; ;; Alternative 1: For some users, `x-focus-frame' works.
 ;; (setq TeX-raise-frame-function #'x-focus-frame)
@@ -69,15 +63,11 @@ Frame must be declared as an environment."
 ;;       (lambda ()
 ;; 	(run-at-time 0.5 nil #'x-focus-frame)))
 
-;; Alternative 3: Use the external wmctrl tool in order to
-;; force Emacs into the focus.
-(setq TeX-raise-frame-function
-      (lambda ()
-	(call-process
-	 "wmctrl" nil nil nil "-i" "-R"
-	 (frame-parameter (selected-frame) 'outer-window-id))))
+;; (require 'flymake)
+;; (defun flymake-get-tex-args (file-name)
+;; (list "pdflatex"
+;; (list "-file-line-error" "-draftmode" "-interaction=nonstopmode" file-name)))
 
-(provide 'latex-config)
 
 ;; ;; using auctex
 ;; (use-package tex
