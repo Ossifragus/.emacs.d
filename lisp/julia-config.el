@@ -14,6 +14,10 @@
 
 (use-package julia-repl
   :ensure t
+  :init
+  (bind-key "C-c C-f" 'julia-repl-send-paragraph)
+  (bind-key "C-c C-j" 'julia-repl-send-line-nomove)
+  (bind-key "C-c C-r" 'julia-repl-send-region-or-line)
   :config
   (require 'julia-repl)
   (add-hook 'julia-mode-hook 'julia-repl-mode) ;; always use minor mode
@@ -40,28 +44,28 @@
       (when (and beg (< beg end))
 	(julia-repl--send-string
 	 (buffer-substring-no-properties beg end)))))
-
-  :bind (("C-c C-a" . julia-repl-activate-parent)
-	 ("C-c C-b" . julia-repl-send-buffer)
-	 ;; ("C-c C-c" . julia-repl-send-region-or-line)
-	 ("C-c C-c" . julia-repl-send-paragraph); self defined
-	 ("C-c C-j" . julia-repl-send-line-nomove); self defined
-	 ("C-c C-r" . julia-repl-send-region-or-line); self defined
-	 ("C-c C-d" . julia-repl-doc)
-	 ("C-c C-e" . julia-repl-edit)
-	 ("C-c C-l" . julia-repl-list-methods)
-	 ("C-c C-m" . julia-repl-macroexpand)
-	 ("C-c C-p" . julia-repl-cd)
-	 ("C-c C-s" . julia-repl-prompt-set-inferior-buffer-name-suffix)
-	 ("C-c C-t" . julia-repl-includet-buffer)
-	 ("C-c C-v" . julia-repl-prompt-set-executable-key)
-	 ("C-c C-z" . julia-repl)
-	 ("<C-return>" . julia-repl-send-line))
   )
 
 (setenv "JULIA_NUM_THREADS" "4")
 
 (provide 'julia-config)
+
+;; :bind (("C-c C-a" . julia-repl-activate-parent)
+;; 	 ("C-c C-b" . julia-repl-send-buffer)
+;; 	 ;; ("C-c C-c" . julia-repl-send-region-or-line)
+;; 	 ("C-c C-c" . julia-repl-send-paragraph); self defined
+;; 	 ("C-c C-j" . julia-repl-send-line-nomove); self defined
+;; 	 ("C-c C-r" . julia-repl-send-region-or-line); self defined
+;; 	 ("C-c C-d" . julia-repl-doc)
+;; 	 ("C-c C-e" . julia-repl-edit)
+;; 	 ("C-c C-l" . julia-repl-list-methods)
+;; 	 ("C-c C-m" . julia-repl-macroexpand)
+;; 	 ("C-c C-p" . julia-repl-cd)
+;; 	 ("C-c C-s" . julia-repl-prompt-set-inferior-buffer-name-suffix)
+;; 	 ("C-c C-t" . julia-repl-includet-buffer)
+;; 	 ("C-c C-v" . julia-repl-prompt-set-executable-key)
+;; 	 ("C-c C-z" . julia-repl)
+;; 	 ("<C-return>" . julia-repl-send-line))
 
 ;; (use-package julia-snail
 ;;   :ensure t
@@ -69,6 +73,6 @@
 ;;   :hook (julia-mode . julia-snail-mode)
 ;;   )
 
-;; (local-set-key (kbd "C-c C-c") 'julia-repl-send-paragraph)
+;; (local-set-key (kbd "C-c C-f") 'julia-repl-send-paragraph)
 ;; (local-set-key (kbd "C-c C-j") 'julia-repl-send-line-nomove)
 ;; (local-set-key (kbd "C-c C-r") 'julia-repl-send-region-or-line)
