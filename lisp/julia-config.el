@@ -14,10 +14,6 @@
 
 (use-package julia-repl
   :ensure t
-  :init
-  (bind-key "C-c C-f" 'julia-repl-send-paragraph)
-  (bind-key "C-c C-j" 'julia-repl-send-line-nomove)
-  (bind-key "C-c C-r" 'julia-repl-send-region-or-line)
   :config
   (require 'julia-repl)
   (add-hook 'julia-mode-hook 'julia-repl-mode) ;; always use minor mode
@@ -44,12 +40,18 @@
       (when (and beg (< beg end))
 	(julia-repl--send-string
 	 (buffer-substring-no-properties beg end)))))
+  (defun my-julia-hook ()
+    (local-set-key (kbd "C-c C-f") 'julia-repl-send-paragraph)
+    (local-set-key (kbd "C-c C-j") 'julia-repl-send-line-nomove)
+    (local-set-key (kbd "C-c C-r") 'julia-repl-send-region-or-line))
+  (add-hook 'julia-mode-hook 'my-julia-hook)
   )
 
 (setenv "JULIA_NUM_THREADS" "4")
 
 (provide 'julia-config)
 
+;; ;; This overwrite all the keys in the package
 ;; :bind (("C-c C-a" . julia-repl-activate-parent)
 ;; 	 ("C-c C-b" . julia-repl-send-buffer)
 ;; 	 ;; ("C-c C-c" . julia-repl-send-region-or-line)
