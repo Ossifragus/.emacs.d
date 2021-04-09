@@ -36,7 +36,7 @@
 (require 'highlight-numbers)
 ;; (add-hook 'julia-mode-hook 'highlight-numbers-mode)
 ;; (add-hook 'prog-mode-hook 'highlight-numbers-mode)
-(set-face-foreground 'highlight-numbers-number "purple3")
+(set-face-foreground 'highlight-numbers-number "purple")
 
 ;; highlight current line
 (global-hl-line-mode 1)
