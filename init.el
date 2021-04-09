@@ -93,7 +93,7 @@
  '(markdown-command "/usr/bin/pandoc")
  '(org-agenda-files '("~/Dropbox/mydoc/web/web.org"))
  '(package-selected-packages
-   '(auctex auto-highlight-symbol beacon browse-kill-ring gnu-elpa-keyring-update company-math edit-server edit-server-htmlize eglot eglot-jl ess highlight-indentation highlight-numbers highlight-parentheses julia-repl lsp-mode lsp-julia magit org pdf-tools pdf-view-restore polymode poly-R poly-markdown use-package vterm which-key)))
+   '(auctex auto-highlight-symbol beacon browse-kill-ring gnu-elpa-keyring-update company-math edit-server edit-server-htmlize eglot eglot-jl ess highlight-indentation highlight-numbers highlight-parentheses julia-mode julia-repl lsp-mode lsp-julia magit org pdf-tools pdf-view-restore polymode poly-R poly-markdown use-package vterm which-key)))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
