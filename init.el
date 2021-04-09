@@ -102,6 +102,9 @@
  ;; If there is more than one, they won't work right.
  )
 
+(add-hook 'text-mode-hook 'flyspell-mode)
+(add-hook 'text-mode-hook 'visual-line-mode)
+
 (require 'which-key)
 (which-key-mode)
 
@@ -117,9 +120,6 @@
 (require 'polymode-config)
 (require 'term-config)
 (require 'theme-highlight-config)
-
-(add-hook 'text-mode-hook 'flyspell-mode)
-(add-hook 'text-mode-hook 'visual-line-mode)
 
 (provide 'init)
 ;;; init ends here
