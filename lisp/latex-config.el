@@ -15,6 +15,9 @@
 	 (frame-parameter (selected-frame) 'outer-window-id))))
 
 (defun my-LaTeX-hook ()
+(set-face-foreground 'font-latex-math-face "burlywood")
+(set-face-foreground 'font-latex-warning-face "red")
+
   (local-set-key (kbd "C-c C-f") 'tex-frame)
   (local-set-key (kbd "$") 'insert-dollor-sign)
   (setq TeX-parse-self t)
