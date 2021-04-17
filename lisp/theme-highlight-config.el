@@ -5,7 +5,7 @@
 (set-cursor-color "Orchid")
 (set-face-foreground 'font-lock-comment-face "chocolate4")
 (set-face-foreground 'font-lock-string-face "Gold3")
-(set-face-foreground 'font-lock-function-name-face "LightBlue")
+(set-face-foreground 'font-lock-function-name-face "deep sky blue");; SeaGreen1
 (set-face-foreground 'font-lock-keyword-face "cyan1")
 (set-face-foreground 'font-lock-type-face "Violet")
 (set-face-foreground 'font-lock-builtin-face "Cyan")
