@@ -52,15 +52,16 @@
 ;; show column number
 (setq column-number-mode t)
 
+;; load theme - pkg: color-theme-sanityinc-tomorrow
+(use-package color-theme-sanityinc-tomorrow
+  :ensure t
+  :init
+  (setq custom-safe-themes t)
+  :config
+  (require 'color-theme-sanityinc-tomorrow)
+  (setq-default custom-enabled-themes '(sanityinc-tomorrow-bright))
+  (color-theme-sanityinc-tomorrow--define-theme bright)
+  (load-theme 'sanityinc-tomorrow-bright t))
+
 (provide 'theme-highlight-config)
 
-;; ;; load theme - pkg: color-theme-sanityinc-tomorrow
-;; (use-package color-theme-sanityinc-tomorrow
-;;   :ensure t
-;;   :init
-;;   (setq custom-safe-themes t)
-;;   :config
-;;   (require 'color-theme-sanityinc-tomorrow)
-;;   (setq-default custom-enabled-themes '(sanityinc-tomorrow-eighties))
-;;   (color-theme-sanityinc-tomorrow--define-theme eighties)
-;;   (load-theme 'sanityinc-tomorrow-eighties t))
