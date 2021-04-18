@@ -7,7 +7,7 @@
 
 (font-lock-add-keywords
  'julia-mode
- '(("\\<\\(\\sw+\\) ?(" 1 'font-lock-function-name-face)))
+ '(("\\<\\(\\sw+\\) ?\\([!.(]\\)" 1 'font-lock-function-name-face)))
 
 (provide 'julia-highlight)
 
