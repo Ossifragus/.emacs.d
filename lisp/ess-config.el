@@ -10,7 +10,6 @@
   ;; (add-to-list 'load-path "~/Dropbox/.Emacs/ess-18.10.2/lisp")
   ;; (require 'ess-site)
   (require 'ess-r-mode)
-  (ess-toggle-underscore nil)
   ;; (setq ess-long+replacement "")
   (setq ess-R-font-lock-keywords
 	'((ess-R-fl-keyword:keywords . t)
@@ -69,13 +68,15 @@
           (ess-fl-keyword:= . t)
           (ess-R-fl-keyword:F&T . t)))
   ;; (require 'ess-site)
-  ;; ;; Turn off smart underscore in ESS
-  ;; (setq ess-smart-S-assign-key nil)
   ;; ;; ;; ESS Mode (.R file)
   ;; (setq ess-eval-visibly 'nowait)
   ;; (setq ess-history-file nil)
   ;; (setq inferior-R-args "--no-save --no-restore --no-site-file --no-environ")
-  ;; :bind (
+  :bind (
+	 :map ess-r-mode-map
+	      ("_" . ess-insert-assign)
+	 :map inferior-ess-r-mode-map
+	      ("_" . ess-insert-assign)
   ;; 	 :map ess-mode-map
   ;; 	      ("C-r" . ess-eval-function-or-paragraph-and-step)
   ;; 	      ("C-c M-." . find-tag)	; also use `find-tag' from etags.el
@@ -84,7 +85,7 @@
   ;;        :map inferior-ess-mode-map
   ;; 	      ("M--" . " <- ")
   ;; 	      ("M-0 M--" . nil)
-  ;; 	 )
+	 )
   )
 
 ;; ;;; disable flymake and flycheck for ess
