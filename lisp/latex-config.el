@@ -33,19 +33,16 @@
   (interactive)
   (insert "$$")
   (backward-char 1))
+;; http://mbork.pl/2016-07-04_Compiling_a_single_Beamer_frame_in_AUCTeX
 (defun tex-frame ()
-  "Run pdflatex on current frame.  
-  Frame must be declared as an environment."
+  "Run `TeX-command-region' on the current frame environment."
   (interactive)
-  (let (beg)
-    (save-excursion
-      (search-backward "\\begin{frame}")
-      (setq beg (point))
-      (forward-char 1)
-      (LaTeX-find-matching-end)
-      (TeX-pin-region beg (point))
-      (letf (( (symbol-function 'TeX-command-query) (lambda (x) "LaTeX")))
-            (TeX-command-region)))))
+  (save-mark-and-excursion
+    (while (not (looking-at-p "\\\\begin *{frame}"))
+      (LaTeX-find-matching-begin))
+    (forward-char)
+    (LaTeX-mark-environment)
+    (TeX-command-region)))
 
 (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
 ;; (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
