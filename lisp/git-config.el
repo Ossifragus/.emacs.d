@@ -5,7 +5,9 @@
   (global-set-key (kbd "C-x g") 'magit-status)
   ;; (global-set-key (kbd "C-x M-g") 'magit-dispatch)
   )
-
+(use-package forge
+  :ensure t
+  :after magit)
 (provide 'git-config)
 
 ;; (use-package diff-hl
