@@ -7,6 +7,7 @@
   :ensure t
   :config
   (evil-better-visual-line-on))
+(require 'evil-surround)
+(global-evil-surround-mode 1)
 (provide 'evil-config)
-
 
