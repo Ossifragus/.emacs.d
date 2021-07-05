@@ -48,6 +48,7 @@
 ;; (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
 ;; (add-hook 'LaTeX-mode-hook 'visual-line-mode)
 (add-hook 'LaTeX-mode-hook 'my-LaTeX-hook)
+(add-hook 'LaTeX-mode-hook #'evil-tex-mode)
 
 (provide 'latex-config)
 
