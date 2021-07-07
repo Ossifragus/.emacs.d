@@ -4,17 +4,20 @@
   (progn
     (setq default-frame-alist
 	  '((top . 0) (left . 0) (height . 100) (width . 81)))
-    (add-to-list 'default-frame-alist '(font . "Monospace-14"))))
+    (add-to-list 'default-frame-alist '(font . "Monospace-14"))
+    ))
  ((string-equal (system-name) "W319")
   (progn
     (setq default-frame-alist
 	  '((top . 0) (left . 760) (height . 56) (width . 81)))
-    (add-to-list 'default-frame-alist '(font . "Monospace-16"))))
+    (add-to-list 'default-frame-alist '(font . "Monospace-16"))
+    ))
  ((string-equal (system-name) "XPS7390")
   (progn
     (setq default-frame-alist
 	  '((top . 0) (left . 0) (height . 100) (width . 81)))
-    (add-to-list 'default-frame-alist '(font . "Monospace-14"))))
+    (add-to-list 'default-frame-alist '(font . "Monospace-14"))
+    ))
  ((string-equal (system-name) "MBP16.local")
   (progn
     (setq default-frame-alist
