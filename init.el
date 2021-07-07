@@ -1,4 +1,4 @@
-;; set frame for different computers
+;; different settings for different computers
 (cond
  ((string-equal (system-name) "T1700")
   (progn
@@ -15,8 +15,30 @@
     (setq default-frame-alist
 	  '((top . 0) (left . 0) (height . 100) (width . 81)))
     (add-to-list 'default-frame-alist '(font . "Monospace-14"))))
+ ((string-equal (system-name) "MBP16.local")
+  (progn
+    (setq default-frame-alist
+	  '((top . 0) (left . 0) (height . 100) (width . 81)))
+    (add-to-list 'default-frame-alist '(font . "Monospace-14"))
+    (setenv "PATH" (concat (getenv "PATH") ":/Library/TeX/texbin/"))  
+    (setq exec-path (append exec-path '("/Library/TeX/texbin/")))
+    (getenv "PATH")
+    (setenv "PATH"
+	    (concat
+	     ;; "/usr/texbin" ":"
+	     "/sw/bin" ":"
+	     "/sw/sbin" ":"
+	     "/usr/local/bin" ":"
+	     "/usr/X11/bin" ":"
+	     "/usr/texbin" ":"
+	     "/Library/TeX/texbin/bibtex" ":"
+	     "/Applications/Julia.app/Contents/Resources/julia/bin" ":"
+	     "/usr/X11R6/bin" ":"
+	     (getenv "PATH")))
+    ))
  )
 
+;; uniform setings for all computers
 (set-frame-font "16")
 
 (setq default-directory "~/")
