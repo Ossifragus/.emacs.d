@@ -40,10 +40,12 @@
 (define-key evil-insert-state-map "\C-y" 'yank)
 (define-key evil-visual-state-map "\C-y" 'yank)
 (define-key evil-insert-state-map "\C-e" 'end-of-line)
-(define-key evil-normal-state-map "\C-w" 'evil-delete)
-(define-key evil-insert-state-map "\C-w" 'evil-delete)
+(define-key evil-insert-state-map "\C-n" 'next-line)
+;; (define-key evil-normal-state-map "\C-w" 'evil-delete)
+;; (define-key evil-insert-state-map "\C-w" 'evil-delete)
+;; (define-key evil-visual-state-map "\C-w" 'evil-delete)
+(define-key evil-insert-state-map "\C-p" 'previous-line)
 (define-key evil-insert-state-map "\C-r" 'search-backward)
-(define-key evil-visual-state-map "\C-w" 'evil-delete)
 
 (provide 'evil-config)
 
