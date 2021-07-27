@@ -71,6 +71,8 @@
 ;; Remember the last place
 (save-place-mode 1)
 ;; (desktop-save-mode 1)
+;; set tab width
+(setq-default tab-width 2)
 
 ;; allow downcase/upcase
 (put 'downcase-region 'disabled nil)
