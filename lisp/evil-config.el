@@ -26,6 +26,12 @@
   :config
   (evil-collection-init))
 
+(use-package evil-matchit
+  :ensure t
+  :config
+	(global-evil-matchit-mode 1)
+  )
+
 ;;; esc quits
 (define-key evil-normal-state-map [escape] 'keyboard-quit)
 (define-key evil-visual-state-map [escape] 'keyboard-quit)
@@ -61,3 +67,10 @@
 ;; (require 'evil-surround)
 ;; (global-evil-surround-mode 1)
 
+;; (add-hook 'LaTeX-mode-hook
+;; 					(lambda ()
+;;             (push '(?\} . ("\{" . "\}")) evil-surround-pairs-alist)
+;; 						))
+;; (lambda ()
+;;       (add-to-list 'evil-embrace-evil-surround-keys ?o)))
+;; (evil-embrace-enable-evil-surround-integration)
