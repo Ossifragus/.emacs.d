@@ -136,6 +136,7 @@
 (add-hook 'text-mode-hook 'flyspell-mode)
 (add-hook 'text-mode-hook 'visual-line-mode)
 
+(require 'poly-julia)
 (require 'which-key)
 (which-key-mode)
 
