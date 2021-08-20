@@ -121,7 +121,7 @@
  '(LaTeX-command "latex --shell-escape -synctex=1")
  '(eglot-connect-timeout 300)
  '(inhibit-startup-screen t)
- '(markdown-command "/usr/bin/pandoc -c file:///home/ossifragus/.emacs.d/lisp/github-pandoc.css --from gfm -t html5 --mathjax --highlight-style pygments --standalone --quiet")
+ '(markdown-command "pandoc -c /home/ossifragus/.emacs.d/lisp/github-pandoc.css --from gfm -t html5 --mathjax --highlight-style pygments --standalone --quiet")
  '(org-agenda-files '("~/Dropbox/mydoc/web/web.org"))
  '(package-selected-packages
 	 '(evil-matchit evil-tex evil-collection company-emoji evil-surround evil-better-visual-line undo-tree evil-tutor evil forge auctex auto-highlight-symbol beacon browse-kill-ring color-theme-sanityinc-tomorrow gnu-elpa-keyring-update company-math edit-server edit-server-htmlize eglot eglot-jl ess highlight-indentation highlight-numbers highlight-parentheses julia-mode julia-repl kill-ring-search lsp-mode lsp-julia magit org pdf-tools pdf-view-restore polymode poly-R poly-markdown use-package vterm which-key)))
