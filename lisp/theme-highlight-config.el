@@ -27,7 +27,7 @@
 ;; (show-paren-mode 1)
 ;; (setq show-paren-delay 0)
 (require 'highlight-parentheses)
-(setq hl-paren-colors '("red" "blue" "yellow" "green" "IndianRed" "cyan" "orange"  "magenta"))
+(setq hl-paren-colors '("red" "yellow" "green" "IndianRed" "cyan" "orange"  "magenta", "purple"))
 (define-globalized-minor-mode global-highlight-parentheses-mode
   highlight-parentheses-mode
   (lambda ()
