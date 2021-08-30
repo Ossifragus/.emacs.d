@@ -20,6 +20,7 @@
   :config
   (require 'julia-repl)
   (add-hook 'julia-mode-hook 'julia-repl-mode) ;; always use minor mode
+	(add-hook 'julia-repl-hook #'julia-repl-use-emacsclient) ; JULIA_EDITOR @edit
   (set-language-environment "UTF-8")
   (julia-repl-set-terminal-backend 'vterm)
   (setq vterm-kill-buffer-on-exit nil)
