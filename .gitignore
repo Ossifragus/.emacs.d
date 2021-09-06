@@ -1,8 +1,10 @@
 *.tmp
 session.*
+.DS_Store
 auto-save-list
 elpa
 places
 old
 transient
+forge-database.sqlite
 
