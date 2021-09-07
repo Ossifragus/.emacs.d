@@ -15,11 +15,11 @@
   ;; (add-to-list 'completion-styles 'initials t)
   )
 
-(use-package company-emoji
-  :ensure t
-  :config
-  (add-to-list 'company-backends 'company-emoji)
-  )
+;; (use-package company-emoji
+;;   :ensure t
+;;   :config
+;;   (add-to-list 'company-backends 'company-emoji)
+;;   )
 
 (provide 'company-config)
 
