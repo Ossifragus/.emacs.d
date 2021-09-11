@@ -50,7 +50,7 @@
   (add-hook 'julia-mode-hook 'my-julia-repl-hook)
   )
 
-(setenv "JULIA_NUM_THREADS" "4")
+(setenv "JULIA_NUM_THREADS" "10")
 (setenv "JULIA_EDITOR" "emacsclient")
 
 (provide 'julia-config)
