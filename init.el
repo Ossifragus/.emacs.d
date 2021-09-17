@@ -82,6 +82,7 @@
 
 (setq auto-save-visited-file-name t)
 (setq default-input-method "TeX")
+(setq markdown-enable-math t)
 
 ;; (global-set-key ( kbd "C-c s") 'set-mark-command)
 (global-set-key ( kbd "C-c c") 'comment-or-uncomment-region)
