@@ -2,6 +2,56 @@
 ;; (require 'org-ref)
 (add-to-list 'auto-mode-alist '("\\.org.txt" . org-mode))
 
+;; (setq org-todo-keywords
+;;       '((sequence "TODO" "DOING" "NEED-INFO" "FEEDBACK" "|" "DONE")))
+
+(setq org-todo-keywords
+      '(
+        (sequence "IDEA(i)" "TODO(t)" "STARTED(s)" "FEEDBACK(f)" "WAITING(w)" "|" "DONE(d)")
+        (sequence "|" "CANCELED(c)" ) ;; "DELEGATED(l)" "SOMEDAY(f)"
+        ))
+
+(setq org-todo-keyword-faces
+      '(("IDEA" . (:foreground "GoldenRod" :weight bold))
+        ("FEEDBACK" . (:foreground "IndianRed1" :weight bold))
+        ("STARTED" . (:foreground "OrangeRed" :weight bold))
+        ("WAITING" . (:foreground "coral" :weight bold))
+        ("CANCELED" . (:foreground "LimeGreen" :weight bold))
+        ;; ("DELEGATED" . (:foreground "LimeGreen" :weight bold))
+        ;; ("SOMEDAY" . (:foreground "LimeGreen" :weight bold))
+        ))
+
+(eval-after-load 'org
+  '(progn
+     ;; toggle C-TAB (org-force-cycle-archived) in org-mode
+     (define-key org-mode-map [C-tab] nil)
+     ;; (define-key org-mode-map (kbd "C-c l") 'org-store-link)
+     ;; (define-key org-mode-map (kbd "C-c a") 'org-agenda)
+     ;; (define-key org-mode-map (kbd "C-c c") 'org-capture)
+     ;; (define-key org-mode-map (kbd "C-c b") 'org-iswitchb)
+     ;; (define-key org-mode-map (kbd "M-q") 'org-fill-paragraph)
+     (org-babel-do-load-languages
+      'org-babel-load-languages
+      '((R . t)
+        ;; (C . t)
+        ;; (dot . t)
+        (emacs-lisp . t)
+        (gnuplot . t)
+        (julia-vterm . t)
+        (latex . t)
+        (python . t)
+        ;; (awk . t)
+        ;; (css . t)
+        ;; (js . t)
+        ;; (lisp . t)
+        (org . t)
+        (shell . t)
+        ;; (sed . t)
+        ;; (sql . t)
+        ;; (sqlite . t)
+        ))))
+(defalias 'org-babel-execute:julia 'org-babel-execute:julia-vterm)
+
 (provide 'org-config)
 
 ;; ;; pkg: org-mode
