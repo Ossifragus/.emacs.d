@@ -25,6 +25,7 @@
   '(progn
      ;; toggle C-TAB (org-force-cycle-archived) in org-mode
      (define-key org-mode-map [C-tab] nil)
+		 (setf org-highlight-latex-and-related '(latex))
      ;; (define-key org-mode-map (kbd "C-c l") 'org-store-link)
      ;; (define-key org-mode-map (kbd "C-c a") 'org-agenda)
      ;; (define-key org-mode-map (kbd "C-c c") 'org-capture)
