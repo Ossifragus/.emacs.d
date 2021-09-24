@@ -52,6 +52,41 @@
         ;; (sqlite . t)
         ))))
 (defalias 'org-babel-execute:julia 'org-babel-execute:julia-vterm)
+(add-hook 'org-mode-hook 'turn-on-org-cdlatex)
+
+;; various preferences
+(setq
+ ;; org-catch-invisible-edits 'show
+ org-confirm-babel-evaluate nil
+ ;; org-edit-timestamp-down-means-later t
+ ;; org-export-coding-system 'utf-8
+ ;; org-export-kill-product-buffer-when-displayed t
+ ;; org-export-latex-default-packages-alist nil
+ ;; org-fast-tag-selection-single-key 'expert
+ ;; org-hide-emphasis-markers t
+ ;; ;; org-html-htmlize-output-type 'css
+ ;; org-html-validation-link nil
+ org-latex-listings 'minted
+ org-latex-packages-alist '(("" "minted"))
+ ;; org-latex-pdf-process '("lualatex -halt-on-error -shell-escape -pdf %f")
+      org-latex-pdf-process
+      '("lualatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+        "lualatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+        "lualatex -shell-escape -interaction nonstopmode -output-directory %o %f")
+ ;; org-log-done t
+ ;; org-reverse-note-order t
+ ;; org-src-fontify-natively t
+ ;; org-tags-column 80
+ )
+
+;; (setq org-latex-minted-options
+;; 			'(("breaklines" "true")
+;; 				("breakanywhere" "true")
+;; 				("fontsize" "\\footnotesize")
+;; 				;; ("linenos")
+;; 				("frame" "single")
+;; 				))
+
 
 (provide 'org-config)
 
