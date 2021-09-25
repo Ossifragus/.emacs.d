@@ -63,9 +63,9 @@
  ;; org-export-kill-product-buffer-when-displayed t
  ;; org-export-latex-default-packages-alist nil
  ;; org-fast-tag-selection-single-key 'expert
- ;; org-hide-emphasis-markers t
+ org-hide-emphasis-markers t
  ;; ;; org-html-htmlize-output-type 'css
- ;; org-html-validation-link nil
+org-html-validation-link nil
  org-latex-listings 'minted
  org-latex-packages-alist '(("" "minted"))
  ;; org-latex-pdf-process '("lualatex -halt-on-error -shell-escape -pdf %f")
@@ -78,7 +78,7 @@
  org-src-preserve-indentation t
  ;; org-log-done t
  ;; org-reverse-note-order t
- ;; org-src-fontify-natively t
+ org-src-fontify-natively t
  ;; org-tags-column 80
  )
 
