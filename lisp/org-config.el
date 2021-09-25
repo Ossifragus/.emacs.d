@@ -1,4 +1,5 @@
 (require 'org)
+;; (require 'ox-md)
 ;; (require 'org-ref)
 (add-to-list 'auto-mode-alist '("\\.org.txt" . org-mode))
 
@@ -24,6 +25,7 @@
 (eval-after-load 'org
   '(progn
      ;; toggle C-TAB (org-force-cycle-archived) in org-mode
+		 (require 'ox-gfm nil t)
      (define-key org-mode-map [C-tab] nil)
 		 (setf org-highlight-latex-and-related '(latex))
      ;; (define-key org-mode-map (kbd "C-c l") 'org-store-link)
@@ -72,7 +74,8 @@ org-html-validation-link nil
  org-latex-pdf-process
  '("lualatex -shell-escape -interaction nonstopmode -output-directory %o %f"
    "lualatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-   "lualatex -shell-escape -interaction nonstopmode -output-directory %o %f")
+   ;; "lualatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+	 )
  org-edit-src-content-indentation 0
  org-src-tab-acts-natively t
  org-src-preserve-indentation t
