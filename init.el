@@ -68,7 +68,7 @@
 (global-auto-revert-mode 1)
 ;; ;;; Match Parentheses, enable skeleton-pair insert globally
 (electric-pair-mode 1)
-(setq electric-pair-preserve-balance nil)
+;; (setq electric-pair-preserve-balance nil)
 ;; Remember the last place
 (save-place-mode 1)
 ;; (desktop-save-mode 1)
