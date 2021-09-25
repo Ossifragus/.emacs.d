@@ -69,15 +69,20 @@
  org-latex-listings 'minted
  org-latex-packages-alist '(("" "minted"))
  ;; org-latex-pdf-process '("lualatex -halt-on-error -shell-escape -pdf %f")
-      org-latex-pdf-process
-      '("lualatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-        "lualatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-        "lualatex -shell-escape -interaction nonstopmode -output-directory %o %f")
+ org-latex-pdf-process
+ '("lualatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+   "lualatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+   "lualatex -shell-escape -interaction nonstopmode -output-directory %o %f")
+ org-edit-src-content-indentation 0
+ org-src-tab-acts-natively t
+ org-src-preserve-indentation t
  ;; org-log-done t
  ;; org-reverse-note-order t
  ;; org-src-fontify-natively t
  ;; org-tags-column 80
  )
+
+(provide 'org-config)
 
 ;; (setq org-latex-minted-options
 ;; 			'(("breaklines" "true")
@@ -86,9 +91,6 @@
 ;; 				;; ("linenos")
 ;; 				("frame" "single")
 ;; 				))
-
-
-(provide 'org-config)
 
 ;; ;; pkg: org-mode
 ;; (require 'org)
