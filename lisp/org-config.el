@@ -1,5 +1,5 @@
 (require 'org)
-;; (require 'ox-md)
+(require 'ox-reveal)
 ;; (require 'org-ref)
 (add-to-list 'auto-mode-alist '("\\.org.txt" . org-mode))
 
