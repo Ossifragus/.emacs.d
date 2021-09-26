@@ -1,5 +1,11 @@
 (require 'org)
-(require 'ox-reveal)
+(use-package ox-reveal
+  :ensure t
+  :config
+  (require 'ox-reveal)
+	)
+
+;; (require 'ox-reveal)
 ;; (require 'org-ref)
 (add-to-list 'auto-mode-alist '("\\.org.txt" . org-mode))
 (setq org-reveal-root "file:///home/ossifragus/Dropbox/mydoc/reinstallOS/reveal.js")
