@@ -2,6 +2,7 @@
 (require 'ox-reveal)
 ;; (require 'org-ref)
 (add-to-list 'auto-mode-alist '("\\.org.txt" . org-mode))
+(setq org-reveal-root "file:///home/ossifragus/Dropbox/mydoc/reinstallOS/reveal.js")
 
 ;; (setq org-todo-keywords
 ;;       '((sequence "TODO" "DOING" "NEED-INFO" "FEEDBACK" "|" "DONE")))
