@@ -97,6 +97,58 @@ org-html-validation-link nil
  ;; org-tags-column 80
  )
 
+;; https://zzamboni.org/post/how-to-easily-create-and-use-human-readable-ids-in-org-mode-and-doom-emacs/
+(require 'org-id)
+(use-package counsel
+  :ensure t
+  :config
+  (require 'counsel)
+	)
+
+(eval-after-load 'counsel
+	'(add-hook 'org-mode-hook
+						 (lambda () (define-key org-mode-map
+													(kbd "C-c )") #'counsel-org-link))))
+
+(setq counsel-outline-display-style 'title)
+(setq org-id-link-to-org-use-id 'create-if-interactive-and-no-custom-id)
+(defun zz/make-id-for-title (title)
+  "Return an ID based on TITLE."
+  (let* ((new-id (replace-regexp-in-string "[^[:alnum:]]" "-" (downcase title))))
+    new-id))
+(defun zz/org-custom-id-create ()
+  "Create and store CUSTOM_ID for current heading."
+  (let* ((title (or (nth 4 (org-heading-components)) ""))
+         (new-id (zz/make-id-for-title title)))
+    (org-entry-put nil "CUSTOM_ID" new-id)
+    (org-id-add-location new-id (buffer-file-name (buffer-base-buffer)))
+    new-id))
+
+(defun zz/org-custom-id-get-create (&optional where force)
+  "Get or create CUSTOM_ID for heading at WHERE.
+If FORCE is t, always recreate the property."
+	(org-with-point-at where
+    (let ((old-id (org-entry-get nil "CUSTOM_ID")))
+      ;; If CUSTOM_ID exists and FORCE is false, return it
+      (if (and (not force) old-id (stringp old-id))
+          old-id
+        ;; otherwise, create it
+        (zz/org-custom-id-create)))))
+
+;; Now override counsel-org-link-action
+;; (after! counsel
+  (defun counsel-org-link-action (x)
+    "Insert a link to X.
+
+X is expected to be a cons of the form (title . point), as passed
+by `counsel-org-link'.
+
+If X does not have a CUSTOM_ID, create it based on the headline
+title."
+    (let* ((id (zz/org-custom-id-get-create (cdr x))))
+      (org-insert-link nil (concat "#" id) (car x))))
+;; )
+
 (provide 'org-config)
 
 ;; (setq org-latex-minted-options
