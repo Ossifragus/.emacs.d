@@ -16,7 +16,7 @@
   (progn
     (setq default-frame-alist
 	  '((top . 0) (left . 0) (height . 100) (width . 81)))
-    (add-to-list 'default-frame-alist '(font . "Monospace-16"))
+    (add-to-list 'default-frame-alist '(font . "Monospace-15"))
     ))
  ((eq system-type 'darwin)
  ;; ((string-equal (system-name) "MBP16.local")
