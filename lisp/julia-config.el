@@ -23,6 +23,9 @@
 	;; (add-hook 'julia-repl-hook #'julia-repl-use-emacsclient) ; JULIA_EDITOR @edit
   (set-language-environment "UTF-8")
   (julia-repl-set-terminal-backend 'vterm)
+	(setq julia-repl-executable-records
+      '((default "julia")                  ; in the executable path
+        (future "~/Dropbox/julia/julia/bin/julia"))) ; future releases
   (setq vterm-kill-buffer-on-exit nil)
   (defun julia-repl-send-line-nomove (); self defined
     (interactive)
