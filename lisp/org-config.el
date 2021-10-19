@@ -4,6 +4,7 @@
 ;;   :config
 ;;   (require 'ox-reveal)
 ;; 	)
+
 (use-package org-re-reveal
   :ensure t
   :config
@@ -13,7 +14,7 @@
 ;; (require 'ox-reveal)
 ;; (require 'org-ref)
 (add-to-list 'auto-mode-alist '("\\.org.txt" . org-mode))
-(setq org-re-reveal-root "file:///home/ossifragus/Dropbox/mydoc/reinstallOS/reveal.js")
+;; (setq org-re-reveal-root "file:///home/ossifragus/Dropbox/mydoc/reinstallOS/reveal.js")
 
 ;; (setq org-todo-keywords
 ;;       '((sequence "TODO" "DOING" "NEED-INFO" "FEEDBACK" "|" "DONE")))
