@@ -10,6 +10,7 @@
 ;; (require 'poly-markdown)
 (add-to-list 'auto-mode-alist '("\\.Rmd" . poly-markdown+r-mode))
 (add-to-list 'auto-mode-alist '("\\.Rnw" . poly-noweb+r-mode))
+(add-to-list 'auto-mode-alist '("\\.Rtex" . poly-noweb+r-mode))
 
 (defun my-markdown-hook ()
   (tex-fold-mode t)
