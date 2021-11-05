@@ -24,8 +24,8 @@
   (set-language-environment "UTF-8")
   (julia-repl-set-terminal-backend 'vterm)
 	(setq julia-repl-executable-records
-      '((default "julia")                  ; in the executable path
-        (future "~/Dropbox/julia/julia/bin/julia"))) ; future releases
+      '((default "julia -t auto")                  ; in the executable path
+        (future "~/Dropbox/julia/julia/bin/julia -t auto"))) ; future releases
   (setq vterm-kill-buffer-on-exit nil)
   (defun julia-repl-send-line-nomove (); self defined
     (interactive)
@@ -53,7 +53,7 @@
   (add-hook 'julia-mode-hook 'my-julia-repl-hook)
   )
 
-(setenv "JULIA_NUM_THREADS" "10")
+;; (setenv "JULIA_NUM_THREADS" "10")
 (setenv "JULIA_EDITOR" "emacsclient")
 
 (provide 'julia-config)
