@@ -8,8 +8,8 @@
 (autoload 'edit-server-maybe-dehtmlize-buffer "edit-server-htmlize" "edit-server-htmlize" t)
 (autoload 'edit-server-maybe-htmlize-buffer   "edit-server-htmlize" "edit-server-htmlize" t)
 (add-hook 'edit-server-start-hook 'edit-server-maybe-dehtmlize-buffer)
-(add-hook 'edit-server-start-hook 'LaTeX-mode)
-;; (add-hook 'edit-server-start-hook 'org-mode)
+;; (add-hook 'edit-server-start-hook 'LaTeX-mode)
+(add-hook 'edit-server-start-hook 'org-mode)
 (add-hook 'edit-server-done-hook  'edit-server-maybe-htmlize-buffer)
 
 (provide 'edit-server-config)
