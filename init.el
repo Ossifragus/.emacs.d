@@ -130,7 +130,7 @@
 	 "pandoc -c /home/ossifragus/Dropbox/mydoc/reinstallOS/style/github-pandoc.css --from=markdown -t html5 --highlight-style pygments --standalone --mathjax --quiet --citeproc --template /home/ossifragus/Dropbox/mydoc/reinstallOS/style/GitHub.html")
  '(org-agenda-files '("~/Dropbox/mydoc/web/web.org"))
  '(package-selected-packages
-	 '(citeproc org counsel org-re-reveal ox-reveal ox-gfm htmlize cdlatex org-evil poly-org ob-julia-vterm evil-matchit evil-tex evil-collection evil-surround evil-better-visual-line undo-tree evil-tutor evil forge auctex auto-highlight-symbol beacon browse-kill-ring color-theme-sanityinc-tomorrow gnu-elpa-keyring-update company-math edit-server edit-server-htmlize eglot eglot-jl ess highlight-indentation highlight-numbers highlight-parentheses julia-mode julia-repl kill-ring-search lsp-mode lsp-julia magit pdf-tools pdf-view-restore polymode poly-R poly-markdown use-package vterm which-key))
+	 '(citeproc org counsel org-re-reveal ox-reveal ox-gfm htmlize cdlatex org-evil poly-org julia-vterm ob-julia-vterm evil-matchit evil-tex evil-collection evil-surround evil-better-visual-line undo-tree evil-tutor evil forge auctex auto-highlight-symbol beacon browse-kill-ring color-theme-sanityinc-tomorrow gnu-elpa-keyring-update company-math edit-server edit-server-htmlize eglot eglot-jl ess highlight-indentation highlight-numbers highlight-parentheses julia-mode julia-repl kill-ring-search lsp-mode lsp-julia magit pdf-tools pdf-view-restore polymode poly-R poly-markdown use-package vterm which-key))
  '(safe-local-variable-values '((org-confirm-babel-evaluate))))
 
 (custom-set-faces
@@ -160,6 +160,7 @@
 (require 'edit-server-config)
 (require 'encoding-config)
 (require 'ess-config)
+(require 'evil-config)
 (require 'git-config)
 (require 'julia-config)
 (require 'latex-config)
@@ -168,7 +169,6 @@
 (require 'polymode-config)
 (require 'term-config)
 (require 'theme-highlight-config)
-(require 'evil-config)
 
 (provide 'init)
 ;;; init ends here
