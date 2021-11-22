@@ -127,8 +127,7 @@ org-html-validation-link nil
     new-id))
 
 (defun zz/org-custom-id-get-create (&optional where force)
-  "Get or create CUSTOM_ID for heading at WHERE.
-If FORCE is t, always recreate the property."
+  "Get or create CUSTOM_ID for heading at WHERE. If FORCE is t, always recreate the property."
 	(org-with-point-at where
     (let ((old-id (org-entry-get nil "CUSTOM_ID")))
       ;; If CUSTOM_ID exists and FORCE is false, return it
@@ -139,17 +138,13 @@ If FORCE is t, always recreate the property."
 
 ;; Now override counsel-org-link-action
 ;; (after! counsel
-  (defun counsel-org-link-action (x)
-    "Insert a link to X.
-
-X is expected to be a cons of the form (title . point), as passed
-by `counsel-org-link'.
-
-If X does not have a CUSTOM_ID, create it based on the headline
-title."
-    (let* ((id (zz/org-custom-id-get-create (cdr x))))
-      (org-insert-link nil (concat "#" id) (car x))))
+(defun counsel-org-link-action (x)
+	"Insert a link to X. X is expected to be a cons of the form (title . point), as passed by `counsel-org-link'. If X does not have a CUSTOM_ID, create it based on the headline title."
+	(let* ((id (zz/org-custom-id-get-create (cdr x))))
+		(org-insert-link nil (concat "#" id) (car x))))
 ;; )
+
+(setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
 
 (provide 'org-config)
 
