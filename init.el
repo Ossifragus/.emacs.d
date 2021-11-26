@@ -128,10 +128,26 @@
  '(inhibit-startup-screen t)
  '(markdown-command
 	 "pandoc -c /home/ossifragus/Dropbox/mydoc/reinstallOS/style/github-pandoc.css --from=markdown -t html5 --highlight-style pygments --standalone --mathjax --quiet --citeproc --template /home/ossifragus/Dropbox/mydoc/reinstallOS/style/GitHub.html")
- '(org-agenda-files '("~/Dropbox/mydoc/web/web.org"))
+ ;; '(org-agenda-files '("~/Dropbox/mydoc/web/web.org"))
  '(package-selected-packages
 	 '(citeproc org counsel org-re-reveal ox-reveal ox-gfm htmlize cdlatex org-evil poly-org julia-vterm ob-julia-vterm evil-matchit evil-tex evil-collection evil-surround evil-better-visual-line undo-tree evil-tutor evil forge auctex auto-highlight-symbol beacon browse-kill-ring color-theme-sanityinc-tomorrow gnu-elpa-keyring-update company-math edit-server edit-server-htmlize eglot eglot-jl ess highlight-indentation highlight-numbers highlight-parentheses julia-mode julia-repl kill-ring-search lsp-mode lsp-julia magit pdf-tools pdf-view-restore polymode poly-R poly-markdown use-package vterm which-key))
  )
+
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(vterm-color-black ((t (:foreground "#3F3F3F" :background "#992323"))))
+ '(vterm-color-blue ((t (:foreground "#7CB8BB" :background "#4C7073"))))
+ '(vterm-color-cyan ((t (:foreground "#93E0E3" :background "#8CD0D3"))))
+ '(vterm-color-green ((t (:foreground "#7F9F7F" :background "#9FC59F"))))
+ '(vterm-color-magenta ((t (:foreground "#DC8CC3" :background "#CC9393"))))
+ '(vterm-color-red ((t (:foreground "#AC7373" :background "#8C5353"))))
+ '(vterm-color-white ((t (:foreground "#DCDCCC" :background "#656555"))))
+ '(vterm-color-yellow ((t (:foreground "#DFAF8F" :background "#9FC59F"))))
+ '(vterm-default-bg-color ((t (:inherit vterm-color-black))))
+ '(vterm-default-fg-color ((t (:inherit vterm-color-white)))))
 
 (add-hook 'text-mode-hook 'flyspell-mode)
 (add-hook 'text-mode-hook 'visual-line-mode)
