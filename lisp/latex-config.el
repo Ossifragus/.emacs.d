@@ -15,24 +15,27 @@
 	 (frame-parameter (selected-frame) 'outer-window-id))))
 
 (defun my-LaTeX-hook ()
-(set-face-foreground 'font-latex-math-face "burlywood")
-(set-face-foreground 'font-latex-warning-face "red")
+	(set-face-foreground 'font-latex-math-face "burlywood")
+	(set-face-foreground 'font-latex-warning-face "red")
 
-  (local-set-key (kbd "C-c C-f") 'tex-frame)
-  (local-set-key (kbd "$") 'insert-dollor-sign)
-  (setq TeX-parse-self t)
-  (define-key LaTeX-mode-map (kbd "TAB") 'TeX-complete-symbol)
-  (tex-fold-mode t)
-  (flyspell-mode t)
-  (LaTeX-math-mode t)
-  (visual-line-mode t)
-  (flyspell-mode t)
-  ;; (outline-minor-mode t)
-  )
+	(local-set-key (kbd "C-c C-f") 'tex-frame)
+	(local-set-key (kbd "$") 'insert-dollor-sign)
+	(setq TeX-parse-self t)
+	(define-key LaTeX-mode-map (kbd "TAB") 'TeX-complete-symbol)
+	(tex-fold-mode t)
+	(flyspell-mode t)
+	(LaTeX-math-mode t)
+	(visual-line-mode t)
+	(flyspell-mode t)
+	(auto-fill-mode t)
+	;; (outline-minor-mode t)
+	)
+
 (defun insert-dollor-sign ()
   (interactive)
   (insert "$$")
   (backward-char 1))
+
 ;; http://mbork.pl/2016-07-04_Compiling_a_single_Beamer_frame_in_AUCTeX
 (defun tex-frame ()
   "Run `TeX-command-region' on the current frame environment."
@@ -45,8 +48,6 @@
     (TeX-command-region)))
 
 (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
-;; (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
-;; (add-hook 'LaTeX-mode-hook 'visual-line-mode)
 (add-hook 'LaTeX-mode-hook 'my-LaTeX-hook)
 (add-hook 'LaTeX-mode-hook #'evil-tex-mode)
 
