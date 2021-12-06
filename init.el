@@ -67,6 +67,13 @@
 ;; show current buffer name in title bar
 (setq frame-title-format "%b")
 
+(require 'paren)
+(show-paren-mode t)
+;; (set-face-background 'show-paren-match (face-foreground 'font-lock-comment-face))
+(set-face-background 'show-paren-match "Black")
+(set-face-foreground 'show-paren-match "#def")
+(set-face-attribute 'show-paren-match nil :weight 'extra-bold)
+
 (window-divider-mode 1)
 (global-auto-revert-mode 1)
 ;; ;;; Match Parentheses, enable skeleton-pair insert globally
