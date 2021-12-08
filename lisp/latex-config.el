@@ -23,7 +23,6 @@
 	(setq TeX-parse-self t)
 	(define-key LaTeX-mode-map (kbd "TAB") 'TeX-complete-symbol)
 	(tex-fold-mode t)
-	(flyspell-mode t)
 	(LaTeX-math-mode t)
 	(visual-line-mode t)
 	(flyspell-mode t)
