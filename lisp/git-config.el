@@ -7,14 +7,16 @@
   )
 (use-package forge
   :ensure t
-  :after magit)
-(provide 'git-config)
+  :after magit
+	)
+(use-package diff-hl
+  :ensure t
+  :config
+  (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
+  (add-hook 'after-init-hook 'global-diff-hl-mode)
+	)
 
-;; (use-package diff-hl
-;;   :ensure t
-;;   :config
-;;   (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
-;;   (add-hook 'after-init-hook 'global-diff-hl-mode))
+(provide 'git-config)
 
 ;; (use-package magit-todos
 ;;   :ensure t
