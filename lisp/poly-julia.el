@@ -29,7 +29,8 @@
 
 (require 'julia-mode)
 (require 'poly-markdown)
-(require 'julia-repl-vterm)
+;; (require 'julia-repl-vterm)
+(require 'julia-vterm)
 
 (define-innermode poly-julia-markdown-inline-code-innermode poly-markdown-inline-code-innermode
   :mode 'julia-mode
