@@ -1,12 +1,12 @@
 ;; different settings for different computers
 (cond
- ((or (string-equal (system-name) "T1700") (string-equal (system-name) "W319"))
+ ((string-equal (system-name) "T1700")
   (progn
     (setq default-frame-alist
 	  '((top . 0) (left . 0) (height . 100) (width . 81)))
     (add-to-list 'default-frame-alist '(font . "Monospace-14"))
     ))
- ((string-equal (system-name) "aust319")
+ ((or (string-equal (system-name) "aust319") (string-equal (system-name) "W319"))
   (progn
     (setq default-frame-alist
 	  '((top . 0) (left . 760) (height . 56) (width . 81)))
