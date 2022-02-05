@@ -51,6 +51,7 @@
   (defun my-julia-repl-hook ()
     (local-set-key (kbd "C-c C-f") 'julia-repl-send-paragraph)
     (local-set-key (kbd "C-c C-j") 'julia-repl-send-line-nomove)
+    (local-set-key (kbd "C-c C-n") 'julia-repl-prompt-switches)
     (local-set-key (kbd "C-c C-r") 'julia-repl-send-region-or-line))
   (add-hook 'julia-mode-hook 'my-julia-repl-hook)
   )
