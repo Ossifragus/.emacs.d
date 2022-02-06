@@ -154,7 +154,7 @@ org-html-validation-link nil
 				 :base-directory "~/Dropbox/mydoc/web/"
 				 :base-extension "org"
 				 :publishing-directory "~/Dropbox/mydoc/web/"
-				 :exclude "~/Dropbox/mydoc/web/style/others/*"
+				 :exclude ".*\\(old/\\|style/others/\\).*"
 				 :recursive t
 				 :publishing-function publish-html-and-patch
 				 )
