@@ -147,18 +147,40 @@ org-html-validation-link nil
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
 
 ;; publishing
-(setq org-publish-project-alist
-      '(
-				;; ... add all the components here (see below)...
-				("org-myweb"
+;; (setq org-publish-project-alist
+;;       '(
+;; 				;; ... add all the components here (see below)...
+;; 				("org-myweb"
+;; 				 :base-directory "~/Dropbox/mydoc/web/"
+;; 				 :base-extension "org"
+;; 				 :publishing-directory "~/Dropbox/mydoc/web/"
+;; 				 :exclude "\\(?:\\(?:style/o\\)?thers\\)"
+;;          :exclude (regexp-opt '("others" "style/others"))
+;; 				 :recursive t
+;; 				 :publishing-function publish-html-and-patch
+;; 				 )
+;;       ))
+
+(defvar OS--publish-project-alist
+  (list
+   (list "myweb"
 				 :base-directory "~/Dropbox/mydoc/web/"
 				 :base-extension "org"
 				 :publishing-directory "~/Dropbox/mydoc/web/"
-				 :exclude ".*\\(old/\\|style/others/\\).*"
-				 :recursive t
-				 :publishing-function publish-html-and-patch
-				 )
-      ))
+         :exclude (regexp-opt '("others" "style/others"))
+         :recursive t
+         :publishing-function 'publish-html-and-patch)
+   ;; (list "attachments"
+   ;;       :base-directory "./"
+   ;;       :exclude (regexp-opt '("assets" "public"))
+   ;;       ;; :include '("CNAME" "keybase.txt" "LICENSE" ".nojekyll" "publish.el")
+   ;;       :recursive t
+   ;;       :base-extension (regexp-opt '("jpg" "gif" "png" "svg" "css" "pdf"))
+   ;;       :publishing-directory "./public"
+   ;;       :publishing-function 'org-publish-attachment)
+	 ))
+
+(setq org-publish-project-alist OS--publish-project-alist)
 
 (defun publish-html-and-patch (plist filename pub-dir)
 	"Export a html file then patch it by reversing lines"
