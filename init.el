@@ -137,7 +137,7 @@
 	 "pandoc -c /home/ossifragus/Dropbox/mydoc/reinstallOS/style/github-pandoc.css --from=markdown -t html5 --highlight-style pygments --standalone --mathjax --quiet --citeproc --template /home/ossifragus/Dropbox/mydoc/reinstallOS/style/GitHub.html")
  '(org-agenda-files nil)
  '(package-selected-packages
-	 '(yaml-mode citeproc org counsel org-re-reveal ox-reveal ox-gfm htmlize cdlatex org-evil poly-org julia-vterm ob-julia-vterm evil-matchit evil-tex evil-collection evil-surround evil-better-visual-line undo-tree evil-tutor evil forge auctex auto-highlight-symbol beacon browse-kill-ring color-theme-sanityinc-tomorrow gnu-elpa-keyring-update company-math edit-server edit-server-htmlize eglot eglot-jl ess highlight-indentation highlight-numbers highlight-parentheses julia-mode julia-repl kill-ring-search lsp-mode lsp-julia magit diff-hl pdf-tools pdf-view-restore polymode poly-R poly-markdown use-package vterm which-key)))
+	 '(projectile yaml-mode citeproc org counsel org-re-reveal ox-reveal ox-gfm htmlize cdlatex org-evil poly-org julia-vterm ob-julia-vterm evil-matchit evil-tex evil-collection evil-surround evil-better-visual-line undo-tree evil-tutor evil forge auctex auto-highlight-symbol beacon browse-kill-ring color-theme-sanityinc-tomorrow gnu-elpa-keyring-update company-math edit-server edit-server-htmlize eglot eglot-jl ess highlight-indentation highlight-numbers highlight-parentheses julia-mode julia-repl kill-ring-search lsp-mode lsp-julia magit diff-hl pdf-tools pdf-view-restore polymode poly-R poly-markdown use-package vterm which-key)))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
