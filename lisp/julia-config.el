@@ -29,6 +29,7 @@
 				(future "~/Dropbox/App/julia-Future/bin/julia -t auto") ; future
         (lts "~/Dropbox/App/julia-LTS/bin/julia -t auto"))) ; LTS
   (setq vterm-kill-buffer-on-exit nil)
+	(setq julia-repl-skip-comments t)
   (defun julia-repl-send-line-nomove (); self defined
     (interactive)
     (julia-repl--send-string (thing-at-point 'line t) 'prefix t))
