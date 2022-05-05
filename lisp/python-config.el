@@ -1,5 +1,6 @@
 ;; https://github.com/jorgenschaefer/elpy/issues/1729
 ;; M-x elpy-rpc-reinstall-virtualenv
+;; pipx install virtualenv
 (use-package elpy
   :ensure t
   :defer t
