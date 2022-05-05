@@ -10,3 +10,4 @@ forge-database.sqlite
 .org-id-locations
 eln-cache/
 url/
+elpy/
