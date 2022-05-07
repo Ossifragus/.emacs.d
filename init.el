@@ -28,7 +28,7 @@
     ;; (setq exec-path (append exec-path '("/Library/TeX/texbin/")))
     ;; (getenv "PATH")
 		(setq markdown-command
-					"/usr/local/bin/pandoc -c /Users/ossifragus/Dropbox/mydoc/reinstallOS/style/github-pandoc.css --from=markdown -t html5 --highlight-style pygments --standalone --mathjax --quiet --citeproc --template /Users/ossifragus/Dropbox/mydoc/reinstallOS/style/GitHub.html")
+					"/usr/local/bin/pandoc -c /Users/ossifragus/Dropbox/App/reinstallOS/style/github-pandoc.css --from=markdown -t html5 --highlight-style pygments --standalone --mathjax --quiet --citeproc --template /Users/ossifragus/Dropbox/App/reinstallOS/style/GitHub.html")
     (setenv "PATH"
 	    (concat
 	     ;; "/usr/texbin" ":"
@@ -49,7 +49,7 @@
 (set-frame-font "16")
 
 (setq default-directory "~/")
-;; (add-to-list 'load-path "~/Dropbox/mydoc/reinstallOS/Lisp")
+;; (add-to-list 'load-path "~/Dropbox/App/reinstallOS/Lisp")
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 ;Backup file direcory
 (setq backup-directory-alist '(("." . "~/.emacs.d/.emacs.tmp")))
@@ -135,7 +135,7 @@
  '(eglot-connect-timeout 300)
  '(inhibit-startup-screen t)
  '(markdown-command
-	 "pandoc -c /home/ossifragus/Dropbox/mydoc/reinstallOS/style/github-pandoc.css --from=markdown -t html5 --highlight-style pygments --standalone --mathjax --quiet --citeproc --template /home/ossifragus/Dropbox/mydoc/reinstallOS/style/GitHub.html")
+	 "pandoc -c /home/ossifragus/Dropbox/App/reinstallOS/style/github-pandoc.css --from=markdown -t html5 --highlight-style pygments --standalone --mathjax --quiet --citeproc --template /home/ossifragus/Dropbox/App/reinstallOS/style/GitHub.html")
  '(org-agenda-files nil)
  '(package-selected-packages
 	 '(elpy evil-terminal-cursor-changer projectile yaml-mode citeproc org counsel org-re-reveal ox-reveal ox-gfm htmlize cdlatex org-evil poly-org julia-vterm ob-julia-vterm evil-matchit evil-tex evil-collection evil-surround evil-better-visual-line undo-tree evil-tutor evil forge auctex auto-highlight-symbol beacon browse-kill-ring color-theme-sanityinc-tomorrow gnu-elpa-keyring-update company-math edit-server edit-server-htmlize ess highlight-indentation highlight-numbers highlight-parentheses julia-mode julia-repl kill-ring-search magit diff-hl pdf-tools pdf-view-restore polymode poly-R poly-markdown use-package vterm which-key)))
