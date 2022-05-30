@@ -17,8 +17,9 @@
 (set-face-background 'tool-bar "lightgoldenrod2")
 (set-face-foreground 'font-lock-builtin-face "Cyan")
 (set-face-foreground 'minibuffer-prompt "GreenYellow")
+(set-face-background 'mode-line-inactive "tomato4")
 ;; (set-face-background 'mode-line-inactive "goldenrod")
-(set-face-background 'mode-line-inactive "gray11")
+;; (set-face-background 'mode-line-inactive "gray11")
 
 (add-to-list 'default-frame-alist '(foreground-color . "White"))
 (add-to-list 'default-frame-alist '(background-color . "Black"))
