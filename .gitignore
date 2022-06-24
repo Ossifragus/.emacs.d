@@ -1,5 +1,6 @@
 *.tmp
 session.*
+forge-database-*
 .DS_Store
 auto-save-list
 elpa
