@@ -119,7 +119,7 @@
 ;; (setq ido-enable-flex-matching t) ;; enable fuzzy matchings
 (setq ido-enable-flex-matching t)
 (setq ido-everywhere t)
-(setq ido-ignore-files '("\.synctex.gz" "\.pdf"))
+(setq ido-ignore-files '("\.synctex.gz" "\.bst"))
 (setq ido-save-directory-list-file "~/.emacs.d/.emacs.tmp/ido.last")
 (ido-mode 1)
 
