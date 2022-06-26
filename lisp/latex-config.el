@@ -6,6 +6,8 @@
 (setq TeX-save-query  nil)
 (setq bibtex-align-at-equal-sign t)
 (setq TeX-source-correlate-mode t)
+(setq LaTeX-command "latex --shell-escape -synctex=1")
+;; (setq LaTeX-command "/usr/local/texlive/2019/bin/x86_64-linux/pdflatex")
 ;; Alternative 3: Use the external wmctrl tool in order to
 ;; force Emacs into the focus.
 (setq TeX-raise-frame-function
