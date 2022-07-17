@@ -1,3 +1,7 @@
+;; (setenv "PATH"
+;; 				(concat
+;; 				 "/usr/local/texlive/2019/bin/x86_64-linux" ":"
+;; 				 (getenv "PATH")))
 (setq reftex-plug-into-auctex t)
 (setq preview-scale-function 1.5)
 ;; (setq TeX-auto-save nil)
@@ -123,3 +127,9 @@
 ;;     (bibtex-validate-globally)))
 ;; (add-hook 'after-save-hook #'bibtex-auto-validate-globally)
 
+;; (setenv "PATH"
+;; 				(concat
+;; 				 "/usr/local/texlive/2019/bin/x86_64-linux" ":"
+;; 				 (getenv "PATH")))
+
+;; (setq exec-path (append '("/usr/local/texlive/2019/bin/x86_64-linux") exec-path))

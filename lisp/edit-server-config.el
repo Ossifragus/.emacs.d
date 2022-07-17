@@ -12,4 +12,9 @@
 (add-hook 'edit-server-start-hook 'org-mode)
 (add-hook 'edit-server-done-hook  'edit-server-maybe-htmlize-buffer)
 
+(require 'atomic-chrome)
+(atomic-chrome-start-server)
+(setq atomic-chrome-default-major-mode 'org-mode)
+(setq atomic-chrome-buffer-open-style 'frame)
+
 (provide 'edit-server-config)

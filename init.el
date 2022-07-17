@@ -136,14 +136,13 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- ;; '(LaTeX-command "latex --shell-escape -synctex=1")
  '(eglot-connect-timeout 300)
  '(inhibit-startup-screen t)
  '(markdown-command
 	 "pandoc -c /home/ossifragus/Dropbox/App/reinstallOS/style/github-pandoc.css --from=markdown -t html5 --highlight-style pygments --standalone --mathjax --quiet --citeproc --template /home/ossifragus/Dropbox/App/reinstallOS/style/GitHub.html")
  '(org-agenda-files nil)
  '(package-selected-packages
-	 '(elpy evil-terminal-cursor-changer projectile yaml-mode citeproc org counsel org-re-reveal ox-reveal ox-gfm htmlize cdlatex org-evil poly-org julia-vterm ob-julia-vterm evil-matchit evil-tex evil-collection evil-surround evil-better-visual-line undo-tree evil-tutor evil forge auctex auto-highlight-symbol beacon browse-kill-ring color-theme-sanityinc-tomorrow gnu-elpa-keyring-update company-math edit-server edit-server-htmlize ess highlight-indentation highlight-numbers highlight-parentheses julia-mode julia-repl kill-ring-search magit diff-hl pdf-tools pdf-view-restore polymode poly-R poly-markdown use-package vterm which-key)))
+	 '(atomic-chrome elpy evil-terminal-cursor-changer projectile yaml-mode citeproc org counsel org-re-reveal ox-reveal ox-gfm htmlize cdlatex org-evil poly-org julia-vterm ob-julia-vterm evil-matchit evil-tex evil-collection evil-surround evil-better-visual-line undo-tree evil-tutor evil forge auctex auto-highlight-symbol beacon browse-kill-ring color-theme-sanityinc-tomorrow gnu-elpa-keyring-update company-math edit-server edit-server-htmlize ess highlight-indentation highlight-numbers highlight-parentheses julia-mode julia-repl kill-ring-search magit diff-hl pdf-tools pdf-view-restore polymode poly-R poly-markdown use-package vterm which-key)))
 
 ;; eglot eglot-jl lsp-mode lsp-julia 
 
