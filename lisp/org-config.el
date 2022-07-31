@@ -200,6 +200,8 @@ org-html-validation-link nil
 									("\\paragraph{%s}" . "\\paragraph*{%s}")
 									("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
 
+(add-hook 'org-mode-hook 'turn-on-auto-fill)
+
 (provide 'org-config)
 
 ;; (setq org-latex-minted-options
