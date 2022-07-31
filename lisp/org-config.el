@@ -190,6 +190,8 @@ org-html-validation-link nil
 													 (file-name-sans-extension outfile))
 									 )))
 
+(add-hook 'org-mode-hook 'turn-on-auto-fill)
+
 (provide 'org-config)
 
 ;; (setq org-latex-minted-options
