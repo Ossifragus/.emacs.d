@@ -190,6 +190,16 @@ org-html-validation-link nil
 													 (file-name-sans-extension outfile))
 									 )))
 
+(with-eval-after-load 'ox-latex
+   (add-to-list 'org-latex-classes
+                '("ltxdoc"
+                  "\\documentclass{ltxdoc}"
+									("\\section{%s}" . "\\section*{%s}")
+									("\\subsection{%s}" . "\\subsection*{%s}")
+									("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+									("\\paragraph{%s}" . "\\paragraph*{%s}")
+									("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
+
 (provide 'org-config)
 
 ;; (setq org-latex-minted-options
