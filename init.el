@@ -165,6 +165,8 @@
 (add-hook 'text-mode-hook 'flyspell-mode)
 (add-hook 'text-mode-hook 'visual-line-mode)
 
+(setq-default indent-tabs-mode nil)
+
 (require 'poly-julia)
 (require 'which-key)
 (which-key-mode)
