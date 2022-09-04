@@ -99,13 +99,13 @@ org-html-validation-link nil
  ;; org-tags-column 80
  )
 
-;; https://zzamboni.org/post/how-to-easily-create-and-use-human-readable-ids-in-org-mode-and-doom-emacs/
-(require 'org-id)
-(use-package counsel
-  :ensure t
-  :config
-  (require 'counsel)
-	)
+;; ;; https://zzamboni.org/post/how-to-easily-create-and-use-human-readable-ids-in-org-mode-and-doom-emacs/
+;; (require 'org-id)
+;; (use-package counsel
+;;   :ensure t
+;;   :config
+;;   (require 'counsel)
+;; 	)
 
 (eval-after-load 'counsel
 	'(add-hook 'org-mode-hook

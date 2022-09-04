@@ -118,7 +118,7 @@
 ;; (ido-mode t)
 ;; (setq ido-enable-flex-matching t) ;; enable fuzzy matchings
 (setq ido-enable-flex-matching t)
-(setq ido-everywhere t)
+;; (setq ido-everywhere t)
 (setq ido-ignore-files '("\.synctex.gz" "\.bst"))
 (setq ido-save-directory-list-file "~/.emacs.d/.emacs.tmp/ido.last")
 (ido-mode 1)
@@ -142,7 +142,7 @@
    "pandoc -c /home/ossifragus/Dropbox/App/reinstallOS/style/github-pandoc.css --from=markdown -t html5 --highlight-style pygments --standalone --mathjax --quiet --citeproc --template /home/ossifragus/Dropbox/App/reinstallOS/style/GitHub.html")
  '(org-agenda-files nil)
  '(package-selected-packages
-   '(org-unique-id atomic-chrome elpy evil-terminal-cursor-changer projectile yaml-mode citeproc org counsel org-re-reveal ox-reveal ox-gfm htmlize cdlatex org-evil poly-org julia-vterm ob-julia-vterm evil-matchit evil-tex evil-collection evil-surround evil-better-visual-line undo-tree evil-tutor evil forge auctex auto-highlight-symbol beacon browse-kill-ring color-theme-sanityinc-tomorrow gnu-elpa-keyring-update company-math edit-server edit-server-htmlize ess highlight-indentation highlight-numbers highlight-parentheses julia-mode julia-repl kill-ring-search magit diff-hl pdf-tools pdf-view-restore polymode poly-R poly-markdown use-package vterm which-key)))
+   '(smex org-unique-id atomic-chrome elpy evil-terminal-cursor-changer projectile yaml-mode citeproc org counsel org-re-reveal ox-reveal ox-gfm htmlize cdlatex org-evil poly-org julia-vterm ob-julia-vterm evil-matchit evil-tex evil-collection evil-surround evil-better-visual-line undo-tree evil-tutor evil forge auctex auto-highlight-symbol beacon browse-kill-ring color-theme-sanityinc-tomorrow gnu-elpa-keyring-update company-math edit-server edit-server-htmlize ess highlight-indentation highlight-numbers highlight-parentheses julia-mode julia-repl kill-ring-search magit diff-hl pdf-tools pdf-view-restore polymode poly-R poly-markdown use-package vterm which-key)))
 
 ;; eglot eglot-jl lsp-mode lsp-julia 
 
@@ -166,6 +166,13 @@
 (add-hook 'text-mode-hook 'visual-line-mode)
 
 (setq-default indent-tabs-mode nil)
+
+(ivy-mode 1)
+(counsel-mode 1)
+(global-set-key (kbd "C-x C-f") 'ido-find-file)
+(setq ivy-re-builders-alist '((swiper . ivy--regex-plus)
+                              (t . ivy--regex-fuzzy)))
+;; (setq counsel-find-file-ignore-regexp "\\..synctex.gz\\'\\|\\.bst\\'")
 
 (require 'poly-julia)
 (require 'which-key)
