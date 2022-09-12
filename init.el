@@ -96,7 +96,6 @@
 
 
 (setq auto-save-visited-file-name t)
-(setq default-input-method "TeX")
 (setq markdown-enable-math t)
 (setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/.emacs.tmp/undo")))
 
@@ -136,6 +135,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(default-input-method "TeX")
  '(eglot-connect-timeout 300)
  '(inhibit-startup-screen t)
  '(markdown-command
