@@ -17,4 +17,17 @@
 (setq atomic-chrome-default-major-mode 'org-mode)
 (setq atomic-chrome-buffer-open-style 'frame)
 
+(defun OL-htmlize ()
+  "Do a simple HTMLification of the buffer as plain text.
+This produces HTML intended to reproduce the original plain text contents
+of the buffer."
+  (interactive)
+  (save-excursion
+    (goto-char (point-min))
+    (insert "<pre>")
+    ;; (edit-server-htmlize-replace edit-server-htmlize-regexp
+    ;;                              edit-server-htmlize-replacements)
+    (goto-char (point-max))
+    (insert "</pre>")))
+
 (provide 'edit-server-config)
