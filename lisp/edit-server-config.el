@@ -17,17 +17,16 @@
 (setq atomic-chrome-default-major-mode 'org-mode)
 (setq atomic-chrome-buffer-open-style 'frame)
 
-(defun OL-htmlize ()
-  "Do a simple HTMLification of the buffer as plain text.
-This produces HTML intended to reproduce the original plain text contents
-of the buffer."
-  (interactive)
+;; https://emacs.stackexchange.com/questions/69133/how-to-write-an-elisp-function-to-insert-some-text-at-the-beginning-and-end-of-a
+(defun OL-htmlize (beg end)
+  (interactive "r")
   (save-excursion
+    (narrow-to-region beg end)
+    (set-mark nil)
     (goto-char (point-min))
     (insert "<pre>")
-    ;; (edit-server-htmlize-replace edit-server-htmlize-regexp
-    ;;                              edit-server-htmlize-replacements)
     (goto-char (point-max))
-    (insert "</pre>")))
+    (insert "\nBest regards,\nHaiYing\n</pre>")
+    (widen)))
 
 (provide 'edit-server-config)
