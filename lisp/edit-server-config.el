@@ -29,4 +29,10 @@
     (insert "\nBest regards,\nHaiYing\n</pre>")
     (widen)))
 
+(defun OL-init ()
+  (interactive)
+    (goto-char (point-min))
+    (insert "<pre>\n\nBest regards,\nHaiYing\n</pre>")
+    (previous-line 3))
+
 (provide 'edit-server-config)
