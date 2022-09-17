@@ -25,7 +25,7 @@
   (julia-repl-set-terminal-backend 'vterm)
 	(setq julia-repl-executable-records
       '((default "~/Dropbox/App/julia/bin/julia -t auto")
-				(jnt "julia") ; in the executable path
+				(path "julia") ; in the executable path
 				(future "~/Dropbox/App/julia-Future/bin/julia -t auto") ; future
         (lts "~/Dropbox/App/julia-LTS/bin/julia -t auto"))) ; LTS
   (setq vterm-kill-buffer-on-exit nil)
