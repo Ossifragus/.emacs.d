@@ -23,12 +23,12 @@
   (progn
     (setq default-frame-alist
 	  '((top . 0) (left . 0) (height . 100) (width . 81)))
-    (add-to-list 'default-frame-alist '(font . "Monospace-14"))
+    (add-to-list 'default-frame-alist '(font . "Monospace-16"))
     ;; (setenv "PATH" (concat (getenv "PATH") ":/Library/TeX/texbin/"))  
     ;; (setq exec-path (append exec-path '("/Library/TeX/texbin/")))
     ;; (getenv "PATH")
 		(setq markdown-command
-					"/usr/local/bin/pandoc -c /Users/ossifragus/Dropbox/App/reinstallOS/style/github-pandoc.css --from=markdown -t html5 --highlight-style pygments --standalone --mathjax --quiet --citeproc --template /Users/ossifragus/Dropbox/App/reinstallOS/style/GitHub.html")
+					"/usr/local/bin/pandoc -c /Users/haiying/Dropbox/App/reinstallOS/style/github-pandoc.css --from=markdown -t html5 --highlight-style pygments --standalone --mathjax --quiet --citeproc --template /Users/haiying/Dropbox/App/reinstallOS/style/GitHub.html")
     (setenv "PATH"
 	    (concat
 	     ;; "/usr/texbin" ":"
@@ -42,6 +42,10 @@
 	     "/Applications/Julia.app/Contents/Resources/julia/bin" ":"
 	     "/usr/X11R6/bin" ":"
 	     (getenv "PATH")))
+    (setq TeX-source-correlate-method 'synctex
+          TeX-view-program-list   ;; Use Skim, it's awesome
+          '(("Skim" "/Applications/Skim.app/Contents/SharedSupport/displayline -g -b %n %o %b"))
+          TeX-view-program-selection '((output-pdf "Skim")))
     ))
  )
 
