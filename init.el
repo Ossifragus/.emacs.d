@@ -9,7 +9,7 @@
  ((or (string-equal (system-name) "aust319") (string-equal (system-name) "W319"))
   (progn
     (setq default-frame-alist
-	  '((top . 0) (left . 760) (height . 56) (width . 81)))
+	  '((top . 0) (left . 72) (height . 56) (width . 81)))
     (add-to-list 'default-frame-alist '(font . "Monospace-16"))
     ))
  ((string-equal (system-name) "XPS7390")
