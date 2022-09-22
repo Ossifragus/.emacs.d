@@ -31,21 +31,25 @@
 					"/usr/local/bin/pandoc -c /Users/haiying/Dropbox/App/reinstallOS/style/github-pandoc.css --from=markdown -t html5 --highlight-style pygments --standalone --mathjax --quiet --citeproc --template /Users/haiying/Dropbox/App/reinstallOS/style/GitHub.html")
     (setenv "PATH"
 	    (concat
-	     ;; "/usr/texbin" ":"
-	     "/sw/bin" ":"
-	     "/sw/sbin" ":"
+	     ;; "/sw/bin" ":"
+	     ;; "/sw/sbin" ":"
 	     "/usr/local/bin" ":"
 	     "/usr/X11/bin" ":"
 	     "/usr/texbin" ":"
 	     "/Library/TeX/texbin/bibtex" ":"
 	     "/Library/TeX/texbin" ":"
-	     "/Applications/Julia.app/Contents/Resources/julia/bin" ":"
+	     "/Users/haiying/Library/Python/3.9/bin" ":"
+	     ;; "/Users/haiying/Dropbox/App/Julia.app/Contents/Resources/julia/bin" ":"
 	     "/usr/X11R6/bin" ":"
 	     (getenv "PATH")))
     (setq TeX-source-correlate-method 'synctex
           TeX-view-program-list   ;; Use Skim, it's awesome
           '(("Skim" "/Applications/Skim.app/Contents/SharedSupport/displayline -g -b %n %o %b"))
           TeX-view-program-selection '((output-pdf "Skim")))
+    ;; (setq mac-option-key-is-meta nil)
+    ;; (setq mac-command-key-is-meta t)
+    ;; (setq mac-command-modifier 'meta)
+    ;; (setq mac-option-modifier nil)
     ))
  )
 
