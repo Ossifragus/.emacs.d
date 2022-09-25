@@ -35,4 +35,7 @@
     (insert "<pre>\n\nBest regards,\nHaiYing\n</pre>")
     (previous-line 3))
 
+(global-set-key ( kbd "C-c i") 'ES-init)
+(global-set-key ( kbd "C-c h") 'ES-htmlize)
+
 (provide 'edit-server-config)
