@@ -18,7 +18,7 @@
 (setq atomic-chrome-buffer-open-style 'frame)
 
 ;; https://emacs.stackexchange.com/questions/69133/how-to-write-an-elisp-function-to-insert-some-text-at-the-beginning-and-end-of-a
-(defun OL-htmlize (beg end)
+(defun ES-htmlize (beg end)
   (interactive "r")
   (save-excursion
     (narrow-to-region beg end)
@@ -29,7 +29,7 @@
     (insert "\nBest regards,\nHaiYing\n</pre>")
     (widen)))
 
-(defun OL-init ()
+(defun ES-init ()
   (interactive)
     (goto-char (point-min))
     (insert "<pre>\n\nBest regards,\nHaiYing\n</pre>")
