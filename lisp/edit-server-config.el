@@ -16,6 +16,10 @@
 (atomic-chrome-start-server)
 (setq atomic-chrome-default-major-mode 'org-mode)
 (setq atomic-chrome-buffer-open-style 'frame)
+(setq atomic-chrome-url-major-mode-alist
+      '(("github\\.com" . gfm-mode)
+        ;; ("redmine" . textile-mode)
+        ))
 
 ;; https://emacs.stackexchange.com/questions/69133/how-to-write-an-elisp-function-to-insert-some-text-at-the-beginning-and-end-of-a
 (defun ES-htmlize (beg end)
