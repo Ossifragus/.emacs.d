@@ -24,8 +24,8 @@
   (set-language-environment "UTF-8")
   (julia-repl-set-terminal-backend 'vterm)
 	(setq julia-repl-executable-records
-      '((default "~/Dropbox/App/julia/bin/julia -t auto")
-				(path "julia") ; in the executable path
+      '((default "julia") ; in the executable path
+        (auto "~/Dropbox/App/julia/bin/julia -t auto")
 				(future "~/Dropbox/App/julia-Future/bin/julia -t auto") ; future
         (lts "~/Dropbox/App/julia-LTS/bin/julia -t auto"))) ; LTS
   (setq vterm-kill-buffer-on-exit nil)
