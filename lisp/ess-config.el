@@ -2,7 +2,7 @@
   :ensure t
   :config
   (setq ess-swv-plug-into-AUCTeX-p t)
-  (setq ess-ask-for-ess-directory nil)
+  ;; (setq ess-ask-for-ess-directory nil)
   (setq comint-scroll-to-bottom-on-input t)
   (setq comint-scroll-to-bottom-on-output t)
   (setq comint-move-point-for-output t)
