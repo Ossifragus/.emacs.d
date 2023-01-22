@@ -89,12 +89,14 @@
   )
 
 ;; ;;; disable flymake and flycheck for ess
-;; (add-hook 'ess-mode-hook
-;;           (lambda ()
-;;             (setq ess-use-flymake nil)
-;;             (ess-set-style 'RRR)
-;;             (setq ess-align-nested-calls nil) ; please indent ifelse as usual
-;;             (setq flycheck-disabled-checkers '(r-lintr))))
+(add-hook 'ess-mode-hook
+          (lambda ()
+            (display-line-numbers-mode t)
+            ;; (setq ess-use-flymake nil)
+            ;; (ess-set-style 'RRR)
+            ;; (setq ess-align-nested-calls nil) ; please indent ifelse as usual
+            ;; (setq flycheck-disabled-checkers '(r-lintr))
+            ))
 
 ;; (add-hook 'ess-r-post-run-hook
 ;;           (lambda ()
