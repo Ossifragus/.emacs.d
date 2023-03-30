@@ -145,6 +145,7 @@
  ;; If there is more than one, they won't work right.
  '(default-input-method "TeX")
  '(eglot-connect-timeout 300)
+ '(elpy-shell-starting-directory 'current-directory)
  '(inhibit-startup-screen t)
  '(markdown-command
    "pandoc -c /home/ossifragus/Dropbox/App/reinstallOS/style/github-pandoc.css --from=markdown -t html5 --highlight-style pygments --standalone --mathjax --quiet --citeproc --template /home/ossifragus/Dropbox/App/reinstallOS/style/GitHub.html")
