@@ -10,15 +10,17 @@
 ;; https://emacs.stackexchange.com/questions/47358/can-t-guess-python-indent-offset-delete-warning-when-local-file-variable
 (setq python-indent-guess-indent-offset-verbose nil)
 
-  ;; :config
-  ;; (require 'julia-highlight)
-  ;; (add-to-list 'auto-mode-alist '("\\.jl\\'" . julia-mode))
-  (defun my-python-hook ()
-    (auto-highlight-symbol-mode t)
-    (display-line-numbers-mode t)
-    (highlight-indentation-mode t)
-    (highlight-numbers-mode t))
-  (add-hook 'python-mode-hook 'my-python-hook)
+(defun my-python-hook ()
+  (auto-highlight-symbol-mode t)
+  (display-line-numbers-mode t)
+  (highlight-indentation-mode t)
+  (highlight-numbers-mode t))
+(add-hook 'python-mode-hook 'my-python-hook)
 
+(use-package conda
+  :ensure t
+  :init
+  (setq conda-anaconda-home (expand-file-name "~/miniconda3"))
+  (setq conda-env-home-directory (expand-file-name "~/miniconda3")))
 
 (provide 'python-config)
