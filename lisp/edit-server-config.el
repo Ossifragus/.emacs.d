@@ -18,6 +18,7 @@
 (setq atomic-chrome-buffer-open-style 'frame)
 (setq atomic-chrome-url-major-mode-alist
       '(("github\\.com" . gfm-mode)
+        ("localhost:8888" . python-mode)
         ;; ("redmine" . textile-mode)
         ))
 
