@@ -151,7 +151,7 @@
    "pandoc -c /home/ossifragus/Dropbox/App/reinstallOS/style/github-pandoc.css --from=markdown -t html5 --highlight-style pygments --standalone --mathjax --quiet --citeproc --template /home/ossifragus/Dropbox/App/reinstallOS/style/GitHub.html")
  '(org-agenda-files nil)
  '(package-selected-packages
-   '(emacs-everywhere smex org-unique-id atomic-chrome elpy evil-terminal-cursor-changer projectile yaml-mode citeproc org counsel org-re-reveal ox-reveal ox-gfm htmlize cdlatex org-evil poly-org julia-vterm ob-julia-vterm evil-matchit evil-tex evil-collection evil-surround evil-better-visual-line undo-tree evil-tutor evil forge auctex auto-highlight-symbol beacon browse-kill-ring color-theme-sanityinc-tomorrow gnu-elpa-keyring-update company-math edit-server edit-server-htmlize ess highlight-indentation highlight-numbers highlight-parentheses julia-mode julia-repl kill-ring-search magit diff-hl pdf-tools pdf-view-restore polymode poly-R poly-markdown use-package vterm which-key)))
+   '(chatgpt-shell emacs-everywhere smex org-unique-id atomic-chrome elpy evil-terminal-cursor-changer projectile yaml-mode citeproc org counsel org-re-reveal ox-reveal ox-gfm htmlize cdlatex org-evil poly-org julia-vterm ob-julia-vterm evil-matchit evil-tex evil-collection evil-surround evil-better-visual-line undo-tree evil-tutor evil forge auctex auto-highlight-symbol beacon browse-kill-ring color-theme-sanityinc-tomorrow gnu-elpa-keyring-update company-math edit-server edit-server-htmlize ess highlight-indentation highlight-numbers highlight-parentheses julia-mode julia-repl kill-ring-search magit diff-hl pdf-tools pdf-view-restore polymode poly-R poly-markdown use-package vterm which-key)))
 
 ;; eglot eglot-jl lsp-mode lsp-julia 
 
@@ -201,6 +201,7 @@
 (require 'python-config)
 (require 'term-config)
 (require 'theme-highlight-config)
+(require 'chatgpt-config)
 
 (provide 'init)
 ;;; init ends here
