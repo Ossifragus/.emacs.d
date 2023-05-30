@@ -171,10 +171,6 @@
                               (t . ivy--regex-fuzzy)))
 ;; (setq counsel-find-file-ignore-regexp "\\..synctex.gz\\'\\|\\.bst\\'")
 
-(require 'poly-julia)
-(require 'which-key)
-(which-key-mode)
-
 (require 'company-config)
 (require 'edit-server-config)
 (require 'encoding-config)
@@ -190,6 +186,10 @@
 (require 'term-config)
 (require 'theme-highlight-config)
 (require 'chatgpt-config)
+
+(require 'which-key)
+(which-key-mode)
+(require 'poly-julia)
 
 (provide 'init)
 ;;; init ends here
