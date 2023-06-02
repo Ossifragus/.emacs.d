@@ -191,5 +191,8 @@
 (which-key-mode)
 (require 'poly-julia)
 
+(add-to-list 'load-path"~/.emacs.d/Bard.el")
+(require 'bard)
+
 (provide 'init)
 ;;; init ends here
