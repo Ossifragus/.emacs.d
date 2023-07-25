@@ -5,7 +5,10 @@
 ;; 		"~/Dropbox/.Emacs/poly-noweb/"
 ;; 		"~/Dropbox/.Emacs/poly-R/")
 ;;               load-path))
-(require 'poly-R)
+(use-package poly-markdown
+  :ensure t)
+(use-package poly-R
+  :ensure t)
 ;; (require 'poly-noweb)
 ;; (require 'poly-markdown)
 (add-to-list 'auto-mode-alist '("\\.Rmd" . poly-markdown+r-mode))
