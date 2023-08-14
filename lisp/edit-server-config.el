@@ -12,15 +12,17 @@
 (add-hook 'edit-server-start-hook 'org-mode)
 (add-hook 'edit-server-done-hook  'edit-server-maybe-htmlize-buffer)
 
-(require 'atomic-chrome)
+(use-package atomic-chrome
+  :ensure t
+  :config
+  (setq atomic-chrome-default-major-mode 'org-mode)
+  (setq atomic-chrome-buffer-open-style 'frame)
+  (setq atomic-chrome-url-major-mode-alist
+        '(("github\\.com" . gfm-mode)
+          ("localhost:8888" . python-mode)
+          ;; ("redmine" . textile-mode)
+          )))
 (atomic-chrome-start-server)
-(setq atomic-chrome-default-major-mode 'org-mode)
-(setq atomic-chrome-buffer-open-style 'frame)
-(setq atomic-chrome-url-major-mode-alist
-      '(("github\\.com" . gfm-mode)
-        ("localhost:8888" . python-mode)
-        ;; ("redmine" . textile-mode)
-        ))
 
 ;; https://emacs.stackexchange.com/questions/69133/how-to-write-an-elisp-function-to-insert-some-text-at-the-beginning-and-end-of-a
 (defun ES-htmlize (beg end)

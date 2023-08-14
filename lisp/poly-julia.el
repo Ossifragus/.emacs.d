@@ -27,10 +27,15 @@
 ;;
 ;;; Code:
 
-(require 'julia-mode)
-(require 'poly-markdown)
+;; (require 'julia-mode)
+;; (require 'poly-markdown)
+(use-package poly-markdown
+  :ensure t)
+
 ;; (require 'julia-repl-vterm)
-(require 'julia-vterm)
+;; (require 'julia-vterm)
+(use-package julia-vterm
+  :ensure t)
 
 (define-innermode poly-julia-markdown-inline-code-innermode poly-markdown-inline-code-innermode
   :mode 'julia-mode

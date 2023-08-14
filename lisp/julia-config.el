@@ -61,6 +61,8 @@
 (setenv "JULIA_EDITOR" "emacsclient")
 (setenv "LD_PRELOAD" "/usr/lib/x86_64-linux-gnu/libstdc++.so.6")
 
+(require 'poly-julia)
+
 (provide 'julia-config)
 
 ;; ;; This overwrite all the keys in the package

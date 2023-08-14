@@ -171,9 +171,10 @@
 (require 'theme-highlight-config)
 (require 'chatgpt-config)
 
-(require 'which-key)
+;; (require 'which-key)
+(use-package which-key
+  :ensure t}
 (which-key-mode)
-(require 'poly-julia)
 
 (add-to-list 'load-path"~/.emacs.d/Bard.el")
 (require 'bard)

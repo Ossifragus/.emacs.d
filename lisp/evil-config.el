@@ -54,7 +54,9 @@
 (define-key evil-insert-state-map "\C-r" 'search-backward)
 
 (unless (display-graphic-p)
-	(require 'evil-terminal-cursor-changer)
+	;; (require 'evil-terminal-cursor-changer)
+  (use-package evil-terminal-cursor-changer
+    :ensure t)
 	(evil-terminal-cursor-changer-activate) ; or (etcc-on)
 	)
 (setq evil-motion-state-cursor 'box)  ; █
