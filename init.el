@@ -173,7 +173,7 @@
 
 ;; (require 'which-key)
 (use-package which-key
-  :ensure t}
+  :ensure t)
 (which-key-mode)
 
 (add-to-list 'load-path"~/.emacs.d/Bard.el")
