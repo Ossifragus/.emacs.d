@@ -1,5 +1,6 @@
 (require 'org)
 (require 'oc-csl)
+(require 'ox-ipynb)
 ;; (use-package ox-reveal
 ;;   :ensure t
 ;;   :config
