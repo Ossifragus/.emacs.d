@@ -1,5 +1,6 @@
 (require 'org)
 (require 'oc-csl)
+(require 'ox-ipynb)
 (require 'poly-org)
 
 ;; (use-package ox-reveal
