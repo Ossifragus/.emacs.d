@@ -3,8 +3,8 @@
  ((string-equal (system-name) "T1700")
   (progn
     (setq default-frame-alist
-	  '((top . 0) (left . 0) (height . 100) (width . 81)))
-    (add-to-list 'default-frame-alist '(font . "Monospace-14"))
+	  '((top . 0) (left . 72) (height . 56) (width . 81)))
+    (add-to-list 'default-frame-alist '(font . "Monospace-16"))
     ))
  ((or (string-equal (system-name) "aust319") (string-equal (system-name) "W319"))
   (progn
@@ -178,6 +178,12 @@
 
 (add-to-list 'load-path"~/.emacs.d/Bard.el")
 (require 'bard)
+
+(when (memq window-system '(mac ns x))
+  (exec-path-from-shell-initialize))
+
+(when (daemonp)
+  (exec-path-from-shell-initialize))
 
 (provide 'init)
 ;;; init ends here

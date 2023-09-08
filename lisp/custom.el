@@ -91,7 +91,7 @@
    "pandoc -c /home/ossifragus/Dropbox/App/reinstallOS/style/github-pandoc.css --from=markdown -t html5 --highlight-style pygments --standalone --mathjax --quiet --citeproc --template /home/ossifragus/Dropbox/App/reinstallOS/style/GitHub.html")
  '(org-agenda-files nil)
  '(package-selected-packages
-   '(which-key chatgpt-shell ob-julia-vterm julia-vterm poly-markdown julia-repl julia-mode diff-hl forge eglot-jl emacs-everywhere smex org-unique-id elpy projectile yaml-mode citeproc org counsel org-re-reveal ox-reveal ox-gfm htmlize cdlatex org-evil poly-org evil-tex undo-tree evil-tutor auctex auto-highlight-symbol beacon browse-kill-ring color-theme-sanityinc-tomorrow gnu-elpa-keyring-update company-math edit-server edit-server-htmlize highlight-indentation highlight-numbers highlight-parentheses kill-ring-search polymode)))
+   '(exec-path-from-shell which-key chatgpt-shell ob-julia-vterm julia-vterm poly-markdown julia-repl julia-mode diff-hl forge eglot-jl emacs-everywhere smex org-unique-id elpy projectile yaml-mode citeproc org counsel org-re-reveal ox-reveal ox-gfm htmlize cdlatex org-evil poly-org evil-tex undo-tree evil-tutor auctex auto-highlight-symbol beacon browse-kill-ring color-theme-sanityinc-tomorrow gnu-elpa-keyring-update company-math edit-server edit-server-htmlize highlight-indentation highlight-numbers highlight-parentheses kill-ring-search polymode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
