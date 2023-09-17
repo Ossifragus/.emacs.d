@@ -14,13 +14,8 @@
   (auto-highlight-symbol-mode t)
   (display-line-numbers-mode t)
   (highlight-indentation-mode t)
+  (hs-minor-mode t)
   (highlight-numbers-mode t))
 (add-hook 'python-mode-hook 'my-python-hook)
-
-(use-package conda
-  :ensure t
-  :init
-  (setq conda-anaconda-home (expand-file-name "~/miniconda3"))
-  (setq conda-env-home-directory (expand-file-name "~/miniconda3")))
 
 (provide 'python-config)
