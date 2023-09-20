@@ -5,7 +5,10 @@
   :ensure t
   :defer t
   :init
-  (advice-add 'python-mode :before 'elpy-enable))
+  (advice-add 'python-mode :before 'elpy-enable)
+  :config
+  (setq elpy-shell-display-buffer-after-send 1)
+  )
 
 ;; https://emacs.stackexchange.com/questions/47358/can-t-guess-python-indent-offset-delete-warning-when-local-file-variable
 (setq python-indent-guess-indent-offset-verbose nil)
