@@ -14,7 +14,7 @@
 (setq python-indent-guess-indent-offset-verbose nil)
 
 (defun my-python-hook ()
-  (auto-highlight-symbol-mode t)
+  ;; (auto-highlight-symbol-mode t)
   (display-line-numbers-mode t)
   (highlight-indentation-mode t)
   (hs-minor-mode t)
