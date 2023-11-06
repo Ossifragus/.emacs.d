@@ -82,7 +82,7 @@
  ;; org-export-kill-product-buffer-when-displayed t
  ;; org-export-latex-default-packages-alist nil
  ;; org-fast-tag-selection-single-key 'expert
- org-hide-emphasis-markers t
+ ;; org-hide-emphasis-markers t
  ;; ;; org-html-htmlize-output-type 'css
 org-html-validation-link nil
  org-latex-listings 'minted
