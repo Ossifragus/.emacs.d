@@ -3,6 +3,7 @@
   :config
   (setq-default magit-diff-refine-hunk 'all)
   (global-set-key (kbd "C-x g") 'magit-status)
+  (add-hook 'magit-mode-hook 'visual-line-mode)
   ;; (global-set-key (kbd "C-x M-g") 'magit-dispatch)
   )
 (use-package forge
