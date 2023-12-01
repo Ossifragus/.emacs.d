@@ -4,26 +4,16 @@
   (progn
     (setq default-frame-alist
 	  '((top . 0) (left . 72) (height . 56) (width . 81)))
-    (add-to-list 'default-frame-alist '(font . "Monospace-16"))
     ))
  ((or (string-equal (system-name) "aust319") (string-equal (system-name) "W319"))
   (progn
     (setq default-frame-alist
 	  '((top . 0) (left . 72) (height . 56) (width . 81)))
-    (add-to-list 'default-frame-alist '(font . "Monospace-16"))
     ))
- ((string-equal (system-name) "XPS7390")
+ ((or (eq system-type 'darwin) (string-equal (system-name) "MBP16.local"))
   (progn
     (setq default-frame-alist
 	  '((top . 0) (left . 0) (height . 100) (width . 81)))
-    (add-to-list 'default-frame-alist '(font . "Monospace-15"))
-    ))
- ((eq system-type 'darwin)
- ;; ((string-equal (system-name) "MBP16.local")
-  (progn
-    (setq default-frame-alist
-	  '((top . 0) (left . 0) (height . 100) (width . 81)))
-    (add-to-list 'default-frame-alist '(font . "Monospace-16"))
     ;; (setenv "PATH" (concat (getenv "PATH") ":/Library/TeX/texbin/"))  
     ;; (setq exec-path (append exec-path '("/Library/TeX/texbin/")))
     ;; (getenv "PATH")
@@ -42,6 +32,7 @@
 
 ;; uniform setings for all computers
 (set-frame-font "16")
+(add-to-list 'default-frame-alist '(font . "Monospace-16"))
 
 (setq default-directory "~/")
 ;; (add-to-list 'load-path "~/Dropbox/App/reinstallOS/Lisp")
