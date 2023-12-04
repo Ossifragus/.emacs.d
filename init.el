@@ -154,9 +154,6 @@
   :ensure t)
 (which-key-mode)
 
-(add-to-list 'load-path"~/.emacs.d/Bard.el")
-(require 'bard)
-
 (when (memq window-system '(mac ns x))
   (exec-path-from-shell-initialize))
 
