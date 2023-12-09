@@ -37,7 +37,7 @@
       (setq julia-repl-executable-records
             '((default "julia") ; in the executable path
               (auto "~/Dropbox/App/Julia.app/Contents/Resources/julia/bin/julia -t auto")
-              (future "~/Dropbox/App/Julia-Ruture.app/Contents/Resources/julia/bin/julia -t auto") ; future
+              (future "~/Dropbox/App/Julia-Future.app/Contents/Resources/julia/bin/julia -t auto") ; future
               ))))
    )
   (setq vterm-kill-buffer-on-exit nil)
