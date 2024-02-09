@@ -90,6 +90,7 @@
  '(markdown-command
    "pandoc -c /home/ossifragus/Dropbox/App/reinstallOS/style/github-pandoc.css --from=markdown -t html5 --highlight-style pygments --standalone --mathjax --quiet --citeproc --template /home/ossifragus/Dropbox/App/reinstallOS/style/GitHub.html")
  '(org-agenda-files nil)
+ '(org-safe-remote-resources '("\\`https://fniessen\\.github\\.io\\(?:/\\|\\'\\)"))
  '(package-selected-packages
    '(exec-path-from-shell poly-org ob-julia-vterm julia-vterm evil-matchit evil-collection evil-surround evil-better-visual-line ess atomic-chrome which-key chatgpt-shell poly-markdown julia-repl julia-mode diff-hl forge eglot-jl emacs-everywhere smex org-unique-id elpy projectile yaml-mode citeproc org counsel org-re-reveal ox-reveal ox-gfm htmlize cdlatex org-evil evil-tex undo-tree evil-tutor auctex auto-highlight-symbol beacon browse-kill-ring color-theme-sanityinc-tomorrow gnu-elpa-keyring-update company-math edit-server edit-server-htmlize highlight-indentation highlight-numbers highlight-parentheses kill-ring-search polymode)))
 (custom-set-faces
