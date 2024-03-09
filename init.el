@@ -77,8 +77,7 @@
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
 
-
-(setq auto-save-visited-file-name t)
+(auto-save-visited-mode t)
 (setq markdown-enable-math t)
 (setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/.emacs.tmp/undo")))
 
