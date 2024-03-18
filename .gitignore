@@ -16,3 +16,4 @@ lisp/image-roll/
 smex-items
 chatgpt/
 Bard.el/
+.cache/
