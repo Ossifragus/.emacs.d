@@ -39,6 +39,7 @@
   ;;; define shortcut for vterm-yank
   (defun set-vterm-keys ()
     "Set shortcuts for vterm"
+    (evil-define-key 'insert vterm-mode-map "\C-y" 'vterm-yank)
     ;; (define-key vterm-mode-map (kbd "C-y") 'vterm-yank)
     ;; (define-key vterm-mode-map (kbd "M-p") 'vterm-send-C-p)
     ;; (define-key vterm-mode-map (kbd "M-n") 'vterm-send-C-n)
