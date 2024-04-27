@@ -32,6 +32,12 @@
 	(global-evil-matchit-mode 1)
   )
 
+(use-package evil-visual-mark-mode
+  :ensure t
+  :config
+  (evil-visual-mark-mode 1)
+  )
+
 ;;; esc quits
 (define-key evil-normal-state-map [escape] 'keyboard-quit)
 (define-key evil-visual-state-map [escape] 'keyboard-quit)
