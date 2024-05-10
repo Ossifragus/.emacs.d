@@ -35,7 +35,7 @@
 (use-package evil-visual-mark-mode
   :ensure t
   :config
-  (evil-visual-mark-mode 1)
+  (evil-visual-mark-mode 0)
   )
 
 ;;; esc quits
