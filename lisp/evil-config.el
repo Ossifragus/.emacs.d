@@ -71,6 +71,12 @@
 (setq evil-insert-state-cursor 'bar)  ; ⎸
 (setq evil-emacs-state-cursor  'hbar) ; _
 
+(use-package evil-extra-operator
+  :ensure t
+  :config
+  (global-evil-extra-operator-mode 1)
+  )
+
 (provide 'evil-config)
 
 ;; ;; Enable Evil
