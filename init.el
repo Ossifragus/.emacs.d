@@ -29,7 +29,8 @@
 
 ;; uniform setings for all computers
 (set-frame-font "16")
-(add-to-list 'default-frame-alist '(font . "Monospace-16"))
+(add-to-list 'default-frame-alist '(font . "JuliaMono-16"))
+;; (add-to-list 'default-frame-alist '(font . "Monospace-16"))
 
 (setq default-directory "~/")
 ;; (add-to-list 'load-path "~/Dropbox/App/reinstallOS/Lisp")

@@ -19,7 +19,8 @@
 ;; (set-fontset-font t 'symbol "Noto Color Emoji")
 ;; (set-fontset-font t 'symbol "Symbola" nil 'append)
 (defun my-emoji-fonts ()
-  (set-fontset-font t 'symbol "Noto Color Emoji")
+  (set-fontset-font t 'symbol "JuliaMono")
+  ;; (set-fontset-font t 'symbol "Noto Color Emoji")
   (set-fontset-font t 'symbol "Symbola" nil 'append))
 
 (if (daemonp)
