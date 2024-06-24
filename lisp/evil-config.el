@@ -77,6 +77,11 @@
   (global-evil-extra-operator-mode 1)
   )
 
+(use-package evil-textobj-line
+  :ensure t
+  )
+(require 'evil-textobj-line)
+
 (provide 'evil-config)
 
 ;; ;; Enable Evil
