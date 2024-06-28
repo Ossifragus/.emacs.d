@@ -136,6 +136,7 @@
 (require 'ess-config)
 (require 'evil-config)
 (require 'git-config)
+(require 'latex)
 (require 'julia-config)
 (require 'latex-config)
 (require 'org-config)

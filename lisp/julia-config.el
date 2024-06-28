@@ -13,7 +13,14 @@
     (highlight-indentation-mode t)
     (highlight-numbers-mode t))
   (add-hook 'julia-mode-hook 'my-julia-hook)
+  (add-hook 'julia-mode-hook 'julia-math-mode)
   )
+
+(define-globalized-minor-mode global-math-mode julia-math-mode
+  (lambda ()
+    (unless (eq major-mode 'LaTeX-mode)
+      (julia-math-mode))))
+(global-math-mode 1)
 
 (use-package julia-repl
   :ensure t
