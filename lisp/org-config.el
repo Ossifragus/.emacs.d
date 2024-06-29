@@ -71,7 +71,7 @@
         ;; (sqlite . t)
         ))))
 (defalias 'org-babel-execute:julia 'org-babel-execute:julia-vterm)
-(add-hook 'org-mode-hook 'turn-on-org-cdlatex)
+;; (add-hook 'org-mode-hook 'turn-on-org-cdlatex)
 
 ;; various preferences
 (setq
