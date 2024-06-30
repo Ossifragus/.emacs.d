@@ -21,6 +21,14 @@
 ;;   (add-to-list 'company-backends 'company-emoji)
 ;;   )
 
+(defun setup-unicode ()
+  "Unicode input for the buffer."
+  (interactive)
+  (company-mode)                        ; using company-mode
+  (setq-local company-backends '(company-emoji company-math-symbols-unicode))
+  (setq-local company-minimum-prefix-length 1)
+  (setq-local company-idle-delay 0))
+
 (provide 'company-config)
 
 ;; ;; pkg: company

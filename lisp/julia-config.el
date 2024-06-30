@@ -22,14 +22,6 @@
       (julia-math-mode))))
 (global-math-mode 1)
 
-(defun setup-unicode ()
-  "Unicode input for the buffer."
-  (interactive)
-  (company-mode)                        ; using company-mode
-  (setq-local company-backends '(company-math-symbols-unicode))
-  (setq-local company-minimum-prefix-length 1)
-  (setq-local company-idle-delay 0))
-
 (use-package julia-repl
   :ensure t
   :config
