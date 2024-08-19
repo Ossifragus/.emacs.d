@@ -18,3 +18,5 @@ chatgpt/
 Bard.el/
 .cache/
 dall-e/
+.chatgpt-shell.el
+lisp/platform
