@@ -130,6 +130,10 @@
                               (t . ivy--regex-fuzzy)))
 ;; (setq counsel-find-file-ignore-regexp "\\..synctex.gz\\'\\|\\.bst\\'")
 
+(require 'openwith)
+(setq openwith-associations '(("\\.pdf\\'" "evince" (file))))
+(openwith-mode t)
+
 (require 'company-config)
 (require 'edit-server-config)
 (require 'encoding-config)
