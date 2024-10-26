@@ -152,9 +152,6 @@
 (require 'theme-highlight-config)
 (require 'chatgpt-config)
 
-;; (require 'which-key)
-(use-package which-key
-  :ensure t)
 (which-key-mode)
 
 (when (memq window-system '(mac ns x))
