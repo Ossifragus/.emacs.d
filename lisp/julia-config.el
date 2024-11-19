@@ -78,7 +78,7 @@
 
 ;; (setenv "JULIA_NUM_THREADS" "10")
 (setenv "JULIA_EDITOR" "emacsclient")
-(setenv "LD_PRELOAD" "/usr/lib/x86_64-linux-gnu/libstdc++.so.6")
+;; (setenv "LD_PRELOAD" "/usr/lib/x86_64-linux-gnu/libstdc++.so.6")
 
 (require 'poly-julia)
 
