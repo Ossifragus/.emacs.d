@@ -33,7 +33,7 @@
 (add-to-list 'default-frame-alist '(font . "JuliaMono-16"))
 ;; (add-to-list 'default-frame-alist '(font . "Monospace-16"))
 
-(setq default-directory "~/")
+(setq default-directory "~/Dropbox/")
 ;; (add-to-list 'load-path "~/Dropbox/App/reinstallOS/Lisp")
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 ;Backup file direcory
