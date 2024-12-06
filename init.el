@@ -124,6 +124,8 @@
 
 (setq-default indent-tabs-mode nil)
 
+(use-package counsel
+  :ensure t)
 (ivy-mode 1)
 (counsel-mode 1)
 (global-set-key (kbd "C-x C-f") 'ido-find-file)
