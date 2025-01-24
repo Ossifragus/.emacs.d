@@ -90,8 +90,8 @@
                    highlight-parentheses impatient-showdown julia-mode
                    julia-repl kill-ring-search ob-julia-vterm openwith org-evil
                    org-re-reveal org-unique-id ox-gfm ox-reveal pdf-view-restore
-                   poly-R poly-org projectile smex sqlite3 transient undo-tree
-                   yaml-mode))
+                   poly-R poly-org projectile quarto-mode smex sqlite3 transient
+                   undo-tree yaml-mode))
  '(package-vc-selected-packages
    '((copilot :url "https://github.com/copilot-emacs/copilot.el.git")
      (gemini :url "https://github.com/AllTheLife/Gemini.el.git"))))
