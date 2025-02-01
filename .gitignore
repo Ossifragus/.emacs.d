@@ -21,3 +21,6 @@ dall-e/
 .chatgpt-shell.el
 lisp/platform
 request/
+ellama-sessions/
+projects
+tramp
