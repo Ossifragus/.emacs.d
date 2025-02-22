@@ -30,23 +30,12 @@
 	;; (add-hook 'julia-repl-hook #'julia-repl-use-emacsclient) ; JULIA_EDITOR @edit
   (set-language-environment "UTF-8")
   (julia-repl-set-terminal-backend 'vterm)
-  (cond
-   ((eq system-type 'gnu/linux)
-    (progn
-      (setq julia-repl-executable-records
-            `((default "julia") ; in the executable path
-              (auto ,(concat (expand-file-name "App/julia/bin/julia") " -t auto"))
-              (future ,(concat (expand-file-name "App/julia-Future/bin/julia") " -t auto"))
-              (lts ,(concat (expand-file-name "App/julia-LTS/bin/julia") " -t auto"))
-              ))))
-   ((eq system-type 'darwin)
-    (progn
-      (setq julia-repl-executable-records
-            '((default "julia") ; in the executable path
-              (auto "/Applications/Julia.app/Contents/Resources/julia/bin/julia -t auto")
-              (future "/Applications/Julia-Future.app/Contents/Resources/julia/bin/julia -t auto") ; future
-              ))))
-   )
+  ;; (auto ,(concat (expand-file-name "App/julia/bin/julia") " -t auto"))
+  (setq julia-repl-executable-records
+        `((default "julia") ; in the executable path
+          (lts "julia +lts")
+          (rc "julia +rc")
+          ))
   (setq vterm-kill-buffer-on-exit nil)
 	(setq julia-repl-skip-comments t)
   (defun julia-repl-send-line-nomove (); self defined
