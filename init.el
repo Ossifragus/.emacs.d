@@ -66,9 +66,9 @@
 (setq electric-pair-preserve-balance nil)
 ;; make electric-pair-mode work on more brackets
 (setq electric-pair-pairs '(
-														(?\" . ?\")
-														(?\{ . ?\})
-														) )
+                            (?\" . ?\")
+                            (?\{ . ?\})
+                            ) )
 ;; Remember the last place
 (save-place-mode 1)
 ;; (desktop-save-mode 1)
