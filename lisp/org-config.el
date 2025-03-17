@@ -7,13 +7,13 @@
 ;;   :ensure t
 ;;   :config
 ;;   (require 'ox-reveal)
-;; 	)
+;;  )
 
 (use-package org-re-reveal
   :ensure t
   :config
   (require 'org-re-reveal)
-	)
+ )
 
 ;; (require 'ox-reveal)
 ;; (require 'org-ref)
@@ -42,9 +42,9 @@
 (eval-after-load 'org
   '(progn
      ;; toggle C-TAB (org-force-cycle-archived) in org-mode
-		 (require 'ox-gfm nil t)
+   (require 'ox-gfm nil t)
      (define-key org-mode-map [C-tab] nil)
-		 (setf org-highlight-latex-and-related '(latex))
+   (setf org-highlight-latex-and-related '(latex))
      ;; (define-key org-mode-map (kbd "C-c l") 'org-store-link)
      ;; (define-key org-mode-map (kbd "C-c a") 'org-agenda)
      ;; (define-key org-mode-map (kbd "C-c c") 'org-capture)
@@ -92,7 +92,7 @@ org-html-validation-link nil
  '("lualatex -shell-escape -interaction nonstopmode -output-directory %o %f"
    "lualatex -shell-escape -interaction nonstopmode -output-directory %o %f"
    ;; "lualatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-	 )
+  )
  org-edit-src-content-indentation 0
  org-src-tab-acts-natively t
  org-src-preserve-indentation t
@@ -108,12 +108,12 @@ org-html-validation-link nil
 ;;   :ensure t
 ;;   :config
 ;;   (require 'counsel)
-;; 	)
+;;  )
 
 (eval-after-load 'counsel
-	'(add-hook 'org-mode-hook
-						 (lambda () (define-key org-mode-map
-													(kbd "C-c )") #'counsel-org-link))))
+ '(add-hook 'org-mode-hook
+       (lambda () (define-key org-mode-map
+             (kbd "C-c )") #'counsel-org-link))))
 
 ;; (setq counsel-outline-display-style 'title)
 ;; (setq org-id-link-to-org-use-id 'create-if-interactive-and-no-custom-id)
@@ -131,7 +131,7 @@ org-html-validation-link nil
 
 ;; (defun zz/org-custom-id-get-create (&optional where force)
 ;;   "Get or create CUSTOM_ID for heading at WHERE. If FORCE is t, always recreate the property."
-;; 	(org-with-point-at where
+;;  (org-with-point-at where
 ;;     (let ((old-id (org-entry-get nil "CUSTOM_ID")))
 ;;       ;; If CUSTOM_ID exists and FORCE is false, return it
 ;;       (if (and (not force) old-id (stringp old-id))
@@ -142,9 +142,9 @@ org-html-validation-link nil
 ;; ;; Now override counsel-org-link-action
 ;; ;; (after! counsel
 ;; (defun counsel-org-link-action (x)
-;; 	"Insert a link to X. X is expected to be a cons of the form (title . point), as passed by `counsel-org-link'. If X does not have a CUSTOM_ID, create it based on the headline title."
-;; 	(let* ((id (zz/org-custom-id-get-create (cdr x))))
-;; 		(org-insert-link nil (concat "#" id) (car x))))
+;;  "Insert a link to X. X is expected to be a cons of the form (title . point), as passed by `counsel-org-link'. If X does not have a CUSTOM_ID, create it based on the headline title."
+;;  (let* ((id (zz/org-custom-id-get-create (cdr x))))
+;;   (org-insert-link nil (concat "#" id) (car x))))
 ;; ;; )
 
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
@@ -152,24 +152,24 @@ org-html-validation-link nil
 ;; publishing
 ;; (setq org-publish-project-alist
 ;;       '(
-;; 				;; ... add all the components here (see below)...
-;; 				("org-myweb"
-;; 				 :base-directory "~/Dropbox/mydoc/web/"
-;; 				 :base-extension "org"
-;; 				 :publishing-directory "~/Dropbox/mydoc/web/"
-;; 				 :exclude "\\(?:\\(?:style/o\\)?thers\\)"
+;;     ;; ... add all the components here (see below)...
+;;     ("org-myweb"
+;;      :base-directory "~/Dropbox/mydoc/web/"
+;;      :base-extension "org"
+;;      :publishing-directory "~/Dropbox/mydoc/web/"
+;;      :exclude "\\(?:\\(?:style/o\\)?thers\\)"
 ;;          :exclude (regexp-opt '("others" "style/others"))
-;; 				 :recursive t
-;; 				 :publishing-function publish-html-and-patch
-;; 				 )
+;;      :recursive t
+;;      :publishing-function publish-html-and-patch
+;;      )
 ;;       ))
 
 (defvar OS--publish-project-alist
   (list
    (list "myweb"
-				 :base-directory "~/Dropbox/mydoc/web/"
-				 :base-extension "org"
-				 :publishing-directory "~/Dropbox/mydoc/web/"
+     :base-directory "~/Dropbox/mydoc/web/"
+     :base-extension "org"
+     :publishing-directory "~/Dropbox/mydoc/web/"
          :exclude (regexp-opt '("others" "style/others"))
          :recursive t
          :publishing-function 'publish-html-and-patch)
@@ -181,27 +181,27 @@ org-html-validation-link nil
    ;;       :base-extension (regexp-opt '("jpg" "gif" "png" "svg" "css" "pdf"))
    ;;       :publishing-directory "./public"
    ;;       :publishing-function 'org-publish-attachment)
-	 ))
+  ))
 
 (setq org-publish-project-alist OS--publish-project-alist)
 
 (defun publish-html-and-patch (plist filename pub-dir)
-	"Export a html file then patch it by reversing lines"
-	(let ((outfile (org-html-publish-to-html plist filename pub-dir)))
-		(shell-command (format "sed -i 's/Wang, H\\./<strong>Wang, H.<\\/strong>/' %s"
-													 outfile
-													 (file-name-sans-extension outfile))
-									 )))
+ "Export a html file then patch it by reversing lines"
+ (let ((outfile (org-html-publish-to-html plist filename pub-dir)))
+  (shell-command (format "sed -i 's/Wang, H\\./<strong>Wang, H.<\\/strong>/' %s"
+              outfile
+              (file-name-sans-extension outfile))
+          )))
 
 (with-eval-after-load 'ox-latex
    (add-to-list 'org-latex-classes
                 '("ltxdoc"
                   "\\documentclass{ltxdoc}"
-									("\\section{%s}" . "\\section*{%s}")
-									("\\subsection{%s}" . "\\subsection*{%s}")
-									("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-									("\\paragraph{%s}" . "\\paragraph*{%s}")
-									("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
+         ("\\section{%s}" . "\\section*{%s}")
+         ("\\subsection{%s}" . "\\subsection*{%s}")
+         ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+         ("\\paragraph{%s}" . "\\paragraph*{%s}")
+         ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
 
 (add-hook 'org-mode-hook 'turn-on-auto-fill)
 
@@ -223,12 +223,12 @@ org-html-validation-link nil
 (provide 'org-config)
 
 ;; (setq org-latex-minted-options
-;; 			'(("breaklines" "true")
-;; 				("breakanywhere" "true")
-;; 				("fontsize" "\\footnotesize")
-;; 				;; ("linenos")
-;; 				("frame" "single")
-;; 				))
+;;    '(("breaklines" "true")
+;;     ("breakanywhere" "true")
+;;     ("fontsize" "\\footnotesize")
+;;     ;; ("linenos")
+;;     ("frame" "single")
+;;     ))
 
 ;; ;; pkg: org-mode
 ;; (require 'org)
