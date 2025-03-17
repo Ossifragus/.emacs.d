@@ -14,6 +14,13 @@
   :config
   (require 'org-re-reveal)
  )
+(use-package org-expose-emphasis-markers
+  :ensure t
+  :config
+  (require 'org-expose-emphasis-markers)
+  )
+  ;; (org-expose-emphasis-markers-mode t)
+
 
 ;; (require 'ox-reveal)
 ;; (require 'org-ref)
@@ -82,7 +89,7 @@
  ;; org-export-kill-product-buffer-when-displayed t
  ;; org-export-latex-default-packages-alist nil
  ;; org-fast-tag-selection-single-key 'expert
- ;; org-hide-emphasis-markers t
+ org-hide-emphasis-markers t
  ;; ;; org-html-htmlize-output-type 'css
 org-html-validation-link nil
  org-latex-listings 'minted
@@ -112,8 +119,10 @@ org-html-validation-link nil
 
 (eval-after-load 'counsel
  '(add-hook 'org-mode-hook
-       (lambda () (define-key org-mode-map
-             (kbd "C-c )") #'counsel-org-link))))
+       (lambda ()
+         (define-key org-mode-map (kbd "C-c )") #'counsel-org-link)
+         (org-expose-emphasis-markers-mode t)
+         )))
 
 ;; (setq counsel-outline-display-style 'title)
 ;; (setq org-id-link-to-org-use-id 'create-if-interactive-and-no-custom-id)
