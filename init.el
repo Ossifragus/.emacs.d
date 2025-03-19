@@ -62,13 +62,20 @@
 (window-divider-mode 1)
 (global-auto-revert-mode 1)
 ;; ;;; Match Parentheses, enable skeleton-pair insert globally
-(electric-pair-mode 1)
-(setq electric-pair-preserve-balance nil)
-;; make electric-pair-mode work on more brackets
-(setq electric-pair-pairs '(
-                            (?\" . ?\")
-                            (?\{ . ?\})
-                            ) )
+;; (electric-pair-mode 1)
+;; (setq electric-pair-preserve-balance nil)
+;; ;; make electric-pair-mode work on more brackets
+;; (setq electric-pair-pairs '(
+;;                             (?\" . ?\")
+;;                             (?\{ . ?\})
+;;                             ) )
+
+(use-package smartparens
+  :ensure smartparens  ;; install the package
+  :hook (prog-mode text-mode markdown-mode org-mode)
+  :config
+  (require 'smartparens-config))
+
 ;; Remember the last place
 (save-place-mode 1)
 ;; (desktop-save-mode 1)
