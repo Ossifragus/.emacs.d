@@ -35,6 +35,7 @@
         `((default "julia") ; in the executable path
           (lts "julia +lts")
           (rc "julia +rc")
+          (beta "julia +beta")
           ))
   (setq vterm-kill-buffer-on-exit nil)
 	(setq julia-repl-skip-comments t)
