@@ -88,11 +88,11 @@
                    evil-tutor evil-visual-mark-mode exec-path-from-shell forge
                    gemini gnu-elpa-keyring-update highlight-numbers
                    highlight-parentheses impatient-showdown julia-mode
-                   julia-repl kill-ring-search ob-julia-vterm openwith org-evil
-                   org-expose-emphasis-markers org-re-reveal org-unique-id
-                   ox-gfm ox-reveal pdf-view-restore poly-R poly-org projectile
-                   quarto-mode smartparens smex sqlite3 transient undo-tree
-                   yaml-mode))
+                   julia-repl kill-ring-search lua-mode ob-julia-vterm openwith
+                   org-evil org-expose-emphasis-markers org-re-reveal
+                   org-unique-id ox-gfm ox-reveal pdf-view-restore poly-R
+                   poly-org projectile quarto-mode smartparens smex sqlite3
+                   transient undo-tree yaml-mode))
  '(package-vc-selected-packages
    '((copilot :url "https://github.com/copilot-emacs/copilot.el.git")
      (gemini :url "https://github.com/AllTheLife/Gemini.el.git"))))
