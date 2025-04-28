@@ -160,6 +160,7 @@
 (require 'term-config)
 (require 'theme-highlight-config)
 (require 'chatgpt-config)
+(require 'treesitter-config)
 
 (which-key-mode)
 
