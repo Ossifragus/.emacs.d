@@ -1,3 +1,8 @@
+(use-package treesit-auto
+  :ensure t
+  :config
+  (global-treesit-auto-mode))
+
 (setq treesit-language-source-alist
       '(
         ;; (bash "https://github.com/tree-sitter/tree-sitter-bash")
