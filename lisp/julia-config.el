@@ -70,6 +70,12 @@
 (setenv "JULIA_EDITOR" "emacsclient")
 ;; (setenv "LD_PRELOAD" "/usr/lib/x86_64-linux-gnu/libstdc++.so.6")
 
+(use-package eglot-jl
+  :ensure t
+  :config
+  (setq eglot-connect-timeout 300)
+  )
+
 (require 'poly-julia)
 
 (provide 'julia-config)

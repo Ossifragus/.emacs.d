@@ -70,7 +70,6 @@
      (tramp-connection-local-default-system-profile (path-separator . ":")
                                                     (null-device . "/dev/null"))))
  '(default-input-method "TeX")
- '(eglot-connect-timeout 300)
  '(elpy-shell-starting-directory 'current-directory)
  '(inhibit-startup-screen t)
  '(markdown-command
