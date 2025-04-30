@@ -14,6 +14,11 @@
     (highlight-numbers-mode t))
   (add-hook 'julia-mode-hook 'my-julia-hook)
   (add-hook 'julia-mode-hook 'julia-math-mode)
+  (add-hook 'julia-mode-hook
+          (lambda ()
+            (define-key evil-normal-state-local-map
+                        (kbd "gl") 'julia-repl-send-line)
+            ))
   )
 
 (define-globalized-minor-mode global-math-mode julia-math-mode
