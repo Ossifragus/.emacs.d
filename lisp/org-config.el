@@ -245,9 +245,11 @@ org-html-validation-link nil
 
 (use-package evil-org
   :ensure t
+  :defer t
     )
 (use-package org-evil
   :ensure t
+  :defer t
     )
 
 (provide 'org-config)
