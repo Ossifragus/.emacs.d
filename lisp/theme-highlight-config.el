@@ -28,6 +28,9 @@
 ;;; Highlight Parentheses
 ;; (show-paren-mode 1)
 ;; (setq show-paren-delay 0)
+(use-package highlight-parentheses
+  :ensure t
+  )
 (require 'highlight-parentheses)
 (setq hl-paren-colors '("red" "yellow" "green" "IndianRed" "cyan" "orange"  "magenta", "purple"))
 (define-globalized-minor-mode global-highlight-parentheses-mode
@@ -36,6 +39,9 @@
     (highlight-parentheses-mode t)))
 (global-highlight-parentheses-mode t)
 
+(use-package highlight-numbers
+  :ensure t
+  )
 (require 'highlight-numbers)
 ;; (add-hook 'julia-mode-hook 'highlight-numbers-mode)
 ;; (add-hook 'prog-mode-hook 'highlight-numbers-mode)
@@ -65,6 +71,10 @@
   (setq-default custom-enabled-themes '(sanityinc-tomorrow-bright))
   (color-theme-sanityinc-tomorrow--define-theme bright)
   (load-theme 'sanityinc-tomorrow-bright t))
+
+(use-package auto-highlight-symbol
+  :ensure t
+  )
 
 (provide 'theme-highlight-config)
 

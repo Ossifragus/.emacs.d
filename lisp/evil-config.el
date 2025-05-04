@@ -71,12 +71,15 @@
 (setq evil-insert-state-cursor 'bar)  ; ⎸
 (setq evil-emacs-state-cursor  'hbar) ; _
 
-(use-package evil-extra-operator
+(use-package evil-extra-operator ; gG google search
   :ensure t
   :config
   (global-evil-extra-operator-mode 1)
   )
 
+(use-package evil-tex
+  :ensure t
+  )
 (use-package evil-textobj-line
   :ensure t
   )

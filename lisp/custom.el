@@ -76,22 +76,7 @@
    "pandoc -c /home/ossifragus/Dropbox/App/reinstallOS/style/github-pandoc.css --from=markdown -t html5 --highlight-style pygments --standalone --mathjax --quiet --citeproc --template /home/ossifragus/Dropbox/App/reinstallOS/style/GitHub.html")
  '(org-agenda-files nil)
  '(org-safe-remote-resources '("\\`https://fniessen\\.github\\.io\\(?:/\\|\\'\\)"))
- '(package-selected-packages
-   '(atomic-chrome auto-highlight-symbol beacon browse-kill-ring cdlatex
-                   chatgpt-shell citeproc color-theme-sanityinc-tomorrow
-                   company-math conda copilot counsel dall-e-shell diff-hl
-                   edit-server-htmlize eglot-jl elpy emacs-everywhere ess
-                   evil-better-visual-line evil-collection evil-extra-operator
-                   evil-matchit evil-org evil-surround
-                   evil-terminal-cursor-changer evil-tex evil-textobj-line
-                   evil-tutor evil-visual-mark-mode exec-path-from-shell forge
-                   gemini gnu-elpa-keyring-update highlight-numbers
-                   highlight-parentheses impatient-showdown julia-mode
-                   julia-repl kill-ring-search lua-mode ob-julia-vterm openwith
-                   org-evil org-expose-emphasis-markers org-re-reveal
-                   org-unique-id ox-gfm ox-reveal pdf-view-restore poly-R
-                   poly-org projectile quarto-mode smartparens smex sqlite3
-                   transient undo-tree yaml-mode))
+ '(package-selected-packages nil)
  '(package-vc-selected-packages
    '((copilot :url "https://github.com/copilot-emacs/copilot.el.git")
      (gemini :url "https://github.com/AllTheLife/Gemini.el.git"))))

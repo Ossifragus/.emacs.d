@@ -1,5 +1,8 @@
 ;; (require 'edit-server)
 ;; (edit-server-start)
+(use-package edit-server-htmlize
+  :ensure t
+  )
 (when (locate-library "edit-server")
   (require 'edit-server)
   ;; (setq edit-server-new-frame nil)

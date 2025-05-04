@@ -1,7 +1,18 @@
 (require 'org)
 (require 'oc-csl)
 (require 'ox-ipynb)
-(require 'poly-org)
+
+(use-package org-modern
+  :ensure t
+ )
+(use-package citeproc
+  :ensure t
+ )
+(use-package poly-org
+  :ensure t
+  :config
+  (require 'poly-org)
+ )
 
 ;; (use-package ox-reveal
 ;;   :ensure t
@@ -45,6 +56,10 @@
         ;; ("DELEGATED" . (:foreground "LimeGreen" :weight bold))
         ;; ("SOMEDAY" . (:foreground "LimeGreen" :weight bold))
         ))
+
+(use-package ox-gfm
+  :ensure t
+    )
 
 (eval-after-load 'org
   '(progn
@@ -228,6 +243,12 @@ org-html-validation-link nil
     ;;                    (org-unique-id))))))
     )
 
+(use-package evil-org
+  :ensure t
+    )
+(use-package org-evil
+  :ensure t
+    )
 
 (provide 'org-config)
 

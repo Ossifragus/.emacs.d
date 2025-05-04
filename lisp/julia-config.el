@@ -95,6 +95,10 @@
   (setq eglot-connect-timeout 300)
   )
 
+(use-package ob-julia-vterm
+  :ensure t
+  )
+
 (require 'poly-julia)
 
 (provide 'julia-config)

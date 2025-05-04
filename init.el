@@ -144,6 +144,7 @@
 (setq openwith-associations '(("\\.pdf\\'" "evince" (file))))
 (openwith-mode t)
 
+(require 'install-packages)
 (require 'company-config)
 (require 'edit-server-config)
 (require 'encoding-config)
@@ -164,6 +165,9 @@
 
 (which-key-mode)
 
+(use-package exec-path-from-shell
+  :ensure t
+	)
 (when (memq window-system '(mac ns x))
   (exec-path-from-shell-initialize))
 

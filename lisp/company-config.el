@@ -15,6 +15,10 @@
   ;; (add-to-list 'completion-styles 'initials t)
   )
 
+(use-package company-math
+  :ensure t
+  )
+
 ;; (use-package company-emoji
 ;;   :ensure t
 ;;   :config

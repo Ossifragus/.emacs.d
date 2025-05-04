@@ -5,6 +5,11 @@
 ;; 		"~/Dropbox/.Emacs/poly-noweb/"
 ;; 		"~/Dropbox/.Emacs/poly-R/")
 ;;               load-path))
+ 
+(use-package impatient-showdown
+  :ensure t)
+(use-package quarto-mode
+  :ensure t)
 (use-package poly-markdown
   :ensure t)
 (use-package poly-R
