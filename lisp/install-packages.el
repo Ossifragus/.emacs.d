@@ -16,8 +16,6 @@
   :ensure t)
 (use-package lua-mode
   :ensure t)
-(use-package openwith
-  :ensure t)
 (use-package projectile
   :ensure t)
 (use-package smartparens

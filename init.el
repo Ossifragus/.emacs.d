@@ -70,12 +70,6 @@
 ;;                             (?\{ . ?\})
 ;;                             ) )
 
-(use-package smartparens
-  :ensure smartparens  ;; install the package
-  :hook (prog-mode text-mode markdown-mode org-mode)
-  :config
-  (require 'smartparens-config))
-
 ;; Remember the last place
 (save-place-mode 1)
 ;; (desktop-save-mode 1)
@@ -124,13 +118,19 @@
 (setq custom-file "~/.emacs.d/lisp/custom.el")
 (load custom-file)
 
-;; eglot eglot-jl lsp-mode lsp-julia 
+(use-package smartparens
+  :ensure smartparens  ;; install the package
+  :hook (prog-mode text-mode markdown-mode org-mode)
+  :config
+  (require 'smartparens-config))
 
 (add-hook 'text-mode-hook 'flyspell-mode)
 (add-hook 'text-mode-hook 'visual-line-mode)
 
 (setq-default indent-tabs-mode nil)
 
+(use-package ivy
+  :ensure t)
 (use-package counsel
   :ensure t)
 (ivy-mode 1)
@@ -140,6 +140,8 @@
                               (t . ivy--regex-fuzzy)))
 ;; (setq counsel-find-file-ignore-regexp "\\..synctex.gz\\'\\|\\.bst\\'")
 
+(use-package openwith
+  :ensure t)
 (require 'openwith)
 (setq openwith-associations '(("\\.pdf\\'" "evince" (file))))
 (openwith-mode t)
