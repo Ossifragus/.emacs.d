@@ -4,9 +4,11 @@
 
 (use-package org-modern
   :ensure t
+  :defer t
  )
 (use-package citeproc
   :ensure t
+  :defer t
  )
 (use-package poly-org
   :ensure t
@@ -22,11 +24,13 @@
 
 (use-package org-re-reveal
   :ensure t
+  :defer t
   :config
   (require 'org-re-reveal)
  )
 (use-package org-expose-emphasis-markers
   :ensure t
+  :defer t
   :config
   (require 'org-expose-emphasis-markers)
   )

@@ -1,34 +1,44 @@
 (use-package beacon
-  :ensure t)
+  :ensure t
+  :defer t)
 (use-package browse-kill-ring
-  :ensure t)
+  :ensure t
+  :defer t)
 (use-package cdlatex
-  :ensure t)
-(use-package counsel
-  :ensure t)
+  :ensure t
+  :defer t)
 (use-package elpy
-  :ensure t)
+  :ensure t
+  :defer t)
 (use-package emacs-everywhere
-  :ensure t)
+  :ensure t
+  :defer t)
 (use-package gnu-elpa-keyring-update
-  :ensure t)
+  :ensure t
+  :defer t)
 (use-package kill-ring-search
-  :ensure t)
+  :ensure t
+  :defer t)
 (use-package lua-mode
-  :ensure t)
+  :ensure t
+  :defer t)
 (use-package projectile
-  :ensure t)
-(use-package smartparens
-  :ensure t)
+  :ensure t
+  :defer t)
 (use-package smex
-  :ensure t)
+  :ensure t
+  :defer t)
 (use-package sqlite3
-  :ensure t)
+  :ensure t
+  :defer t)
 (use-package transient
-  :ensure t)
+  :ensure t
+  :defer t)
 (use-package undo-tree
-  :ensure t)
+  :ensure t
+  :defer t)
 (use-package yaml-mode
-  :ensure t)
+  :ensure t
+  :defer t)
 
 (provide 'install-packages)
