@@ -17,7 +17,21 @@
   (add-hook 'julia-mode-hook
           (lambda ()
             (define-key evil-normal-state-local-map
-                        (kbd "gl") 'julia-repl-send-line)
+                        (kbd "<leader>l") 'julia-repl-send-line)
+            (define-key evil-visual-state-local-map
+                        (kbd "<leader>l") 'julia-repl-send-line)
+            (define-key evil-normal-state-local-map
+                        (kbd "<leader>f") 'julia-repl-send-paragraph)
+            (define-key evil-normal-state-local-map
+                        (kbd "<leader>j") 'julia-repl-send-line-nomove)
+            (define-key evil-visual-state-local-map
+                        (kbd "<leader>j") 'julia-repl-send-line-nomove)
+            (define-key evil-normal-state-local-map
+                        (kbd "<leader>n") 'julia-repl-prompt-switches)
+            (define-key evil-visual-state-local-map
+                        (kbd "<leader>n") 'julia-repl-prompt-switches)
+            (define-key evil-visual-state-local-map
+                        (kbd "<leader>r") 'julia-repl-send-region-or-line)
             ))
   )
 

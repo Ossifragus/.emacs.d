@@ -82,6 +82,27 @@
   )
 (require 'evil-textobj-line)
 
+(evil-set-leader 'motion (kbd "SPC"))
+(evil-set-leader 'normal (kbd "SPC"))
+(evil-set-leader 'visual (kbd "SPC"))
+
+(evil-define-key 'normal 'global (kbd "<leader>fs") 'save-buffer)
+;;; Leader
+;; (define-prefix-command 'my-leader-map)
+
+;; (keymap-set evil-motion-state-map "SPC" 'my-leader-map)
+;; (keymap-set evil-normal-state-map "SPC" 'my-leader-map)
+
+;; (evil-define-key nil my-leader-map
+;;     ;; add your bindings here:
+;;     "b"  'switch-to-buffer
+;;     "B"  'project-switch-to-buffer
+;;     "pf" 'project-find-file
+;;     "ps" 'project-shell-command
+;;     "l" 'julia-repl-send-line
+;;     ;; etc.
+;;     )
+
 (provide 'evil-config)
 
 ;; ;; Enable Evil
