@@ -140,6 +140,7 @@ org-html-validation-link nil
  '(add-hook 'org-mode-hook
        (lambda ()
          (define-key org-mode-map (kbd "C-c )") #'counsel-org-link)
+         (define-key evil-normal-state-map (kbd "TAB") 'org-cycle)
          (org-expose-emphasis-markers-mode t)
          )))
 
