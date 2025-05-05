@@ -248,14 +248,11 @@ org-html-validation-link nil
     ;;                    (org-unique-id))))))
     )
 
-(use-package evil-org
-  :ensure t
-  :defer t
-    )
-(use-package org-evil
-  :ensure t
-  :defer t
-    )
+;; (use-package evil-org
+;;   :ensure t)
+;; (use-package org-evil
+;;   :ensure t
+;;   :defer t)
 
 (provide 'org-config)
 
