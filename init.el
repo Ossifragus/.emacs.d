@@ -2,7 +2,7 @@
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
 ; not write package-selected-packages
-(defun package--save-selected-packages (&rest opt) nil)
+;; (defun package--save-selected-packages (&rest opt) nil)
 (setq custom-file "~/.emacs.d/var/custom.el")
 ;; (load custom-file)
 
