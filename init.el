@@ -1,3 +1,11 @@
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(package-initialize)
+; not write package-selected-packages
+(defun package--save-selected-packages (&rest opt) nil)
+(setq custom-file "~/.emacs.d/var/custom.el")
+;; (load custom-file)
+
 (use-package no-littering
   :ensure t
   :config
@@ -114,18 +122,6 @@
 (ido-mode 1)
 (which-key-mode)
 
-;; move the below lines *at the end* of .emacs to ensures  packages
-;; installed with package manager overrides other local installation
-(require 'package)
-;; (add-to-list 'package-archives
-;;              '("melpa-stable" . "https://stable.melpa.org/packages/"))
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-(package-initialize)
-
-(defun package--save-selected-packages (&rest opt) nil); not write package-selected-packages
-;; (setq custom-file "~/.emacs.d/lisp/custom.el")
-;; (load custom-file)
-
 (use-package smartparens
   :ensure smartparens  ;; install the package
   :hook (prog-mode text-mode markdown-mode org-mode)
@@ -161,7 +157,6 @@
 (require 'ess-config)
 (require 'evil-config)
 (require 'git-config)
-;; (require 'latex)
 (require 'julia-config)
 (require 'latex-config)
 (require 'org-config)
