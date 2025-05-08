@@ -65,6 +65,14 @@
   :ensure t
     )
 
+(use-package julia-vterm
+  :ensure t
+  )
+(require 'julia-vterm)
+(use-package ob-julia-vterm
+  :ensure t
+  )
+
 (eval-after-load 'org
   '(progn
      ;; toggle C-TAB (org-force-cycle-archived) in org-mode
