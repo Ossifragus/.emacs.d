@@ -29,6 +29,17 @@
   )
 (add-hook 'markdown-mode-hook 'my-markdown-hook)
 
+(cond
+ ((eq system-type 'gnu/linux)
+  (progn
+    (setq markdown-command
+          "pandoc -c /home/ossifragus/Dropbox/App/reinstallOS/style/github-pandoc.css --from=markdown -t html5 --highlight-style pygments --standalone --mathjax --quiet --citeproc --template /home/ossifragus/Dropbox/App/reinstallOS/style/GitHub.html")))
+ ((eq system-type 'darwin)
+  (progn
+    (setq markdown-command
+          "/usr/local/bin/pandoc -c /Users/haiying/Library/CloudStorage/Dropbox/App/reinstallOS/style/github-pandoc.css --from=markdown -t html5 --highlight-style pygments --standalone --mathjax --quiet --citeproc --template /Users/haiying/Library/CloudStorage/Dropbox/App/reinstallOS/style/GitHub.html")))
+ )
+
 ;; self defined poly mode
 ;; (define-hostmode poly-tex+r-hostmode
 ;;   :mode 'LaTeX-mode)

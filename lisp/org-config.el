@@ -101,6 +101,8 @@
 
 ;; various preferences
 (setq
+ org-agenda-files nil
+ org-safe-remote-resources '("\\`https://fniessen\\.github\\.io\\(?:/\\|\\'\\)")
  ;; org-catch-invisible-edits 'show
  org-confirm-babel-evaluate nil
  ;; org-edit-timestamp-down-means-later t
@@ -110,7 +112,7 @@
  ;; org-fast-tag-selection-single-key 'expert
  org-hide-emphasis-markers t
  ;; ;; org-html-htmlize-output-type 'css
-org-html-validation-link nil
+ org-html-validation-link nil
  org-latex-listings 'minted
  org-latex-packages-alist '(("" "minted"))
  ;; org-latex-pdf-process '("lualatex -halt-on-error -shell-escape -pdf %f")

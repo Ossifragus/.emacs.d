@@ -8,6 +8,7 @@
   (advice-add 'python-mode :before 'elpy-enable)
   :config
   (setq elpy-shell-display-buffer-after-send 1)
+  (setq elpy-shell-starting-directory 'current-directory)
   )
 
 ;; https://emacs.stackexchange.com/questions/47358/can-t-guess-python-indent-offset-delete-warning-when-local-file-variable

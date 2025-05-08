@@ -15,8 +15,8 @@
     ;; (setenv "PATH" (concat (getenv "PATH") ":/Library/TeX/texbin/"))  
     ;; (setq exec-path (append exec-path '("/Library/TeX/texbin/")))
     ;; (getenv "PATH")
-		(setq markdown-command
-					"/usr/local/bin/pandoc -c /Users/haiying/Library/CloudStorage/Dropbox/App/reinstallOS/style/github-pandoc.css --from=markdown -t html5 --highlight-style pygments --standalone --mathjax --quiet --citeproc --template /Users/haiying/Library/CloudStorage/Dropbox/App/reinstallOS/style/GitHub.html")
+		;; (setq markdown-command
+		;; 			"/usr/local/bin/pandoc -c /Users/haiying/Library/CloudStorage/Dropbox/App/reinstallOS/style/github-pandoc.css --from=markdown -t html5 --highlight-style pygments --standalone --mathjax --quiet --citeproc --template /Users/haiying/Library/CloudStorage/Dropbox/App/reinstallOS/style/GitHub.html")
     (setq TeX-source-correlate-method 'synctex
           TeX-view-program-list   ;; Use Skim, it's awesome
           '(("Skim" "/Applications/Skim.app/Contents/SharedSupport/displayline -g -b %n %o %b"))
@@ -106,6 +106,7 @@
 (setq ido-ignore-files '("\.synctex.gz" "\.bst"))
 (setq ido-save-directory-list-file "~/.emacs.d/.emacs.tmp/ido.last")
 (ido-mode 1)
+(which-key-mode)
 
 ;; move the below lines *at the end* of .emacs to ensures  packages
 ;; installed with package manager overrides other local installation
@@ -116,8 +117,8 @@
 (package-initialize)
 
 (defun package--save-selected-packages (&rest opt) nil); not write package-selected-packages
-(setq custom-file "~/.emacs.d/lisp/custom.el")
-(load custom-file)
+;; (setq custom-file "~/.emacs.d/lisp/custom.el")
+;; (load custom-file)
 
 (use-package smartparens
   :ensure smartparens  ;; install the package
@@ -154,7 +155,7 @@
 (require 'ess-config)
 (require 'evil-config)
 (require 'git-config)
-(require 'latex)
+;; (require 'latex)
 (require 'julia-config)
 (require 'latex-config)
 (require 'org-config)
@@ -166,7 +167,7 @@
 (require 'chatgpt-config)
 (require 'treesitter-config)
 
-(which-key-mode)
+(setq default-input-method "TeX")
 
 (use-package exec-path-from-shell
   :ensure t
