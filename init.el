@@ -1,3 +1,9 @@
+(use-package no-littering
+  :ensure t
+  :config
+  (require 'no-littering)
+  )
+
 ;; different settings for different computers
 (cond
  ((or (string= (system-name) "aust319")
