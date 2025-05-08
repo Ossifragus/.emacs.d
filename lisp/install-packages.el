@@ -7,9 +7,6 @@
 (use-package cdlatex
   :ensure t
   :defer t)
-(use-package elpy
-  :ensure t
-  :defer t)
 (use-package emacs-everywhere
   :ensure t
   :defer t)
@@ -29,9 +26,6 @@
   :ensure t
   :defer t)
 (use-package sqlite3
-  :ensure t
-  :defer t)
-(use-package transient
   :ensure t
   :defer t)
 (use-package undo-tree

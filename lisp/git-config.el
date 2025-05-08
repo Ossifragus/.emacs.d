@@ -1,3 +1,6 @@
+(use-package transient
+  :ensure t
+  )
 (use-package magit
   :ensure t
   :config
@@ -9,14 +12,14 @@
 (use-package forge
   :ensure t
   :after magit
-	)
+  )
 (use-package diff-hl
   :ensure t
   :config
   (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
   (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
   (add-hook 'after-init-hook 'global-diff-hl-mode)
-	)
+  )
 
 (provide 'git-config)
 
