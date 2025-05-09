@@ -65,13 +65,13 @@
   :ensure t
     )
 
-(use-package julia-vterm
-  :ensure t
-  )
-(require 'julia-vterm)
-(use-package ob-julia-vterm
-  :ensure t
-  )
+;; (use-package julia-vterm
+;;   :ensure t
+;;   )
+;; (require 'julia-vterm)
+;; (use-package ob-julia-vterm
+;;   :ensure t
+;;   )
 
 (eval-after-load 'org
   '(progn
@@ -91,7 +91,7 @@
         ;; (dot . t)
         (emacs-lisp . t)
         (gnuplot . t)
-        (julia-vterm . t)
+        ;; (julia-vterm . t)
         (latex . t)
         (python . t)
         ;; (awk . t)
@@ -104,7 +104,7 @@
         ;; (sql . t)
         ;; (sqlite . t)
         ))))
-(defalias 'org-babel-execute:julia 'org-babel-execute:julia-vterm)
+;; (defalias 'org-babel-execute:julia 'org-babel-execute:julia-vterm)
 ;; (add-hook 'org-mode-hook 'turn-on-org-cdlatex)
 
 ;; various preferences
