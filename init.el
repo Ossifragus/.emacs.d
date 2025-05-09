@@ -49,7 +49,7 @@
 ;; (add-to-list 'load-path "~/Dropbox/App/reinstallOS/Lisp")
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 ;Backup file direcory
-(setq backup-directory-alist '(("." . "~/.emacs.d/.emacs.tmp")))
+(setq backup-directory-alist '(("." . "~/.emacs.d/var/backup")))
 
 ;; 'y' for 'yes', 'n' for 'no'
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -94,7 +94,7 @@
 
 (auto-save-visited-mode t)
 (setq markdown-enable-math t)
-(setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/.emacs.tmp/undo")))
+(setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/var/undo")))
 
 ;; (global-set-key ( kbd "C-c s") 'set-mark-command)
 (global-set-key ( kbd "C-c c") 'comment-or-uncomment-region)
@@ -116,7 +116,7 @@
 (setq ido-enable-flex-matching t)
 ;; (setq ido-everywhere t)
 (setq ido-ignore-files '("\.synctex.gz" "\.bst"))
-(setq ido-save-directory-list-file "~/.emacs.d/.emacs.tmp/ido.last")
+(setq ido-save-directory-list-file "~/.emacs.d/var/ido.last")
 (ido-mode 1)
 (which-key-mode)
 
