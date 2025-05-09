@@ -55,6 +55,17 @@
 (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
 (add-hook 'LaTeX-mode-hook 'my-LaTeX-hook)
 (add-hook 'LaTeX-mode-hook #'evil-tex-mode)
+(add-hook 'LaTeX-mode-hook
+          (lambda ()
+            (define-key evil-normal-state-local-map
+                        (kbd "<leader>ca") 'TeX-command-run-all)
+            (define-key evil-visual-state-local-map
+                        (kbd "<leader>ca") 'TeX-command-run-all)
+            (define-key evil-normal-state-local-map
+                        (kbd "<leader>cc") 'TeX-command-master)
+            (define-key evil-visual-state-local-map
+                        (kbd "<leader>cc") 'TeX-command-master)
+            ))
 
 (provide 'latex-config)
 

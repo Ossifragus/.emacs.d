@@ -90,6 +90,7 @@
 (evil-set-leader 'visual (kbd "SPC"))
 
 (evil-define-key 'normal 'global (kbd "<leader>fs") 'save-buffer)
+(evil-define-key 'visual 'global (kbd "<leader>aic") 'chatgpt-shell-prompt-compose)
 ;;; Leader
 ;; (define-prefix-command 'my-leader-map)
 
