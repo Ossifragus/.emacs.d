@@ -29,8 +29,6 @@
     ;; (setenv "PATH" (concat (getenv "PATH") ":/Library/TeX/texbin/"))  
     ;; (setq exec-path (append exec-path '("/Library/TeX/texbin/")))
     ;; (getenv "PATH")
-		;; (setq markdown-command
-		;; 			"/usr/local/bin/pandoc -c /Users/haiying/Library/CloudStorage/Dropbox/App/reinstallOS/style/github-pandoc.css --from=markdown -t html5 --highlight-style pygments --standalone --mathjax --quiet --citeproc --template /Users/haiying/Library/CloudStorage/Dropbox/App/reinstallOS/style/GitHub.html")
     (setq TeX-source-correlate-method 'synctex
           TeX-view-program-list   ;; Use Skim, it's awesome
           '(("Skim" "/Applications/Skim.app/Contents/SharedSupport/displayline -g -b %n %o %b"))
@@ -160,7 +158,7 @@
 (require 'julia-config)
 (require 'latex-config)
 (require 'org-config)
-(require 'pdf-config)
+;; (require 'pdf-config)
 (require 'polymode-config)
 (require 'python-config)
 (require 'term-config)
