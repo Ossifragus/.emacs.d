@@ -32,11 +32,6 @@
 (use-package poly-markdown
   :ensure t)
 
-;; (require 'julia-repl-vterm)
-;; (require 'julia-vterm)
-(use-package julia-vterm
-  :ensure t)
-
 (define-innermode poly-julia-markdown-inline-code-innermode poly-markdown-inline-code-innermode
   :mode 'julia-mode
   :head-matcher (cons "^[ \t]*\\(```{?[Jj]ulia.*\n\\)" 1)
