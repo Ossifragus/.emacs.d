@@ -11,6 +11,10 @@
  ;; '(("\\<\\(\\sw+\\) ?\\([_!.(]\\)" 1 'font-lock-function-name-face)))
  '(("\\<\\(\\sw+\\) ?\\([!(]\\)" 1 'font-lock-function-name-face)))
 
+(font-lock-add-keywords
+ 'julia-ts-mode
+ '(("\\<\\(\\sw+\\) ?\\([!(]\\)" 1 'font-lock-function-name-face)))
+
 (provide 'julia-highlight)
 
 ;; ;; font-lock-keyword-face
