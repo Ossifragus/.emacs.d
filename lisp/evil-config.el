@@ -91,6 +91,7 @@
 
 (evil-define-key 'normal 'global (kbd "<leader>fs") 'save-buffer)
 (evil-define-key 'visual 'global (kbd "<leader>aic") 'chatgpt-shell-prompt-compose)
+(evil-define-key 'visual 'global (kbd "<leader>gc") 'comment-or-uncomment-region)
 ;;; Leader
 ;; (define-prefix-command 'my-leader-map)
 
