@@ -28,11 +28,6 @@
 	  '((top . 0) (left . 0) (height . 100) (width . 81)))
     ;; (setenv "PATH" (concat (getenv "PATH") ":/Library/TeX/texbin/"))  
     ;; (setq exec-path (append exec-path '("/Library/TeX/texbin/")))
-    ;; (getenv "PATH")
-    (setq TeX-source-correlate-method 'synctex
-          TeX-view-program-list   ;; Use Skim, it's awesome
-          '(("Skim" "/Applications/Skim.app/Contents/SharedSupport/displayline -g -b %n %o %b"))
-          TeX-view-program-selection '((output-pdf "Skim")))
     ;; (setq mac-option-key-is-meta nil)
     ;; (setq mac-command-key-is-meta t)
     ;; (setq mac-command-modifier 'meta)

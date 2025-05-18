@@ -67,6 +67,17 @@
                         (kbd "<leader>cc") 'TeX-command-master)
             ))
 
+(cond
+ ((or (eq system-type 'darwin) (string= (system-name) "MBP16.local"))
+  (progn
+    (setq TeX-source-correlate-method 'synctex
+          TeX-view-program-list   ;; Use Skim, it's awesome
+          '(("Skim" "/Applications/Skim.app/Contents/SharedSupport/displayline -g -b %n %o %b"))
+          TeX-view-program-selection '((output-pdf "Skim")))
+    ;; (setq mac-option-key-is-meta nil)
+    ))
+ )
+
 (provide 'latex-config)
 
 ;; ;; Alternative 1: For some users, `x-focus-frame' works.
