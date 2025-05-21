@@ -17,6 +17,10 @@
   (add-hook 'julia-mode-hook
           (lambda ()
             (define-key evil-normal-state-local-map
+                        (kbd "<leader>b") 'julia-repl-send-buffer)
+            (define-key evil-visual-state-local-map
+                        (kbd "<leader>b") 'julia-repl-send-buffer)
+            (define-key evil-normal-state-local-map
                         (kbd "<leader>l") 'julia-repl-send-line)
             (define-key evil-visual-state-local-map
                         (kbd "<leader>l") 'julia-repl-send-line)
