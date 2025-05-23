@@ -7,9 +7,6 @@
 (use-package cdlatex
   :ensure t
   :defer t)
-(use-package emacs-everywhere
-  :ensure t
-  :defer t)
 (use-package gnu-elpa-keyring-update
   :ensure t
   :defer t)

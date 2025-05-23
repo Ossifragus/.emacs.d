@@ -48,4 +48,7 @@
 (global-set-key ( kbd "C-c i") 'ES-init)
 (global-set-key ( kbd "C-c h") 'ES-htmlize)
 
+(use-package emacs-everywhere
+  :ensure t)
+
 (provide 'edit-server-config)
