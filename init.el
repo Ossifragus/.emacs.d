@@ -133,6 +133,7 @@
   )
 (use-package counsel
   :ensure t
+  :config
   (counsel-mode 1)
   )
 
