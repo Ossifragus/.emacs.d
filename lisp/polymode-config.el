@@ -25,6 +25,7 @@
   (flyspell-mode t)
   (visual-line-mode t)
   (setq dnd-protocol-alist nil)
+  (setq markdown-enable-math t)
   ;; (outline-minor-mode t)
   )
 (add-hook 'markdown-mode-hook 'my-markdown-hook)

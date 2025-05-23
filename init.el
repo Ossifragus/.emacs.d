@@ -79,6 +79,7 @@
 
 ;; Remember the last place
 (save-place-mode 1)
+(auto-save-visited-mode t)
 ;; (desktop-save-mode 1)
 ;; set tab width
 ;; (setq-default tab-width 2)
@@ -87,19 +88,16 @@
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
 
-(auto-save-visited-mode t)
-(setq markdown-enable-math t)
-(setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/var/undo")))
+(use-package undo-tree
+  :ensure t
+  :config
+  (setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/var/undo")))
+  )
 
 ;; (global-set-key ( kbd "C-c s") 'set-mark-command)
 (global-set-key ( kbd "C-c c") 'comment-or-uncomment-region)
 (global-set-key ( kbd "C-c s") 'ispell-region)
 (global-set-key ( kbd "C-c r") 'replace-regexp)
-(global-set-key "\C-cy" 'browse-kill-ring)
-;; (autoload 'kill-ring-search "kill-ring-search"
-;;   "Search the kill ring in the minibuffer."
-;;   (interactive))
-(global-set-key "\M-\C-y" 'kill-ring-search)
 (global-set-key "\C-xp" (lambda () 
                           (interactive)
                           (other-window -1)))
@@ -113,6 +111,8 @@
 (setq ido-ignore-files '("\.synctex.gz" "\.bst"))
 (setq ido-save-directory-list-file "~/.emacs.d/var/ido.last")
 (ido-mode 1)
+(global-set-key (kbd "C-x C-f") 'ido-find-file)
+
 (which-key-mode)
 
 (use-package smartparens
@@ -127,21 +127,26 @@
 (setq-default indent-tabs-mode nil)
 
 (use-package ivy
-  :ensure t)
+  :ensure t
+  :config
+  (ivy-mode 1)
+  )
 (use-package counsel
-  :ensure t)
-(ivy-mode 1)
-(counsel-mode 1)
-(global-set-key (kbd "C-x C-f") 'ido-find-file)
+  :ensure t
+  (counsel-mode 1)
+  )
+
 (setq ivy-re-builders-alist '((swiper . ivy--regex-plus)
                               (t . ivy--regex-fuzzy)))
 ;; (setq counsel-find-file-ignore-regexp "\\..synctex.gz\\'\\|\\.bst\\'")
 
 (use-package openwith
-  :ensure t)
-(require 'openwith)
-(setq openwith-associations '(("\\.pdf\\'" "evince" (file))))
-(openwith-mode t)
+  :ensure t
+  :config
+  (require 'openwith)
+  (setq openwith-associations '(("\\.pdf\\'" "evince" (file))))
+  (openwith-mode t)
+  )
 
 (require 'install-packages)
 (require 'company-config)
@@ -151,6 +156,7 @@
 (require 'evil-config)
 (require 'git-config)
 (require 'julia-config)
+(require 'kill-ring-config)
 (require 'latex-config)
 (require 'org-config)
 ;; (require 'pdf-config)
@@ -165,12 +171,12 @@
 
 (use-package exec-path-from-shell
   :ensure t
-	)
-(when (memq window-system '(mac ns x))
-  (exec-path-from-shell-initialize))
-
-(when (daemonp)
-  (exec-path-from-shell-initialize))
+  :config
+  (when (memq window-system '(mac ns x))
+    (exec-path-from-shell-initialize))
+  (when (daemonp)
+    (exec-path-from-shell-initialize))
+  )
 
 (provide 'init)
 ;;; init ends here

@@ -1,16 +1,10 @@
 (use-package beacon
   :ensure t
   :defer t)
-(use-package browse-kill-ring
-  :ensure t
-  :defer t)
 (use-package cdlatex
   :ensure t
   :defer t)
 (use-package gnu-elpa-keyring-update
-  :ensure t
-  :defer t)
-(use-package kill-ring-search
   :ensure t
   :defer t)
 (use-package lua-mode
@@ -23,9 +17,6 @@
   :ensure t
   :defer t)
 (use-package sqlite3
-  :ensure t
-  :defer t)
-(use-package undo-tree
   :ensure t
   :defer t)
 (use-package yaml-mode
