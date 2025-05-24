@@ -82,4 +82,4 @@
 	      (define-key poly-markdown+julia-mode-map (kbd "C-l") 'recenter-top-bottom)))
 	  'append)
 
-(provide 'poly-julia)
+(provide 'julia-poly)

@@ -99,7 +99,7 @@
   (setq eglot-connect-timeout 300)
   )
 
-(require 'poly-julia)
+(require 'julia-poly)
 
 (provide 'julia-config)
 
