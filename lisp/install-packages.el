@@ -13,9 +13,6 @@
 (use-package projectile
   :ensure t
   :defer t)
-(use-package smex
-  :ensure t
-  :defer t)
 (use-package sqlite3
   :ensure t
   :defer t)

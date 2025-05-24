@@ -9,6 +9,9 @@
 (ido-mode 1)
 (global-set-key (kbd "C-x C-f") 'ido-find-file)
 
+;; (use-package smex
+;;   :ensure t)
+
 (use-package ivy
   :ensure t
   :config
