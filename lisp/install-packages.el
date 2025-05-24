@@ -1,6 +1,3 @@
-(use-package beacon
-  :ensure t
-  :defer t)
 (use-package cdlatex
   :ensure t
   :defer t)

@@ -25,20 +25,6 @@
 (add-to-list 'default-frame-alist '(background-color . "Black"))
 (add-to-list 'default-frame-alist '(cursor-color . "Orchid"))
 
-;;; Highlight Parentheses
-;; (show-paren-mode 1)
-;; (setq show-paren-delay 0)
-(use-package highlight-parentheses
-  :ensure t
-  )
-(require 'highlight-parentheses)
-(setq hl-paren-colors '("red" "yellow" "green" "IndianRed" "cyan" "orange"  "magenta", "purple"))
-(define-globalized-minor-mode global-highlight-parentheses-mode
-  highlight-parentheses-mode
-  (lambda ()
-    (highlight-parentheses-mode t)))
-(global-highlight-parentheses-mode t)
-
 (use-package highlight-numbers
   :ensure t
   )
@@ -74,6 +60,12 @@
 
 (use-package auto-highlight-symbol
   :ensure t
+  )
+
+(use-package beacon ; Never lose your cursor again
+  :ensure t
+  :config
+  (beacon-mode 1)
   )
 
 (provide 'theme-highlight-config)
