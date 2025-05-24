@@ -103,7 +103,6 @@
   )
 
 (require 'install-packages)
-(require 'company-config)
 (require 'completion-config)
 (require 'edit-server-config)
 (require 'encoding-config)
