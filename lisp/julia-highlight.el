@@ -13,7 +13,7 @@
 
 (font-lock-add-keywords
  'julia-ts-mode
- '(("\\<\\(\\sw+\\) ?\\([!(]\\)" 1 'font-lock-function-name-face)))
+ '(("\\<\\(\\(?:\\sw\\|\\s_\\)+\\)\\s-*\\(\\.\\)?("1 'font-lock-function-name-face)))
 
 (provide 'julia-highlight)
 
