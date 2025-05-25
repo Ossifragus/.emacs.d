@@ -8,7 +8,7 @@
   (require 'julia-highlight)
   (add-to-list 'auto-mode-alist '("\\.jl\\'" . julia-mode))
   (defun my-julia-hook ()
-    ;; (auto-highlight-symbol-mode t)
+    (auto-highlight-symbol-mode t)
     (display-line-numbers-mode t)
     (highlight-indentation-mode t)
     (highlight-numbers-mode t))
