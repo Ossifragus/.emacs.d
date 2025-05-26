@@ -102,7 +102,7 @@
   (openwith-mode t)
   )
 
-(require 'install-packages)
+(require 'chatgpt-config)
 (require 'completion-config)
 (require 'edit-server-config)
 (require 'encoding-config)
@@ -119,8 +119,9 @@
 (require 'python-config)
 (require 'term-config)
 (require 'theme-highlight-config)
-(require 'chatgpt-config)
 (require 'treesitter-config)
+
+(require 'install-packages)
 
 (setq default-input-method "TeX")
 
