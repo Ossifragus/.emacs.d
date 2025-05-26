@@ -26,12 +26,7 @@
   (progn
     (setq default-frame-alist
 	  '((top . 0) (left . 0) (height . 100) (width . 81)))
-    ;; (setenv "PATH" (concat (getenv "PATH") ":/Library/TeX/texbin/"))  
-    ;; (setq exec-path (append exec-path '("/Library/TeX/texbin/")))
     ;; (setq mac-option-key-is-meta nil)
-    ;; (setq mac-command-key-is-meta t)
-    ;; (setq mac-command-modifier 'meta)
-    ;; (setq mac-option-modifier nil)
     ))
  )
 
@@ -94,14 +89,6 @@
 
 (setq-default indent-tabs-mode nil)
 
-(use-package openwith
-  :ensure t
-  :config
-  (require 'openwith)
-  (setq openwith-associations '(("\\.pdf\\'" "evince" (file))))
-  (openwith-mode t)
-  )
-
 (require 'chatgpt-config)
 (require 'completion-config)
 (require 'edit-server-config)
@@ -116,6 +103,7 @@
 (require 'paren-config)
 ;; (require 'pdf-config)
 (require 'polymode-config)
+(require 'system-config)
 (require 'python-config)
 (require 'term-config)
 (require 'theme-highlight-config)
@@ -124,15 +112,6 @@
 (require 'install-packages)
 
 (setq default-input-method "TeX")
-
-(use-package exec-path-from-shell
-  :ensure t
-  :config
-  (when (memq window-system '(mac ns x))
-    (exec-path-from-shell-initialize))
-  (when (daemonp)
-    (exec-path-from-shell-initialize))
-  )
 
 (provide 'init)
 ;;; init ends here
