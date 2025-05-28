@@ -58,6 +58,8 @@
   (color-theme-sanityinc-tomorrow--define-theme bright)
   (load-theme 'sanityinc-tomorrow-bright t))
 
+(window-divider-mode 1) ;; This has to be after color-theme-sanityinc-tomorrow
+
 (use-package auto-highlight-symbol
   :ensure t
   )

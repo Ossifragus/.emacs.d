@@ -9,8 +9,7 @@
 (use-package no-littering
   :ensure t
   :config
-  (require 'no-littering)
-  )
+  (require 'no-littering))
 
 ;; different settings for different computers
 (cond
@@ -36,58 +35,37 @@
 ;; (add-to-list 'default-frame-alist '(font . "Monospace-16"))
 
 (setq default-directory "~/Dropbox/")
-;; (add-to-list 'load-path "~/Dropbox/App/reinstallOS/Lisp")
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
-;Backup file direcory
 (setq backup-directory-alist '(("." . "~/.emacs.d/var/backup")))
 
-;; 'y' for 'yes', 'n' for 'no'
-(fset 'yes-or-no-p 'y-or-n-p)
-;; replace the active region just by typing text
-(delete-selection-mode t)
-;; disable the toolbar
-(tool-bar-mode -1)
-;; disable scrollbar
-(scroll-bar-mode -1)
-;; disable the welcome window
-(setq inhibit-startup-message t)
-;; show current buffer name in title bar
-(setq frame-title-format "%b")
-
-(window-divider-mode 1)
-(global-auto-revert-mode 1)
-
-;; Remember the last place
-(save-place-mode 1)
+(fset 'yes-or-no-p 'y-or-n-p)    ;; 'y' for 'yes', 'n' for 'no'
+(delete-selection-mode t)        ;; replace the active region by typing
+(tool-bar-mode -1)               ;; disable the toolbar
+(scroll-bar-mode -1)             ;; disable scrollbar
+(setq inhibit-startup-message t) ;; disable the welcome window
+(setq frame-title-format "%b")   ;; show current buffer name in title bar
+(global-auto-revert-mode 1)      ;; revert buffer when file changes on disk
+(save-place-mode 1)              ;; Remember the last place
 (auto-save-visited-mode t)
+(which-key-mode)
 ;; (desktop-save-mode 1)
-;; set tab width
-;; (setq-default tab-width 2)
+;; (setq-default tab-width 2) ;; set tab width
 
-;; allow downcase/upcase
-(put 'downcase-region 'disabled nil)
-(put 'upcase-region 'disabled nil)
+(global-set-key ( kbd "C-c c") 'comment-or-uncomment-region)
+(global-set-key ( kbd "C-c s") 'ispell-region)
+(global-set-key ( kbd "C-c r") 'replace-regexp)
+;; (global-set-key "\C-xp" (lambda () (interactive) (other-window -1)))
+
+(add-hook 'text-mode-hook 'flyspell-mode)
+(add-hook 'text-mode-hook 'visual-line-mode)
+
+(setq-default indent-tabs-mode nil)
 
 (use-package undo-tree
   :ensure t
   :config
   (setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/var/undo")))
   )
-
-;; (global-set-key ( kbd "C-c s") 'set-mark-command)
-(global-set-key ( kbd "C-c c") 'comment-or-uncomment-region)
-(global-set-key ( kbd "C-c s") 'ispell-region)
-(global-set-key ( kbd "C-c r") 'replace-regexp)
-(global-set-key "\C-xp" (lambda () 
-                          (interactive)
-                          (other-window -1)))
-
-(which-key-mode)
-
-(add-hook 'text-mode-hook 'flyspell-mode)
-(add-hook 'text-mode-hook 'visual-line-mode)
-
-(setq-default indent-tabs-mode nil)
 
 (require 'chatgpt-config)
 (require 'completion-config)
