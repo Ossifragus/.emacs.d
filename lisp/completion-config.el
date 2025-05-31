@@ -1,8 +1,5 @@
 ;;;;;;;;; IDO
-;; (require 'ido)
-;; (ido-mode t)
-;; (setq ido-enable-flex-matching t) ;; enable fuzzy matchings
-(setq ido-enable-flex-matching t)
+(setq ido-enable-flex-matching t) ;; enable fuzzy matchings
 ;; (setq ido-everywhere t)
 (setq ido-ignore-files '("\.synctex.gz" "\.bst"))
 (setq ido-save-directory-list-file "~/.emacs.d/var/ido.last")
