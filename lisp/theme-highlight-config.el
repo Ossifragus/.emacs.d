@@ -38,7 +38,11 @@
 (set-face-attribute 'hl-line nil :inherit nil :background "gray11")
 
 ;; shine on top of your cursor so you know where it is
-(beacon-mode 1)
+(use-package beacon
+  :ensure t
+  :config
+  (beacon-mode 1)
+  )
 
 ;; column width
 (setq-default fill-column 80)
