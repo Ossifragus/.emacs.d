@@ -25,7 +25,9 @@
             (define-key evil-visual-state-local-map
                         (kbd "<leader>l") 'julia-repl-send-line)
             (define-key evil-normal-state-local-map
-                        (kbd "<leader>f") 'julia-repl-send-paragraph)
+                        (kbd "<leader>p") 'julia-repl-send-paragraph)
+            (define-key evil-normal-state-local-map
+                        (kbd "<leader>f") 'julia-repl-send-function)
             (define-key evil-normal-state-local-map
                         (kbd "<leader>j") 'julia-repl-send-line-nomove)
             (define-key evil-visual-state-local-map
@@ -82,7 +84,8 @@
 	(julia-repl--send-string
 	 (buffer-substring-no-properties beg end)))))
   (defun my-julia-repl-hook ()
-    (local-set-key (kbd "C-c C-f") 'julia-repl-send-paragraph)
+    (local-set-key (kbd "C-c p") 'julia-repl-send-paragraph)
+    (local-set-key (kbd "C-c C-f") 'julia-repl-send-function)
     (local-set-key (kbd "C-c C-j") 'julia-repl-send-line-nomove)
     (local-set-key (kbd "C-c C-n") 'julia-repl-prompt-switches)
     (local-set-key (kbd "C-c C-r") 'julia-repl-send-region-or-line))
