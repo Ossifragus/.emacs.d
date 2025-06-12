@@ -80,7 +80,7 @@
      (define-key org-mode-map [C-tab] nil)
    (setf org-highlight-latex-and-related '(latex))
      ;; (define-key org-mode-map (kbd "C-c l") 'org-store-link)
-     ;; (define-key org-mode-map (kbd "C-c a") 'org-agenda)
+   (define-key org-mode-map (kbd "C-c a") 'org-agenda)
      ;; (define-key org-mode-map (kbd "C-c c") 'org-capture)
      ;; (define-key org-mode-map (kbd "C-c b") 'org-iswitchb)
      ;; (define-key org-mode-map (kbd "M-q") 'org-fill-paragraph)
@@ -109,7 +109,9 @@
 
 ;; various preferences
 (setq
- org-agenda-files nil
+ ;; org-agenda-files nil
+ org-agenda-files '( "~/Dropbox/mydoc/agenda.org"
+                     "~/Dropbox/mydoc/notes.org")
  org-safe-remote-resources '("\\`https://fniessen\\.github\\.io\\(?:/\\|\\'\\)")
  ;; org-catch-invisible-edits 'show
  org-confirm-babel-evaluate nil
