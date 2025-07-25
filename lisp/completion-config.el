@@ -21,7 +21,8 @@
   )
 
 (setq ivy-re-builders-alist '((swiper . ivy--regex-plus)
-                              (t . ivy--regex-fuzzy)))
+                              ;; (t . ivy--regex-fuzzy)
+                              ))
 ;; (setq counsel-find-file-ignore-regexp "\\..synctex.gz\\'\\|\\.bst\\'")
 
 (use-package company
