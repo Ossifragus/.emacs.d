@@ -8,8 +8,8 @@
 
 (use-package no-littering
   :ensure t
-  :vc (:url "https://github.com/emacscollective/no-littering.git"
-            :rev :newest)
+  ;; :vc (:url "https://github.com/emacscollective/no-littering.git"
+  ;;           :rev :newest)
   :config
   (require 'no-littering))
 
