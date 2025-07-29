@@ -36,8 +36,8 @@
 ;; https://robert.kra.hn/posts/2023-02-22-copilot-emacs-setup/
 (use-package copilot
   :ensure t
-  :vc (:url "https://github.com/copilot-emacs/copilot.el.git"
-            :rev :newest)
+  ;; :vc (:url "https://github.com/copilot-emacs/copilot.el.git"
+  ;;           :rev :newest)
   :config
   (require 'copilot)
   (setq copilot-indent-offset-warning-disable t)
