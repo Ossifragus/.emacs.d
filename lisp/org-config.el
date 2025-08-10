@@ -1,5 +1,7 @@
 (require 'org)
 (require 'oc-csl)
+(with-eval-after-load 'oc ;; Remove citation fontification rules to speed up
+  (setq org-cite-activate-processor 'nil))
 (require 'ox-ipynb)
 
 (use-package org-modern
