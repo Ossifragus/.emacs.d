@@ -2,10 +2,21 @@
   :ensure t
   :config
   (require 'openwith)
-  (setq openwith-associations '(("\\.pdf\\'" "evince" (file))))
-  (setq openwith-associations '(("\\.odt\\'" "libreoffice" (file))))
-  (setq openwith-associations '(("\\.doc\\'" "libreoffice" (file))))
-  (setq openwith-associations '(("\\.docx\\'" "libreoffice" (file))))
+  (setq openwith-associations
+        (list
+         (list (openwith-make-extension-regexp
+           '("pdf" "jpg" "png"))
+          "evince" '(file))
+         (list (openwith-make-extension-regexp
+                '("m4v" "mp4" "MP4" "MTS" "mpg" "mov" "avi" "AVI" "flv"))
+               "smplayer" '(file))
+         (list (openwith-make-extension-regexp
+           '("xls" "xlsx"))
+          "libreoffice --calc" '(file))
+         (list (openwith-make-extension-regexp
+           '("doc" "docx" "odt"))
+               "libreoffice --writer" '(file))
+         ))
   (openwith-mode t)
   )
 ;; (rassq-delete-all #'doc-view-mode-maybe auto-mode-alist)
