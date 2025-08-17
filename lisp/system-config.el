@@ -5,7 +5,7 @@
   (setq openwith-associations
         (list
          (list (openwith-make-extension-regexp
-           '("pdf" "jpg" "png"))
+           '("pdf" "jpg"))
           "evince" '(file))
          (list (openwith-make-extension-regexp
                 '("m4v" "mp4" "MP4" "MTS" "mpg" "mov" "avi" "AVI" "flv"))
