@@ -33,10 +33,10 @@
   ;; :config
   )
 
-(use-package julia-ts-mode
-  :ensure t
-  ;; :mode "\\.jl$"
-  )
+;; (use-package julia-ts-mode
+;;   :ensure t
+;;   ;; :mode "\\.jl$"
+;;   )
 
 (provide 'treesitter-config)
 
