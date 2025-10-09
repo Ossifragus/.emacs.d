@@ -18,7 +18,7 @@
  ((or (string= (system-name) "aust319")
       (string= (system-name) "T1700")
       (string= (system-name) "yoga")
-      (string= (system-name) "W319"))
+      (string= (system-name) "OSHome"))
   (progn
     (setq default-frame-alist
 	  '((top . 0) (left . 72) (height . 100) (width . 81)))
