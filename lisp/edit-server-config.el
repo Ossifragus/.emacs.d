@@ -51,4 +51,21 @@
 (use-package emacs-everywhere
   :ensure t)
 
+(use-package overleaf
+  ;; https://github.com/vale981/overleaf.el
+  ;; https://github.com/mozilla/geckodriver
+  :ensure t
+  :custom
+  (overleaf-use-nerdfont t "Use nerfont icons for the modeline.")
+  :config
+  ;; Example: load/save cookies from GPG encrypted file.
+  ;;          (remove the .gpg extension to save unencrypted)
+  ;; (let ((cookie-file "~/.overleaf-cookies.gpg"))
+  (let ((cookie-file "~/.overleaf-cookies"))
+    (setq overleaf-save-cookies
+          (overleaf-save-cookies-to-file cookie-file))
+    (setq overleaf-cookies
+          (overleaf-read-cookies-from-file cookie-file)))
+  )
+
 (provide 'edit-server-config)
