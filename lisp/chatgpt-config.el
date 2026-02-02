@@ -62,5 +62,26 @@
           ("C-<down>" . copilot-accept-completion-by-line))
   )
 
+(use-package agent-shell
+    :ensure t
+    ;; :ensure-system-package
+    ;; Add agent installation configs here
+    ;; ((claude . "brew install claude-code")
+    ;;  (claude-code-acp . "npm install -g @zed-industries/claude-code-acp"))
+    :after evil
+    :config
+    (setq agent-shell-google-authentication
+      (agent-shell-google-make-authentication
+       :api-key (lambda () (auth-source-pass-get "secret" "google-api-key"))))
+    ;; Evil state-specific RET behavior: insert mode=newline, normal mode=send
+    (evil-define-key 'insert agent-shell-mode-map (kbd "RET") #'newline)
+    (evil-define-key 'normal agent-shell-mode-map (kbd "RET") #'comint-send-input)
+    ;; Configure *agent-shell-diff* buffers to start in Emacs state
+    (add-hook 'diff-mode-hook
+	      (lambda ()
+	        (when (string-match-p "\\*agent-shell-diff\\*" (buffer-name))
+		  (evil-emacs-state))))
+    )
+
 (provide 'chatgpt-config)
 
