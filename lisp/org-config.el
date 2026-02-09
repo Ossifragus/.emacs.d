@@ -1,4 +1,5 @@
 (require 'org)
+(setq org-startup-numerated t)
 (require 'oc-csl)
 (setq org-cite-csl-styles-dir (expand-file-name "~/Dropbox/mydoc/web/style/"))
 (with-eval-after-load 'oc ;; Remove citation fontification rules to speed up
