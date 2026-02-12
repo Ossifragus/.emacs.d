@@ -7,7 +7,7 @@
         (auth-source-pick-first-password :host "aistudio.google.com"))
   (setq chatgpt-shell-openrouter-key
         (auth-source-pick-first-password :host "openrouter.ai/api/v1"))
-  (setq chatgpt-shell-model-version "gpt-5-mini")
+  (setq chatgpt-shell-model-version "gemini-pro-latest")
   (define-key chatgpt-shell-mode-map (kbd "C-c C-v") #'chatgpt-shell-swap-model)
   )
 
