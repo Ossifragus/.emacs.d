@@ -96,6 +96,7 @@
         (emacs-lisp . t)
         (gnuplot . t)
         ;; (julia-vterm . t)
+        (julia . t)
         (latex . t)
         (python . t)
         ;; (awk . t)
