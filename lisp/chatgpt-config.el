@@ -79,6 +79,9 @@
     (setq agent-shell-anthropic-authentication
           (agent-shell-anthropic-make-authentication
            :api-key (lambda () (auth-source-pick-first-password :host "api.anthropic.com"))))
+    (setq agent-shell-openai-authentication
+          (agent-shell-openai-make-authentication
+           :api-key (lambda () (auth-source-pick-first-password :host "api.openai.com"))))
     ;; Evil state-specific RET behavior: insert mode=newline, normal mode=send
     (evil-define-key 'insert agent-shell-mode-map (kbd "RET") #'newline)
     (evil-define-key 'normal agent-shell-mode-map (kbd "RET") #'comint-send-input)
