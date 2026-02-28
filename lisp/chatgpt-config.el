@@ -73,8 +73,9 @@
     :after evil
     :config
     (setq agent-shell-google-authentication
-      (agent-shell-google-make-authentication
-       :api-key (lambda () (auth-source-pass-get "secret" "google-api-key"))))
+          (agent-shell-google-make-authentication
+           :api-key (lambda () (auth-source-pick-first-password :host "aistudio.google.com"))))
+
     (setq agent-shell-anthropic-authentication
           (agent-shell-anthropic-make-authentication
            :api-key (lambda () (auth-source-pick-first-password :host "api.anthropic.com"))))
