@@ -7,6 +7,8 @@
         (auth-source-pick-first-password :host "aistudio.google.com"))
   (setq chatgpt-shell-openrouter-key
         (auth-source-pick-first-password :host "openrouter.ai/api/v1"))
+  (setq chatgpt-shell-anthropic-key
+        (auth-source-pick-first-password :host "api.anthropic.com"))
   (setq chatgpt-shell-model-version "gemini-pro-latest")
   (define-key chatgpt-shell-mode-map (kbd "C-c C-v") #'chatgpt-shell-swap-model)
   )
@@ -73,6 +75,9 @@
     (setq agent-shell-google-authentication
       (agent-shell-google-make-authentication
        :api-key (lambda () (auth-source-pass-get "secret" "google-api-key"))))
+    (setq agent-shell-anthropic-authentication
+          (agent-shell-anthropic-make-authentication
+           :api-key (lambda () (auth-source-pick-first-password :host "api.anthropic.com"))))
     ;; Evil state-specific RET behavior: insert mode=newline, normal mode=send
     (evil-define-key 'insert agent-shell-mode-map (kbd "RET") #'newline)
     (evil-define-key 'normal agent-shell-mode-map (kbd "RET") #'comint-send-input)
