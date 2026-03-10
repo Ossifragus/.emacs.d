@@ -17,7 +17,7 @@
 (cond
  ((or (string= (system-name) "aust319")
       (string= (system-name) "t1700")
-      (string= (system-name) "oshome"))
+      (string= (system-name) "OSHome"))
   (progn
     (setq default-frame-alist
 	  '((top . 0) (left . 72) (height . 100) (width . 81)))
