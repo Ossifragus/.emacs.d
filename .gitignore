@@ -8,6 +8,8 @@ tree-sitter/
 var/
 .cache/
 .emacs.tmp/
+agent/
+chatgpt/
 
 .chatgpt-shell.el
 .DS_Store

@@ -16,12 +16,16 @@
 ;; different settings for different computers
 (cond
  ((or (string= (system-name) "aust319")
-      (string= (system-name) "T1700")
-      (string= (system-name) "yoga")
-      (string= (system-name) "OSHome"))
+      (string= (system-name) "t1700")
+      (string= (system-name) "oshome"))
   (progn
     (setq default-frame-alist
 	  '((top . 0) (left . 72) (height . 100) (width . 81)))
+    ))
+ ((string= (system-name) "yoga")
+  (progn
+    (setq default-frame-alist
+	  '((top . 0) (left . 0) (height . 100) (width . 81)))
     ))
  ((or (eq system-type 'darwin) (string= (system-name) "MBP16.local"))
   (progn
