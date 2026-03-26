@@ -121,6 +121,7 @@
  ;; org-catch-invisible-edits 'show
  org-confirm-babel-evaluate nil
  ;; org-edit-timestamp-down-means-later t
+ org-time-stamp-rounding-minutes '(0 1)
  ;; org-export-coding-system 'utf-8
  ;; org-export-kill-product-buffer-when-displayed t
  ;; org-export-latex-default-packages-alist nil
