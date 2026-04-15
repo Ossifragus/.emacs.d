@@ -32,14 +32,22 @@
   :config
   (require 'org-re-reveal)
  )
-(use-package org-expose-emphasis-markers
-  :ensure t
-  :defer t
-  :config
-  (require 'org-expose-emphasis-markers)
-  )
-  ;; (org-expose-emphasis-markers-mode t)
 
+(use-package org-appear
+  :ensure t
+  :hook (org-mode . org-appear-mode)
+  :config
+  ;; Repair links: show the full [[url][description]] when cursor is on it
+  (setq org-appear-autolinks t)
+  ;; Reveal emphasis markers (*bold*, /italic/, etc.)
+  (setq org-appear-autoemphasis t)
+  ;; Optional: Reveal sub/superscripts (_{lower}, ^{upper})
+  (setq org-appear-autosubmarkers t)
+  ;; Optional: Reveal entities (\sigma, \alpha, etc.)
+  (setq org-appear-autoentities t)
+  ;; Optional: Delay (in seconds) before the markers appear/disappear
+  ;; (setq org-appear-delay 0.0) 
+  )
 
 ;; (require 'ox-reveal)
 ;; (require 'org-ref)
