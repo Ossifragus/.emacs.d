@@ -13,3 +13,4 @@ chatgpt/
 
 .chatgpt-shell.el
 .DS_Store
+/.agent-shell/

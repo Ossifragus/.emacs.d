@@ -1,6 +1,4 @@
-(require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-(package-initialize)
 ; not write package-selected-packages
 ;; (defun package--save-selected-packages (&rest opt) nil)
 (setq custom-file "~/.emacs.d/var/custom.el")
@@ -67,11 +65,11 @@
 
 (setq-default indent-tabs-mode nil)
 
-(use-package undo-tree
+(use-package vundo
   :ensure t
+  :bind ("C-x u" . vundo)
   :config
-  (setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/var/undo")))
-  )
+  (setq vundo-glyph-alist vundo-unicode-symbols))
 
 (require 'chatgpt-config)
 (require 'completion-config)

@@ -4,8 +4,7 @@
   (setq evil-want-keybinding nil)
   :config
   (evil-mode 1)
-  (global-undo-tree-mode) ;; need undo tree before Emacs 28
-  (evil-set-undo-system 'undo-tree)
+  (evil-set-undo-system 'undo-redo)
   )
 
 (use-package evil-better-visual-line
@@ -83,7 +82,6 @@
 (use-package evil-textobj-line
   :ensure t
   )
-(require 'evil-textobj-line)
 
 (evil-set-leader 'motion (kbd "SPC"))
 (evil-set-leader 'normal (kbd "SPC"))
