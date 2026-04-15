@@ -162,13 +162,14 @@
 ;;   (require 'counsel)
 ;;  )
 
-(eval-after-load 'counsel
- '(add-hook 'org-mode-hook
-       (lambda ()
-         (define-key org-mode-map (kbd "C-c )") #'counsel-org-link)
-         (define-key evil-normal-state-map (kbd "TAB") 'org-cycle)
-         (org-expose-emphasis-markers-mode t)
-         )))
+;; (eval-after-load 'counsel
+(add-hook 'org-mode-hook
+          (lambda ()
+            ;; (define-key org-mode-map (kbd "C-c )") #'counsel-org-link)
+            (define-key evil-normal-state-map (kbd "TAB") 'org-cycle)
+            ;; (org-expose-emphasis-markers-mode t)
+            ))
+;; )
 
 ;; (setq counsel-outline-display-style 'title)
 ;; (setq org-id-link-to-org-use-id 'create-if-interactive-and-no-custom-id)
