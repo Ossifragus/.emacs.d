@@ -1,6 +1,12 @@
 ;; Enable Vertico
 (use-package vertico
   :ensure t
+  :bind (:map vertico-map
+              ("RET" . vertico-directory-enter)
+              ("DEL" . vertico-directory-delete-char)
+              ("M-DEL" . vertico-directory-delete-word))
+  ;; Tidy shadowed file names
+  :hook (rfn-eshadow-update-overlay . vertico-directory-tidy)
   :init
   (vertico-mode))
 
