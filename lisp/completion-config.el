@@ -57,8 +57,9 @@
 (use-package orderless
   :ensure t
   :custom
+  (orderless-matching-styles '(orderless-literal orderless-regexp orderless-flex))
   (completion-styles '(orderless basic))
-  (completion-category-overrides '((file (styles partial-completion))))
+  (completion-category-overrides '((file (styles partial-completion orderless))))
   (completion-category-defaults nil))
 
 ;; Corfu for in-buffer completion
