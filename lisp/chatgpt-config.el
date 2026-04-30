@@ -1,5 +1,10 @@
 (use-package chatgpt-shell
   :ensure t
+  :init
+  ;; Ensure the directory exists before the package tries to write to it
+  (let ((dir (expand-file-name "var/shell-maker/" user-emacs-directory)))
+    (unless (file-exists-p dir)
+      (make-directory dir t)))
   :config
   (setq chatgpt-shell-openai-key
         (auth-source-pick-first-password :host "api.openai.com"))

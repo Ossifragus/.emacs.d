@@ -1,3 +1,4 @@
+(require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 ; not write package-selected-packages
 ;; (defun package--save-selected-packages (&rest opt) nil)
@@ -38,7 +39,7 @@
 (add-to-list 'default-frame-alist '(font . "JuliaMono-16"))
 ;; (add-to-list 'default-frame-alist '(font . "Monospace-16"))
 
-(setq default-directory "~/Dropbox/")
+;; (setq default-directory "~/Dropbox/")
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 (setq backup-directory-alist '(("." . "~/.emacs.d/var/backup")))
 

@@ -6,19 +6,28 @@
 ;; 		"~/Dropbox/.Emacs/poly-R/")
 ;;               load-path))
  
+(use-package polymode
+  :ensure t)
 (use-package impatient-showdown
-  :ensure t)
+  :ensure t
+  :defer t)
 (use-package quarto-mode
-  :ensure t)
+  :ensure t
+  :defer t)
 (use-package poly-markdown
-  :ensure t)
+  :ensure t
+  :defer t)
 (use-package poly-R
-  :ensure t)
+  :ensure t
+  :defer t)
+(use-package poly-noweb
+  :ensure t
+  :defer t)
 ;; (require 'poly-noweb)
 ;; (require 'poly-markdown)
-(add-to-list 'auto-mode-alist '("\\.Rmd" . poly-markdown+r-mode))
-(add-to-list 'auto-mode-alist '("\\.Rnw" . poly-noweb+r-mode))
-(add-to-list 'auto-mode-alist '("\\.Rtex" . poly-noweb+r-mode))
+(add-to-list 'auto-mode-alist '("\\.Rmd\\'" . poly-markdown+r-mode))
+(add-to-list 'auto-mode-alist '("\\.Rnw\\'" . poly-noweb+r-mode))
+(add-to-list 'auto-mode-alist '("\\.Rtex\\'" . poly-noweb+r-mode))
 
 (defun my-markdown-hook ()
   (tex-fold-mode t)
@@ -64,25 +73,7 @@
 
 (provide 'polymode-config)
 
-;; (use-package markdown-mode
-;;   :ensure t
-;;   :mode ("\\.md\\'"))
-
-;; ;; require polymode
-;; (use-package polymode
-;;   :ensure t)
-;; (use-package poly-markdown
-;;   :ensure t
-;;   :config
-;;   (require 'poly-markdown))
-;; (use-package poly-R
-;;   :ensure t
-;;   :config (require 'poly-R))
-;; (use-package poly-noweb
-;;   :ensure t
-;;   :config (require 'poly-noweb))
-
-;; ;;; insert code chunk
+;;; insert code chunk
 ;; ;;; https://emacs.stackexchange.com/questions/27405/insert-code-chunk-in-r-markdown-with-yasnippet-and-polymode
 ;; (defun rmd-insert-r-chunk (header)
 ;;   "Insert an r-chunk HEADER in markdown mode.
