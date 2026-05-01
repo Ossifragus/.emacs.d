@@ -71,6 +71,9 @@
 
 (use-package agent-shell
     :ensure t
+    :vc (:url "https://github.com/xenodium/agent-shell"
+              ;; :rev "d48c239046e28c49a551b3ffaa657891304091b9")
+              :rev :newest)
     ;; :ensure-system-package
     ;; Add agent installation configs here
     ;; ((claude . "brew install claude-code")
