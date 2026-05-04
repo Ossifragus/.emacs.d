@@ -71,15 +71,17 @@
 
 (use-package agent-shell
     :ensure t
-    :vc (:url "https://github.com/xenodium/agent-shell"
-              ;; :rev "d48c239046e28c49a551b3ffaa657891304091b9")
-              :rev :newest)
+    ;; :vc (:url "https://github.com/xenodium/agent-shell"
+    ;;           ;; :rev "d48c239046e28c49a551b3ffaa657891304091b9")
+    ;;           :rev :newest)
     ;; :ensure-system-package
     ;; Add agent installation configs here
     ;; ((claude . "brew install claude-code")
     ;;  (claude-code-acp . "npm install -g @zed-industries/claude-code-acp"))
     :after evil
     :config
+    ;; (setq agent-shell-show-usage-at-turn-end t)
+    (setq agent-shell-google-gemini-acp-command '("gemini" "--acp"))
     (setq agent-shell-google-authentication
           (agent-shell-google-make-authentication
            :login t))
