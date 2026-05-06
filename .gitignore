@@ -10,6 +10,7 @@ var/
 .emacs.tmp/
 agent/
 chatgpt/
+history
 
 .chatgpt-shell.el
 .DS_Store

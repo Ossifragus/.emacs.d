@@ -42,6 +42,7 @@
 ;; https://github.com/nvm-sh/nvm
 ;; https://github.com/copilot-emacs/copilot.el
 ;; https://robert.kra.hn/posts/2023-02-22-copilot-emacs-setup/
+;; run M-x copilot-install-server and M-x copilot-login.
 (use-package copilot
   :ensure t
   ;; :vc (:url "https://github.com/copilot-emacs/copilot.el.git"
