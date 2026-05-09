@@ -9,9 +9,56 @@
 (setq TeX-PDF-mode t)
 (setq TeX-save-query  nil)
 (setq bibtex-align-at-equal-sign t)
+;; (server-start)
 (setq TeX-source-correlate-mode t)
-(setq LaTeX-command "latex --shell-escape -synctex=1")
-;; (setq LaTeX-command "/usr/local/texlive/2019/bin/x86_64-linux/pdflatex")
+(setq TeX-source-correlate-method 'synctex)
+(setq TeX-source-correlate-start-server t)
+(setq TeX-command-extra-options "--shell-escape")
+
+(defun my-TeX-evince-sync-view ()
+  (require 'url-util)
+  (let* ((uri (concat "file://"
+                      (replace-regexp-in-string
+                       "[?]" "%3F"
+                       (url-encode-url
+                        (expand-file-name
+                         (TeX-active-master (TeX-output-extension)))))))
+         (owner (dbus-call-method
+                 :session "org.gnome.Evince.Daemon"
+                 "/org/gnome/Evince/Daemon"
+                 "org.gnome.Evince.Daemon"
+                 "FindDocument"
+                 uri
+                 t)))
+    (if owner
+        (with-current-buffer (or (when TeX-current-process-region-p
+                                   (get-file-buffer (TeX-region-file t)))
+                                 (current-buffer))
+          (dbus-call-method
+           :session owner
+           "/org/gnome/Evince/Window/0"
+           "org.gnome.Evince.Window"
+           "SyncView"
+           (TeX-buffer-file-name)
+           (list :struct :int32 (1+ (TeX-current-offset))
+                 :int32 (1+ (current-column)))
+           :uint32 0)
+          (when (and (boundp 'TeX-view-evince-keep-focus)
+                     TeX-view-evince-keep-focus)
+            (select-frame-set-input-focus (selected-frame))))
+      (error "Couldn't find the Evince instance for %s" uri))))
+
+(defun my-TeX-evince-register-inverse-search ()
+  (interactive)
+  (require 'dbus)
+  (dbus-register-signal
+   :session nil "/org/gnome/Evince/Window/0"
+   "org.gnome.Evince.Window"
+   "SyncSource"
+   #'TeX-source-correlate-sync-source))
+
+(add-hook 'LaTeX-mode-hook 'my-TeX-evince-register-inverse-search)
+
 ;; Alternative 3: Use the external wmctrl tool in order to
 ;; force Emacs into the focus.
 (setq TeX-raise-frame-function
@@ -76,7 +123,10 @@
           TeX-view-program-selection '((output-pdf "Skim")))
     ;; (setq mac-option-key-is-meta nil)
     ))
- )
+ ((eq system-type 'gnu/linux)
+  (add-to-list 'TeX-view-program-list
+               '("Evince-Pascal" my-TeX-evince-sync-view))
+  (setq TeX-view-program-selection '((output-pdf "Evince-Pascal")))))
 
 (provide 'latex-config)
 
