@@ -19,7 +19,7 @@
       (string= (system-name) "OSHome"))
   (progn
     (setq default-frame-alist
-	  '((top . 0) (left . 72) (height . 100) (width . 81)))
+	  '((top . 0) (left . 0) (height . 54) (width . 81)))
     ))
  ((string= (system-name) "yoga")
   (progn
