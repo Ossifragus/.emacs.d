@@ -11,6 +11,15 @@
   ;;           :rev :newest)
   :config
   (require 'no-littering))
+;; (add-to-list 'default-frame-alist '(layers . nil)) ;; for GPU
+;; (setq frame-inhibit-implied-resize t)
+;; (add-to-list 'default-frame-alist '(visibility . t))
+;; (setq x-gtk-use-system-tooltips nil)
+;; (setq pgtk-use-im-context-on-new-connection t)
+;; (add-to-list 'default-frame-alist '(focus-handling . t))
+;; (add-to-list 'default-frame-alist '(no-focus-on-map . t))
+;; (add-to-list 'default-frame-alist '(undecorated . nil))
+(setq pgtk-wait-for-event-finish t)
 
 ;; different settings for different computers
 (cond

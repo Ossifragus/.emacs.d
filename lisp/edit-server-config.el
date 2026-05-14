@@ -20,6 +20,8 @@
   :config
   (setq atomic-chrome-default-major-mode 'org-mode)
   (setq atomic-chrome-buffer-open-style 'frame)
+  (setq atomic-chrome-select-frame 'current)
+  (setq ghost-text-display-buffer-function 'switch-to-buffer)
   (setq atomic-chrome-url-major-mode-alist
         '(("github\\.com" . gfm-mode)
           ("localhost:8888" . python-mode)
