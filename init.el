@@ -33,7 +33,7 @@
  ((string= (system-name) "yoga")
   (progn
     (setq default-frame-alist
-	  '((top . 0) (left . 0) (height . 100) (width . 81)))
+	  '((top . 0) (left . 0) (height . 30) (width . 81)))
     ))
  ((or (eq system-type 'darwin) (string= (system-name) "MBP16.local"))
   (progn
