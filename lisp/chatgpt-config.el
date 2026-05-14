@@ -104,6 +104,14 @@
 		  (evil-emacs-state))))
     )
 
+(use-package agent-recall
+  :ensure t
+  :hook (agent-shell-mode . agent-recall-track-sessions)
+  :config
+  (setq agent-recall-search-paths '("~/Dropbox" "~/S" "~/.emacs.d"))
+  (global-agent-recall-transcript-mode 1)
+  )
+
 (use-package ai-code
   :ensure t
   ;; :straight (:host github :repo "tninja/ai-code-interface.el") ;; if you want to use straight to install, no need to have MELPA setting above
