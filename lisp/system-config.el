@@ -1,10 +1,11 @@
 (use-package exec-path-from-shell
   :ensure t
   :config
-  (when (memq window-system '(mac ns x))
-    (exec-path-from-shell-initialize))
-  (when (daemonp)
-    (exec-path-from-shell-initialize)))
+  (exec-path-from-shell-initialize))
+  ;; (when (memq window-system '(mac ns x))
+  ;;   (exec-path-from-shell-initialize))
+  ;; (when (daemonp)
+  ;;   (exec-path-from-shell-initialize)))
 
 ;; Modern replacement for openwith: dired-open
 ;; This will automatically open these file types with the specified 
