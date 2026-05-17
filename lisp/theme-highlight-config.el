@@ -2,6 +2,12 @@
 (add-to-list 'default-frame-alist '(background-color . "Black"))
 (add-to-list 'default-frame-alist '(cursor-color . "Orchid"))
 
+(use-package hl-line
+  :ensure 
+  :config
+  (require 'hl-line)
+  (global-hl-line-mode 1))
+
 ;; load theme - pkg: color-theme-sanityinc-tomorrow
 (use-package color-theme-sanityinc-tomorrow
   :ensure t
@@ -43,8 +49,8 @@
 (use-package highlight-numbers
   :ensure t)
 
-;; highlight current line
-(global-hl-line-mode 1)
+(use-package highlight-indentation
+  :ensure t)
 
 ;; column width
 (setq-default fill-column 80)
