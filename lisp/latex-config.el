@@ -122,17 +122,20 @@
   (setq TeX-raise-frame-function
         (lambda ()
           (let ((frame (selected-frame)))
-            (run-at-time 0.1 nil
+            (run-at-time 0.2 nil
                          (lambda (f)
                            (when (frame-live-p f)
                              (make-frame-visible f)
-                             (select-frame-set-input-focus f)
                              (raise-frame f)
+                             (select-frame-set-input-focus f)
                              (if (fboundp 'x-focus-frame) (x-focus-frame f))
                              (if (fboundp 'pgtk-focus-frame) (pgtk-focus-frame f))
-                             ;; Fallback for GNOME
+                             ;; Fallback for GNOME/X11
                              (when (executable-find "wmctrl")
-                               (call-process "wmctrl" nil nil nil "-a" "Emacs"))))
+                               (let ((name (frame-parameter f 'name)))
+                                 (if (and name (not (string= name "")))
+                                     (call-process "wmctrl" nil nil nil "-a" name)
+                                   (call-process "wmctrl" nil nil nil "-x" "-a" "Emacs"))))))
                          frame)))))
 
 (provide 'latex-config)
