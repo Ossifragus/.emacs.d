@@ -119,6 +119,7 @@
     (setq TeX-view-program-selection '((output-pdf "Evince-Pascal")))))
 
   ;; Focus strategy for PGTK/Wayland/GNOME
+  ;; install Just Perfection
   (setq TeX-raise-frame-function
         (lambda ()
           (let ((frame (selected-frame)))
