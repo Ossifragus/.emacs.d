@@ -68,6 +68,7 @@
   :custom
   (corfu-auto t)
   (corfu-quit-no-match 'separator)
+  (global-corfu-minibuffer nil)
   :init
   (global-corfu-mode))
 
