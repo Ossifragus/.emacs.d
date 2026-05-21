@@ -18,6 +18,7 @@
 (use-package atomic-chrome
   :ensure t
   :config
+  (evil-set-initial-state 'atomic-chrome-edit-mode 'normal)
   (setq atomic-chrome-default-major-mode 'org-mode)
   (setq atomic-chrome-buffer-open-style 'frame)
   (setq atomic-chrome-select-frame 'current)
