@@ -15,4 +15,4 @@ history
 .chatgpt-shell.el
 .DS_Store
 /.agent-shell/
-.antigravitycli
+.antigravitycli/
