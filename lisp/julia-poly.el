@@ -47,12 +47,9 @@
 
 ;;; Weave.jl settings
 (defun poly-julia-run-command (command callback &rest _ignore)
-  (let ((inferior-buffer (inferior-julia-repl-vterm-buffer)))
+  (let ((inferior-buffer (julia-repl-inferior-buffer)))
     (display-buffer inferior-buffer)
-    (with-current-buffer inferior-buffer
-      (julia-with-repl-vterm-send-string command)
-      (julia-with-repl-vterm-send-string "\n")
-      (goto-char (point-max)))))
+    (julia-repl--send-string command)))
 
 (defun poly-julia-callback (proc string))
 
@@ -76,8 +73,8 @@
 (add-hook 'markdown-mode-hook
 	  (lambda ()
 	    (when (boundp 'poly-markdown+julia-mode)
-	      (define-key poly-markdown+julia-mode-map (kbd "C-c o") #'julia-with-repl-vterm-switch-to-repl-buffer)
-	      (define-key poly-markdown+julia-mode-map (kbd "C-c C-z") #'julia-with-repl-vterm-switch-to-repl-buffer)
+	      (define-key poly-markdown+julia-mode-map (kbd "C-c o") #'julia-repl)
+	      (define-key poly-markdown+julia-mode-map (kbd "C-c C-z") #'julia-repl)
 	      (define-key poly-markdown+julia-mode-map (kbd "C-c w") 'jmarkdown-weave-to-markdown)
 	      (define-key poly-markdown+julia-mode-map (kbd "C-l") 'recenter-top-bottom)))
 	  'append)

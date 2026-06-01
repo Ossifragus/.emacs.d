@@ -17,11 +17,4 @@
   (local-set-key (kbd "C-c C-l") 'python-shell-send-file))
 
 (add-hook 'python-mode-hook 'my-python-hook)
-
-(use-package conda
-  :ensure t
-  :config
-  (require 'conda)
-  )
-
 (provide 'python-config)

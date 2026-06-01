@@ -27,7 +27,7 @@
   :ensure t
   :config
   (require 'highlight-parentheses)
-  (setq hl-paren-colors '("red" "yellow" "green" "IndianRed" "cyan" "orange"  "magenta", "purple"))
+  (setq hl-paren-colors '("red" "yellow" "green" "IndianRed" "cyan" "orange"  "magenta" "purple"))
   (define-globalized-minor-mode global-highlight-parentheses-mode
     highlight-parentheses-mode
     (lambda ()

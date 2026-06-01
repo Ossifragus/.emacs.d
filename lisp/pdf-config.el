@@ -5,18 +5,15 @@
   ;; (pdf-tools-install)
   (pdf-loader-install)
   ;; trim margin consistently
-  (defadvice pdf-view-scroll-up-or-next-page (after re-slice activate)
-    (if (pdf-view-current-slice)
-        (pdf-view-set-slice-from-bounding-box)))
-  (defadvice pdf-view-scroll-down-or-previous-page (after re-slice activate)
-    (if (pdf-view-current-slice)
-        (pdf-view-set-slice-from-bounding-box)))
-  (defadvice pdf-view-next-line-or-next-page (after re-slice activate)
-    (if (pdf-view-current-slice)
-        (pdf-view-set-slice-from-bounding-box)))
-  (defadvice pdf-view-previous-line-or-previous-page (after re-slice activate)
-    (if (pdf-view-current-slice)
-        (pdf-view-set-slice-from-bounding-box)))
+  (defun my-pdf-view-re-slice-advice (&rest _)
+    "Automatically re-slice from bounding box after scrolling."
+    (when (pdf-view-current-slice)
+      (pdf-view-set-slice-from-bounding-box)))
+
+  (advice-add 'pdf-view-scroll-up-or-next-page :after #'my-pdf-view-re-slice-advice)
+  (advice-add 'pdf-view-scroll-down-or-previous-page :after #'my-pdf-view-re-slice-advice)
+  (advice-add 'pdf-view-next-line-or-next-page :after #'my-pdf-view-re-slice-advice)
+  (advice-add 'pdf-view-previous-line-or-previous-page :after #'my-pdf-view-re-slice-advice)
   )
 
 (use-package pdf-view-restore

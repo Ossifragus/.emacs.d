@@ -5,6 +5,27 @@
   :config
   (evil-mode 1)
   (evil-set-undo-system 'undo-redo)
+
+  ;;; esc quits
+  (define-key evil-normal-state-map [escape] 'keyboard-quit)
+  (define-key evil-visual-state-map [escape] 'keyboard-quit)
+  (define-key minibuffer-local-map [escape] 'minibuffer-keyboard-quit)
+  (define-key minibuffer-local-ns-map [escape] 'minibuffer-keyboard-quit)
+  (define-key minibuffer-local-completion-map [escape] 'minibuffer-keyboard-quit)
+  (define-key minibuffer-local-must-match-map [escape] 'minibuffer-keyboard-quit)
+  (define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
+
+  ;;; basic emacs commands
+  (define-key evil-normal-state-map "\C-y" 'yank)
+  (define-key evil-insert-state-map "\C-y" 'yank)
+  (define-key evil-visual-state-map "\C-y" 'yank)
+  (define-key evil-insert-state-map "\C-e" 'end-of-line)
+  (define-key evil-insert-state-map "\C-n" 'next-line)
+  ;; (define-key evil-normal-state-map "\C-w" 'evil-delete)
+  ;; (define-key evil-insert-state-map "\C-w" 'evil-delete)
+  ;; (define-key evil-visual-state-map "\C-w" 'evil-delete)
+  (define-key evil-insert-state-map "\C-p" 'previous-line)
+  (define-key evil-insert-state-map "\C-r" 'search-backward)
   )
 
 (use-package evil-better-visual-line
@@ -37,33 +58,11 @@
   (evil-visual-mark-mode 0)
   )
 
-;;; esc quits
-(define-key evil-normal-state-map [escape] 'keyboard-quit)
-(define-key evil-visual-state-map [escape] 'keyboard-quit)
-(define-key minibuffer-local-map [escape] 'minibuffer-keyboard-quit)
-(define-key minibuffer-local-ns-map [escape] 'minibuffer-keyboard-quit)
-(define-key minibuffer-local-completion-map [escape] 'minibuffer-keyboard-quit)
-(define-key minibuffer-local-must-match-map [escape] 'minibuffer-keyboard-quit)
-(define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
-
-;;; basic emacs commands
-(define-key evil-normal-state-map "\C-y" 'yank)
-(define-key evil-insert-state-map "\C-y" 'yank)
-(define-key evil-visual-state-map "\C-y" 'yank)
-(define-key evil-insert-state-map "\C-e" 'end-of-line)
-(define-key evil-insert-state-map "\C-n" 'next-line)
-;; (define-key evil-normal-state-map "\C-w" 'evil-delete)
-;; (define-key evil-insert-state-map "\C-w" 'evil-delete)
-;; (define-key evil-visual-state-map "\C-w" 'evil-delete)
-(define-key evil-insert-state-map "\C-p" 'previous-line)
-(define-key evil-insert-state-map "\C-r" 'search-backward)
-
 (unless (display-graphic-p)
-	;; (require 'evil-terminal-cursor-changer)
   (use-package evil-terminal-cursor-changer
-    :ensure t)
-	(evil-terminal-cursor-changer-activate) ; or (etcc-on)
-	)
+    :ensure t
+    :config
+    (evil-terminal-cursor-changer-activate)))
 (setq evil-motion-state-cursor 'box)  ; █
 (setq evil-visual-state-cursor 'box)  ; █
 (setq evil-normal-state-cursor 'box)  ; █

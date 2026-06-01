@@ -3,9 +3,7 @@
 (add-to-list 'default-frame-alist '(cursor-color . "Orchid"))
 
 (use-package hl-line
-  :ensure 
   :config
-  (require 'hl-line)
   (global-hl-line-mode 1))
 
 ;; load theme - pkg: color-theme-sanityinc-tomorrow

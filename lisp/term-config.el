@@ -4,18 +4,16 @@
   :config
   ;; (setq vterm-kill-buffer-on-exit nil)
   (defun starts-with-p (line prompt)
-    "Check if LINE starts with PROMPT"
-    (string= (substring line 0 (length prompt)) prompt)
-    )
+    "Check if LINE starts with PROMPT."
+    (and line (string-prefix-p prompt line)))
   (defun is-a-prompt-p (line)
     "Check if the LINE is the input line of some interactive process."
-    (or
-     (starts-with-p line "$")
-     (starts-with-p line "gnuplot>")
-     (starts-with-p line "julia>")
-     (starts-with-p line ">>>")
-     )
-    )
+    (and line
+         (or
+          (starts-with-p line "$")
+          (starts-with-p line "gnuplot>")
+          (starts-with-p line "julia>")
+          (starts-with-p line ">>>"))))
   (defun send-command-input (command &optional args)
     "Check if the point is in the input line, if it is, send the
      command with vterm. This works only if the first characters

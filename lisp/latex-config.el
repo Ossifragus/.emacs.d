@@ -64,7 +64,7 @@
 	(set-face-foreground 'font-latex-warning-face "red")
 
 	(local-set-key (kbd "C-c C-f") 'tex-frame)
-	(local-set-key (kbd "$") 'insert-dollor-sign)
+	(local-set-key (kbd "$") 'insert-dollar-sign)
 	(setq TeX-parse-self t)
 	(define-key LaTeX-mode-map (kbd "TAB") 'TeX-complete-symbol)
 	(tex-fold-mode t)
@@ -75,7 +75,7 @@
 	;; (outline-minor-mode t)
 	)
 
-(defun insert-dollor-sign ()
+(defun insert-dollar-sign ()
   (interactive)
   (insert "$$")
   (backward-char 1))
