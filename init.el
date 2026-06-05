@@ -28,25 +28,28 @@
       (string= (system-name) "OSHome"))
   (progn
     (setq default-frame-alist
-	  '((top . 0) (left . 0) (height . 54) (width . 81)))
+     '((top . 0) (left . 0) (height . 54) (width . 81) (font . "JuliaMono-16")))
+    (set-frame-font "16")
     ))
  ((string= (system-name) "yoga")
   (progn
     (setq default-frame-alist
-	  '((top . 0) (left . 0) (height . 30) (width . 81)))
+     '((top . 0) (left . 0) (height . 39) (width . 81) (font . "JuliaMono-12")))
+    (set-frame-font "12")
     ))
  ((or (eq system-type 'darwin) (string= (system-name) "MBP16.local"))
   (progn
     (setq default-frame-alist
-	  '((top . 0) (left . 0) (height . 100) (width . 81)))
+     '((top . 0) (left . 0) (height . 99) (width . 81) (font . "JuliaMono-16")))
+    (set-frame-font "16")
     ;; (setq mac-option-key-is-meta nil)
     ))
+ (t
+  (progn
+    (add-to-list 'default-frame-alist '(font . "JuliaMono-16"))
+    (set-frame-font "16")
+    ))
  )
-
-;; uniform setings for all computers
-(set-frame-font "16")
-(add-to-list 'default-frame-alist '(font . "JuliaMono-16"))
-;; (add-to-list 'default-frame-alist '(font . "Monospace-16"))
 
 ;; (setq default-directory "~/Dropbox/")
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
