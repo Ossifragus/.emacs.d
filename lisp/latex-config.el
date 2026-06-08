@@ -15,49 +15,52 @@
 (setq TeX-source-correlate-start-server t)
 (setq TeX-command-extra-options "--shell-escape")
 
-(defun my-TeX-evince-sync-view ()
-  (require 'url-util)
-  (let* ((uri (concat "file://"
-                      (replace-regexp-in-string
-                       "[?]" "%3F"
-                       (url-encode-url
-                        (expand-file-name
-                         (TeX-active-master (TeX-output-extension)))))))
-         (owner (dbus-call-method
-                 :session "org.gnome.Evince.Daemon"
-                 "/org/gnome/Evince/Daemon"
-                 "org.gnome.Evince.Daemon"
-                 "FindDocument"
-                 uri
-                 t)))
-    (if owner
-        (with-current-buffer (or (when TeX-current-process-region-p
-                                   (get-file-buffer (TeX-region-file t)))
-                                 (current-buffer))
-          (dbus-call-method
-           :session owner
-           "/org/gnome/Evince/Window/0"
-           "org.gnome.Evince.Window"
-           "SyncView"
-           (TeX-buffer-file-name)
-           (list :struct :int32 (1+ (TeX-current-offset))
-                 :int32 (1+ (current-column)))
-           :uint32 0)
-          (when (and (boundp 'TeX-view-evince-keep-focus)
-                     TeX-view-evince-keep-focus)
-            (select-frame-set-input-focus (selected-frame))))
-      (error "Couldn't find the Evince instance for %s" uri))))
+(defun my-TeX-okular--document-spec ()
+  (let ((pdf-file (expand-file-name
+                   (TeX-active-master (TeX-output-extension))))
+        (source-file (expand-file-name (TeX-buffer-file-name))))
+    (list pdf-file
+          (format "file:%s#src:%s%s"
+                  pdf-file
+                  (TeX-current-line)
+                  source-file))))
 
-(defun my-TeX-evince-register-inverse-search ()
-  (interactive)
-  (require 'dbus)
-  (dbus-register-signal
-   :session nil "/org/gnome/Evince/Window/0"
-   "org.gnome.Evince.Window"
-   "SyncSource"
-   #'TeX-source-correlate-sync-source))
+(defun my-TeX-okular--find-instance (pdf-file)
+  (when (require 'dbus nil t)
+    (catch 'instance
+      (dolist (service (dbus-list-names :session))
+        (when (or (string= service "org.kde.okular")
+                  (string-prefix-p "org.kde.okular-" service))
+          (dolist (object-path (cons "/okular"
+                                     (mapcar (lambda (index)
+                                               (format "/okular%d" index))
+                                             (number-sequence 1 16))))
+            (let ((current-document
+                   (ignore-errors
+                     (dbus-call-method
+                      :session service object-path
+                      "org.kde.okular" "currentDocument"))))
+              (when (and (stringp current-document)
+                         (string= (expand-file-name current-document) pdf-file))
+                (throw 'instance (cons service object-path))))))))))
 
-(add-hook 'LaTeX-mode-hook 'my-TeX-evince-register-inverse-search)
+(defun my-TeX-okular-sync-view ()
+  (pcase-let* ((`(,pdf-file ,document-spec) (my-TeX-okular--document-spec))
+               (instance (my-TeX-okular--find-instance pdf-file)))
+    (if instance
+        (condition-case nil
+            (progn
+              (dbus-call-method
+               :session (car instance) (cdr instance)
+               "org.kde.okular" "openDocument"
+               document-spec)
+              (ignore-errors
+                (dbus-call-method
+                 :session (car instance) "/okularshell"
+                 "org.kde.okular" "tryRaise" "")))
+          (error
+           (start-process "okular" nil "okular" document-spec)))
+      (start-process "okular" nil "okular" document-spec))))
 
 (defun my-LaTeX-hook ()
 	(set-face-foreground 'font-latex-math-face "burlywood")
@@ -114,9 +117,10 @@
           '(("Skim" "/Applications/Skim.app/Contents/SharedSupport/displayline -g -b %n %o %b"))
           TeX-view-program-selection '((output-pdf "Skim"))))
    ((eq system-type 'gnu/linux)
-    (add-to-list 'TeX-view-program-list
-                 '("Evince-Pascal" my-TeX-evince-sync-view))
-    (setq TeX-view-program-selection '((output-pdf "Evince-Pascal")))))
+    (unless (assoc "Okular" TeX-view-program-list)
+      (add-to-list 'TeX-view-program-list
+                   '("Okular" my-TeX-okular-sync-view)))
+    (setq TeX-view-program-selection '((output-pdf "Okular")))))
 
   ;; Focus strategy for PGTK/Wayland/GNOME
   ;; install Just Perfection
@@ -141,10 +145,6 @@
 
 (provide 'latex-config)
 
-;; for inverse search to bring emacs to front
-;; This is the most comprehensive customization tool for GNOME and is usually the first to be updated for new GNOME versions.
-;; 1.  Search for Just Perfection in your Extension Manager or on the GNOME Extensions website.
-;; 2.  Install and open its Settings.
-;; 3.  Go to the Behavior tab.
-;; 4.  Look for Window Demands Attention Focus and turn it ON.
-;; 5.  This will bypass the "Window is ready" notification and focus Emacs immediately.
+;; Okular inverse search:
+;; Configure Okular -> Settings -> Configure Okular -> Editor:
+;;   Custom Text Editor: emacsclient --no-wait +%l %f
