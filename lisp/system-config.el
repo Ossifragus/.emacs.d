@@ -31,4 +31,52 @@
           ("docx" . "libreoffice --writer")
           ("odt" . "libreoffice --writer"))))
 
+;; ;; ;; Configure proxy
+;; ;; (setq url-proxy-services
+;; ;;       '(("http" . "127.0.0.1:7897")
+;; ;;         ("https" . "127.0.0.1:7897")))
+
+;; ;; ;; Set proxy for ChatGPT buffers only
+;; ;; (add-hook 'chatgpt-shell-mode-hook
+;; ;;           (lambda ()
+;; ;;             (setenv "http_proxy" "http://127.0.0.1:7897")
+;; ;;             (setenv "https_proxy" "http://127.0.0.1:7897")
+;; ;;             (add-hook 'kill-buffer-hook
+;; ;;                       (lambda ()
+;; ;;                         (setenv "http_proxy" nil)
+;; ;;                         (setenv "https_proxy" nil))
+;; ;;                       nil t)))
+
+;; ;; No global proxy settings at all!
+
+;; (defun chatgpt-with-proxy (orig-func &rest args)
+;;   "Run ChatGPT with proxy environment variables."
+;;   (let ((process-environment (copy-sequence process-environment)))
+;;     (setenv "http_proxy" "http://127.0.0.1:7897")
+;;     (setenv "https_proxy" "http://127.0.0.1:7897")
+;;     ;; Also set url-proxy-services for url.el
+;;     (cl-letf (((symbol-value 'url-proxy-services) 
+;;                '(("http" . "127.0.0.1:7897")
+;;                  ("https" . "127.0.0.1:7897"))))
+;;       (apply orig-func args))))
+
+;; ;; Advise all ChatGPT functions
+;; (dolist (cmd '(chatgpt-shell-send
+;;                chatgpt-shell-query
+;;                chatgpt-shell-query-async
+;;                chatgpt-shell-send-to-shell
+;;                chatgpt-shell-clear
+;;                chatgpt-shell-new))
+;;   (advice-add cmd :around #'chatgpt-with-proxy))
+
+;; ;; Also handle the shell buffer
+;; (defun my-chatgpt-shell-proxy-setup ()
+;;   "Set proxy in chatgpt-shell buffers."
+;;   (setq-local url-proxy-services '(("http" . "127.0.0.1:7897")
+;;                                    ("https" . "127.0.0.1:7897")))
+;;   (setenv "http_proxy" "http://127.0.0.1:7897")
+;;   (setenv "https_proxy" "http://127.0.0.1:7897"))
+
+;; (add-hook 'chatgpt-shell-mode-hook #'my-chatgpt-shell-proxy-setup)
+
 (provide 'system-config)

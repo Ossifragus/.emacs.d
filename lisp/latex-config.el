@@ -123,7 +123,7 @@
     (setq TeX-view-program-selection '((output-pdf "Okular")))))
 
   ;; Focus strategy for PGTK/Wayland/GNOME
-  ;; install Just Perfection
+  ;; install Just Perfection; turn on Window Demand Attention Focus
   (setq TeX-raise-frame-function
         (lambda ()
           (let ((frame (selected-frame)))
