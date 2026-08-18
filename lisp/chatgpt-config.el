@@ -50,6 +50,7 @@
   :config
   (require 'copilot)
   (setq copilot-indent-offset-warning-disable t)
+  (setq copilot-max-char-warning-disable t)
   ;; (cond
    ;; ((eq system-type 'gnu/linux)
    ;;  (progn (setq copilot-node-executable
