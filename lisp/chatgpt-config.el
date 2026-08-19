@@ -83,6 +83,8 @@
     :after evil
     :config
     ;; (setq agent-shell-show-usage-at-turn-end t)
+    ;; Keep the agent picker, with Codex selected by default.
+    (setq agent-shell-preferred-agent-config '(preselect . codex))
     (setq agent-shell-google-gemini-acp-command '("gemini" "--acp"))
     (setq agent-shell-google-authentication
           (agent-shell-google-make-authentication
