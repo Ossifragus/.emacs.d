@@ -119,6 +119,12 @@
   :ensure t
   ;; :straight (:host github :repo "tninja/ai-code-interface.el") ;; if you want to use straight to install, no need to have MELPA setting above
   :config
+  ;; Disable side-window behavior to use regular Emacs windows/frames (like agent-shell)
+  (setq ai-code-backends-infra-use-side-window nil)
+  ;; Open ai-code and backend session buffers in the current window
+  (add-to-list 'display-buffer-alist
+               '("\\*\\(ai-code\\|antigravity\\)"
+                 (display-buffer-same-window)))
   ;; use codex as backend, other options are 'claude-code, 'gemini, 'github-copilot-cli, 'opencode, 'grok, 'cursor, 'kiro, 'codebuddy, 'aider, 'agent-shell, 'claude-code-ide, 'claude-code-el
   ;; (ai-code-set-backend 'agent-shell)
   (ai-code-set-backend 'antigravity)
