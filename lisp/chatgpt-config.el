@@ -137,46 +137,46 @@
   (ai-code-prompt-filepath-completion-mode 1)
   ;; Optional: Ask AI to run test after code changes, for a tighter build-test loop
   (setq ai-code-auto-test-type 'ask-me)
-  ;; Evil state-specific RET behavior in AI terminal sessions:
-  ;; insert mode inserts a newline; normal mode submits the prompt.
-  (defcustom my-ai-code-default-multiline-input-sequence "\C-j"
-    "Fallback terminal sequence for inserting a newline in an AI prompt.
-An AI Code backend's own multiline sequence takes precedence when configured."
-    :type 'string
-    :group 'ai-code)
+;;   ;; Evil state-specific RET behavior in AI terminal sessions:
+;;   ;; insert mode inserts a newline; normal mode submits the prompt.
+;;   (defcustom my-ai-code-default-multiline-input-sequence "\C-j"
+;;     "Fallback terminal sequence for inserting a newline in an AI prompt.
+;; An AI Code backend's own multiline sequence takes precedence when configured."
+;;     :type 'string
+;;     :group 'ai-code)
 
-  (defun my-ai-code-insert-newline ()
-    "Insert a newline in the current AI terminal prompt."
-    (interactive)
-    (if ai-code-backends-infra--multiline-input-sequence
-        (ai-code-backends-infra--terminal-send-multiline-input)
-      (ai-code-backends-infra--terminal-send-string
-       my-ai-code-default-multiline-input-sequence)))
+;;   (defun my-ai-code-insert-newline ()
+;;     "Insert a newline in the current AI terminal prompt."
+;;     (interactive)
+;;     (if ai-code-backends-infra--multiline-input-sequence
+;;         (ai-code-backends-infra--terminal-send-multiline-input)
+;;       (ai-code-backends-infra--terminal-send-string
+;;        my-ai-code-default-multiline-input-sequence)))
 
-  (defun my-ai-code-submit-prompt ()
-    "Submit the current AI terminal prompt."
-    (interactive)
-    (ai-code-backends-infra--terminal-send-return))
+;;   (defun my-ai-code-submit-prompt ()
+;;     "Submit the current AI terminal prompt."
+;;     (interactive)
+;;     (ai-code-backends-infra--terminal-send-return))
 
-  (defun my-ai-code-evil-ret-bindings (buffer &rest _)
-    "Install state-specific RET bindings in AI terminal BUFFER."
-    (with-current-buffer buffer
-      ;; Vterm distinguishes the control character RET from the GUI/terminal
-      ;; <return> event, so override both representations of the Enter key.
-      (dolist (key (list (kbd "RET") (kbd "<return>")))
-        (evil-local-set-key 'insert key #'my-ai-code-insert-newline)
-        (evil-local-set-key 'normal key #'my-ai-code-submit-prompt))))
+;;   (defun my-ai-code-evil-ret-bindings (buffer &rest _)
+;;     "Install state-specific RET bindings in AI terminal BUFFER."
+;;     (with-current-buffer buffer
+;;       ;; Vterm distinguishes the control character RET from the GUI/terminal
+;;       ;; <return> event, so override both representations of the Enter key.
+;;       (dolist (key (list (kbd "RET") (kbd "<return>")))
+;;         (evil-local-set-key 'insert key #'my-ai-code-insert-newline)
+;;         (evil-local-set-key 'normal key #'my-ai-code-submit-prompt))))
 
-  ;; Also make SPC in Evil normal state trigger the prompt-entry UI.
-  (with-eval-after-load 'evil
-    (ai-code-backends-infra-evil-setup)
-    (advice-add 'ai-code-backends-infra--configure-session-buffer
-                :after #'my-ai-code-evil-ret-bindings)
-    ;; Refresh sessions that were created before this configuration was loaded.
-    (dolist (buffer (buffer-list))
-      (when (buffer-local-value
-             'ai-code-backends-infra--session-terminal-backend buffer)
-        (my-ai-code-evil-ret-bindings buffer))))
+;;   ;; Also make SPC in Evil normal state trigger the prompt-entry UI.
+;;   (with-eval-after-load 'evil
+;;     (ai-code-backends-infra-evil-setup)
+;;     (advice-add 'ai-code-backends-infra--configure-session-buffer
+;;                 :after #'my-ai-code-evil-ret-bindings)
+;;     ;; Refresh sessions that were created before this configuration was loaded.
+;;     (dolist (buffer (buffer-list))
+;;       (when (buffer-local-value
+;;              'ai-code-backends-infra--session-terminal-backend buffer)
+;;         (my-ai-code-evil-ret-bindings buffer))))
   ;; Optional: Turn on auto-revert buffer, so that the AI code change automatically appears in the buffer
   (global-auto-revert-mode 1)
   (setq auto-revert-interval 1) ;; set to 1 second for faster update
