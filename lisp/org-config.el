@@ -6,6 +6,10 @@
   (setq org-cite-activate-processor 'nil))
 (require 'ox-ipynb)
 
+(use-package ox-pandoc
+  :ensure t
+  :after org)
+
 (use-package org-modern
   :ensure t
   :defer t
@@ -49,8 +53,6 @@
   ;; (setq org-appear-delay 0.0) 
   )
 
-;; (require 'ox-reveal)
-;; (require 'org-ref)
 (add-to-list 'auto-mode-alist '("\\.org.txt" . org-mode))
 ;; (setq org-re-reveal-root "file:///home/ossifragus/Dropbox/mydoc/reinstallOS/reveal.js")
 
@@ -73,10 +75,6 @@
         ;; ("SOMEDAY" . (:foreground "LimeGreen" :weight bold))
         ))
 
-(use-package ox-gfm
-  :ensure t
-    )
-
 ;; (use-package julia-vterm
 ;;   :ensure t
 ;;   )
@@ -88,7 +86,6 @@
 (eval-after-load 'org
   '(progn
      ;; toggle C-TAB (org-force-cycle-archived) in org-mode
-   (require 'ox-gfm nil t)
      (define-key org-mode-map [C-tab] nil)
    (setf org-highlight-latex-and-related '(latex))
      ;; (define-key org-mode-map (kbd "C-c l") 'org-store-link)
@@ -285,4 +282,3 @@
 ;;   :defer t)
 
 (provide 'org-config)
-
