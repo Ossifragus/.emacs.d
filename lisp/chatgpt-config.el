@@ -82,6 +82,38 @@
     ;;  (claude-code-acp . "npm install -g @zed-industries/claude-code-acp"))
     :after evil
     :config
+    ;; Antigravity (ACP)
+    ;; npm install -g agy-acp 
+    (defcustom agent-shell-antigravity-acp-command
+      '("agy-acp")
+      "Command and parameters for the Antigravity ACP client."
+      :type '(repeat string)
+      :group 'agent-shell)
+
+    (defun agent-shell-antigravity-make-config ()
+      "Create an Antigravity agent configuration."
+      (agent-shell-make-agent-config
+       :identifier 'antigravity
+       :mode-line-name "Antigravity"
+       :buffer-name "Antigravity"
+       :shell-prompt "Antigravity> "
+       :shell-prompt-regexp "Antigravity> "
+       :icon-name "gemini.png"
+       :client-maker (lambda (buffer)
+                       (agent-shell--make-acp-client
+                        :command (car agent-shell-antigravity-acp-command)
+                        :command-params (cdr agent-shell-antigravity-acp-command)
+                        :context-buffer buffer))
+       :install-instructions "Install with `npm install -g agy-acp` and ensure `agy` is installed."))
+
+    (add-to-list 'agent-shell-agent-configs #'agent-shell-antigravity-make-config)
+
+    (defun agent-shell-antigravity ()
+      "Start an interactive Antigravity agent shell."
+      (interactive)
+      (agent-shell--dwim :config (agent-shell-antigravity-make-config)
+                         :new-shell t))
+
     ;; (setq agent-shell-show-usage-at-turn-end t)
     ;; Keep the agent picker, with Codex selected by default.
     (setq agent-shell-preferred-agent-config '(preselect . codex))

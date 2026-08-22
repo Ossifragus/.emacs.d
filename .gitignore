@@ -16,3 +16,4 @@ history
 .DS_Store
 /.agent-shell/
 .antigravitycli/
+ai-code-backends-history.el
