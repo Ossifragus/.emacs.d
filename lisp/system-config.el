@@ -8,28 +8,48 @@
   ;;   (exec-path-from-shell-initialize)))
 
 ;; Modern replacement for openwith: dired-open
-;; This will automatically open these file types with the specified 
-;; external programs when you press RET on them in Dired.
+;; Automatically open these file types with external programs
+;; when pressing RET in Dired or opening via find-file (C-x C-f).
 (use-package dired-open
   :ensure t
   :config
   (setq dired-open-extensions
-        '(("pdf" . "evince")
-          ("jpg" . "evince")
-          ("m4v" . "smplayer")
-          ("mp4" . "smplayer")
-          ("MP4" . "smplayer")
-          ("MTS" . "smplayer")
-          ("mpg" . "smplayer")
-          ("mov" . "smplayer")
-          ("avi" . "smplayer")
-          ("AVI" . "smplayer")
-          ("flv" . "smplayer")
-          ("xls" . "libreoffice --calc")
+        '(("pdf"  . "papers")
+          ("jpg"  . "papers")
+          ("jpeg" . "papers")
+          ("png"  . "papers")
+          ("dot"  . "xdot")
+          ("m4v"  . "smplayer")
+          ("mp4"  . "smplayer")
+          ("MP4"  . "smplayer")
+          ("MTS"  . "smplayer")
+          ("mpg"  . "smplayer")
+          ("mov"  . "smplayer")
+          ("avi"  . "smplayer")
+          ("AVI"  . "smplayer")
+          ("flv"  . "smplayer")
+          ("xls"  . "libreoffice --calc")
           ("xlsx" . "libreoffice --calc")
-          ("doc" . "libreoffice --writer")
+          ("doc"  . "libreoffice --writer")
           ("docx" . "libreoffice --writer")
-          ("odt" . "libreoffice --writer"))))
+          ("odt"  . "libreoffice --writer")))
+
+  ;; Intercept find-file commands (C-x C-f) before Emacs creates or parses the buffer
+  (defun my/find-file-open-externally-advice (orig-fn filename &rest args)
+    "Open FILENAME with external application if its extension is in `dired-open-extensions`."
+    (let* ((ext (and (stringp filename)
+                     (file-name-extension filename)
+                     (downcase (file-name-extension filename))))
+           (app (and ext (cdr (assoc ext dired-open-extensions)))))
+      (if (and app (file-exists-p filename) (not (file-directory-p filename)))
+          (progn
+            (start-process-shell-command app nil (format "%s %s" app (shell-quote-argument (expand-file-name filename))))
+            (message "Opened %s with %s" (file-name-nondirectory filename) app))
+        (apply orig-fn filename args))))
+
+  (advice-add 'find-file :around #'my/find-file-open-externally-advice)
+  (advice-add 'find-file-other-window :around #'my/find-file-open-externally-advice)
+  (advice-add 'find-file-other-frame :around #'my/find-file-open-externally-advice))
 
 ;; ;; ;; Configure proxy
 ;; ;; (setq url-proxy-services
