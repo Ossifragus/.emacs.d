@@ -21,36 +21,6 @@
 ;; (add-to-list 'default-frame-alist '(undecorated . nil))
 (setq pgtk-wait-for-event-finish t)
 
-;; different settings for different computers
-(cond
- ((or (string= (system-name) "aust319")
-      (string= (system-name) "t1700")
-      (string= (system-name) "OSHome"))
-  (progn
-    (setq default-frame-alist
-     '((top . 0) (left . 0) (height . 54) (width . 81) (font . "JuliaMono-16")))
-    (set-frame-font "16")
-    ))
- ((string= (system-name) "yoga")
-  (progn
-    (setq default-frame-alist
-     '((top . 0) (left . 0) (height . 39) (width . 81) (font . "JuliaMono-12")))
-    (set-frame-font "12")
-    ))
- ((or (eq system-type 'darwin) (string= (system-name) "MBP16.local"))
-  (progn
-    (setq default-frame-alist
-     '((top . 0) (left . 0) (height . 99) (width . 81) (font . "JuliaMono-16")))
-    (set-frame-font "16")
-    ;; (setq mac-option-key-is-meta nil)
-    ))
- (t
-  (progn
-    (add-to-list 'default-frame-alist '(font . "JuliaMono-16"))
-    (set-frame-font "16")
-    ))
- )
-
 ;; (setq default-directory "~/Dropbox/")
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 (setq backup-directory-alist '(("." . "~/.emacs.d/var/backup")))
