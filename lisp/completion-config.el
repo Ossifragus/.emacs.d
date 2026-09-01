@@ -1,6 +1,8 @@
 ;; Enable Vertico
 (use-package vertico
   :ensure t
+  :custom
+  (vertico-preselect 'first)
   :bind (:map vertico-map
               ("RET" . vertico-directory-enter)
               ("DEL" . vertico-directory-delete-char)
