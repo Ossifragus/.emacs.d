@@ -75,6 +75,7 @@
 	(visual-line-mode t)
 	(flyspell-mode t)
 	(auto-fill-mode t)
+        (display-line-numbers-mode t)
 	;; (outline-minor-mode t)
 	)
 
