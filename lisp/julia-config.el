@@ -1,3 +1,5 @@
+;;; julia-config.el -*- lexical-binding: nil; -*-
+
 ;; (add-to-list 'load-path "~/Dropbox/mydoc/reinstallOS/Lisp/julia-emacs")
 ;; (add-to-list 'load-path "~/Dropbox/.Emacs/julia-repl")
 

@@ -1,3 +1,5 @@
+;;; conda-config.el -*- lexical-binding: nil; -*-
+
 (use-package conda
   :ensure t
   :init

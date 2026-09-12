@@ -1,3 +1,5 @@
+;;; ess-config.el -*- lexical-binding: nil; -*-
+
 (use-package ess
   :ensure t
   :config

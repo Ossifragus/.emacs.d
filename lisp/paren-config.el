@@ -1,3 +1,5 @@
+;;; paren-config.el -*- lexical-binding: nil; -*-
+
 (require 'paren)
 (show-paren-mode t)
 ;; (set-face-background 'show-paren-match (face-foreground 'font-lock-comment-face))

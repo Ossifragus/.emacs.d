@@ -1,3 +1,5 @@
+;;; polymode-config.el -*- lexical-binding: nil; -*-
+
 ;; polymodel
 ;; (setq load-path
 ;;       (append '("~/Dropbox/.Emacs/polymode/"

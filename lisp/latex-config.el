@@ -1,3 +1,5 @@
+;;; latex-config.el -*- lexical-binding: nil; -*-
+
 ;; (setenv "PATH"
 ;; 				(concat
 ;; 				 "/usr/local/texlive/2019/bin/x86_64-linux" ":"

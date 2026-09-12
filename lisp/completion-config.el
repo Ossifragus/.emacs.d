@@ -1,3 +1,5 @@
+;;; completion-config.el -*- lexical-binding: nil; -*-
+
 ;; Enable Vertico
 (use-package vertico
   :ensure t
@@ -72,7 +74,10 @@
   (corfu-quit-no-match 'separator)
   (global-corfu-minibuffer nil)
   :init
-  (global-corfu-mode))
+  ;; Emacs 31 global-mode hooks can refer to this before compiled Corfu
+  ;; initializes it.  Preserve any existing buffer-local value.
+  (defvar-local corfu-mode--set-explicitly nil)
+  (global-corfu-mode 1))
 
 ;; Extensions for completion
 (use-package cape

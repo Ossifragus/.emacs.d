@@ -1,3 +1,5 @@
+;;; init.el -*- lexical-binding: nil; -*-
+
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 ; not write package-selected-packages

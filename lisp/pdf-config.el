@@ -1,3 +1,5 @@
+;;; pdf-config.el -*- lexical-binding: nil; -*-
+
 ;;; pdf-tools, nice but obviously slower than okular
 (use-package pdf-tools
   :ensure t

@@ -1,3 +1,5 @@
+;;; kill-ring-config.el -*- lexical-binding: nil; -*-
+
 (use-package browse-kill-ring
   :ensure t
   :config

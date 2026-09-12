@@ -1,3 +1,5 @@
+;;; term-config.el -*- lexical-binding: nil; -*-
+
 ;;; use vterm
 (use-package vterm
   :ensure t

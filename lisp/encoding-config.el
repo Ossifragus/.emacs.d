@@ -1,3 +1,5 @@
+;;; encoding-config.el -*- lexical-binding: nil; -*-
+
 ;;;;;;;;;;;for chinese
 ;; (set-language-environment 'Chinese-GB)
 ;; (set-clipboard-coding-system 'euc-cn)

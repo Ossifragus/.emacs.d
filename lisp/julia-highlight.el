@@ -1,3 +1,5 @@
+;;; julia-highlight.el -*- lexical-binding: nil; -*-
+
 ;; https://www.emacswiki.org/emacs/AddKeywords
 
 (font-lock-add-keywords

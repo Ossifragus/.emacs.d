@@ -1,3 +1,5 @@
+;;; chatgpt-config.el -*- lexical-binding: nil; -*-
+
 (use-package chatgpt-shell
   :ensure t
   :init

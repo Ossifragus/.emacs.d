@@ -1,3 +1,5 @@
+;;; org-config.el -*- lexical-binding: nil; -*-
+
 (require 'org)
 (setq org-startup-numerated t)
 (require 'oc-csl)

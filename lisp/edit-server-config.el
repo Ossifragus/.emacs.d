@@ -1,3 +1,5 @@
+;;; edit-server-config.el -*- lexical-binding: nil; -*-
+
 ;; ;; (require 'edit-server)
 ;; ;; (edit-server-start)
 ;; (use-package edit-server-htmlize

@@ -1,3 +1,5 @@
+;;; python-config.el -*- lexical-binding: nil; -*-
+
 (use-package python
   :ensure nil
   :defer t

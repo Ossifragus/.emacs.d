@@ -1,3 +1,5 @@
+;;; evil-config.el -*- lexical-binding: nil; -*-
+
 (use-package evil
   :ensure t
   :init

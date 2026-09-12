@@ -1,3 +1,5 @@
+;;; treesitter-config.el -*- lexical-binding: nil; -*-
+
 (use-package treesit-auto
   :ensure t
   :init

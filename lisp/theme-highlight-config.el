@@ -1,3 +1,5 @@
+;;; theme-highlight-config.el -*- lexical-binding: nil; -*-
+
 (add-to-list 'default-frame-alist '(foreground-color . "White"))
 (add-to-list 'default-frame-alist '(background-color . "Black"))
 (add-to-list 'default-frame-alist '(cursor-color . "Orchid"))

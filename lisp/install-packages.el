@@ -1,3 +1,5 @@
+;;; install-packages.el -*- lexical-binding: nil; -*-
+
 (use-package cdlatex
   :ensure t
   :defer t)

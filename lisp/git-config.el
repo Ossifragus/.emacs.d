@@ -1,3 +1,5 @@
+;;; git-config.el -*- lexical-binding: nil; -*-
+
 (use-package transient
   :ensure t
   )
