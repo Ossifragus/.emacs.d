@@ -144,6 +144,10 @@
 (use-package agent-recall
   :ensure t
   :hook (agent-shell-mode . agent-recall-track-sessions)
+  :init
+  ;; Initialize the Emacs 31 global-mode hook variable before loading
+  ;; compiled agent-recall, preserving existing buffer-local values.
+  (defvar-local agent-recall-transcript-mode--set-explicitly nil)
   :config
   (setq agent-recall-search-paths '("~/Dropbox" "~/S" "~/.emacs.d"))
   (global-agent-recall-transcript-mode 1)
@@ -220,4 +224,3 @@
   )
 
 (provide 'chatgpt-config)
-
