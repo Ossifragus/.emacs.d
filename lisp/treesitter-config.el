@@ -1,7 +1,11 @@
 (use-package treesit-auto
   :ensure t
+  :init
+  ;; Ensure this hook variable exists with Emacs development builds and
+  ;; compiled treesit-auto packages.  Preserve existing buffer-local values.
+  (defvar-local treesit-auto-mode--set-explicitly nil)
   :config
-  (global-treesit-auto-mode))
+  (global-treesit-auto-mode 1))
 
 (setq treesit-language-source-alist
       '(
@@ -26,12 +30,14 @@
         ;; (python-mode . python-ts-mode)
    ))
 
-(use-package markdown-ts-mode
-  :ensure t
-  ;; :mode ("\\.md\\'" . markdown-ts-mode)
-  ;; :defer 't
-  ;; :config
-  )
+(if (>= emacs-major-version 31)
+    ;; Load the built-in version explicitly: the older ELPA package shadows
+    ;; it on load-path and refuses to load on Emacs 31.
+    (load (expand-file-name "textmodes/markdown-ts-mode"
+                            (file-name-directory (locate-library "simple")))
+          nil t)
+  (use-package markdown-ts-mode
+    :ensure t))
 
 ;; (use-package julia-ts-mode
 ;;   :ensure t
