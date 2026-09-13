@@ -89,8 +89,8 @@
 (evil-set-leader 'visual (kbd "SPC"))
 
 (evil-define-key 'normal 'global (kbd "<leader>fs") 'save-buffer)
-(evil-define-key 'visual 'global (kbd "<leader>aic") #'agent-shell-send-region)
-(evil-define-key 'visual 'global (kbd "<leader>ais") #'agent-shell-send-region-to)
+(evil-define-key 'visual 'global (kbd "<leader>aic") #'agent-shell-send-region-to)
+(evil-define-key 'visual 'global (kbd "<leader>ais") #'agent-shell-send-region)
 (evil-define-key 'visual 'global (kbd "<leader>gc") 'comment-or-uncomment-region)
 ;;; Leader
 ;; (define-prefix-command 'my-leader-map)
