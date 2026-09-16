@@ -38,7 +38,6 @@
 (auto-save-visited-mode t)
 (which-key-mode)
 ;; (desktop-save-mode 1)
-;; (setq-default tab-width 2) ;; set tab width
 
 (global-set-key ( kbd "C-c c") 'comment-or-uncomment-region)
 (global-set-key ( kbd "C-c s") 'ispell-region)
@@ -49,6 +48,7 @@
 (add-hook 'text-mode-hook 'visual-line-mode)
 
 (setq-default indent-tabs-mode nil)
+(setq-default tab-width 4) ;; set tab width
 
 (use-package vundo
   :ensure t
