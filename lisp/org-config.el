@@ -64,7 +64,7 @@
 (setq org-todo-keywords
       '(
         (sequence "IDEA(i)" "TODO(t)" "STARTED(s)" "FEEDBACK(f)" "WAITING(w)" "|" "DONE(d)")
-        (sequence "|" "CANCELED(c)" ) ;; "DELEGATED(l)" "SOMEDAY(f)"
+        (sequence "|" "CANCELED(c)" "REJECTED(r)") ;; "DELEGATED(l)" "SOMEDAY(f)"
         ))
 
 (setq org-todo-keyword-faces
@@ -73,6 +73,7 @@
         ("STARTED" . (:foreground "OrangeRed" :weight bold))
         ("WAITING" . (:foreground "coral" :weight bold))
         ("CANCELED" . (:foreground "LimeGreen" :weight bold))
+        ("REJECTED" . (:foreground "firebrick" :weight bold))
         ;; ("DELEGATED" . (:foreground "LimeGreen" :weight bold))
         ;; ("SOMEDAY" . (:foreground "LimeGreen" :weight bold))
         ))
