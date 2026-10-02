@@ -74,7 +74,7 @@
 ;; (require 'pdf-config)
 (require 'python-config)
 (require 'term-config)
-(require 'treesitter-config)
+;; (require 'treesitter-config)
 
 (require 'install-packages)
 

@@ -7,7 +7,37 @@
 ;; 		"~/Dropbox/.Emacs/poly-noweb/"
 ;; 		"~/Dropbox/.Emacs/poly-R/")
 ;;               load-path))
- 
+
+(use-package markdown-mode
+  :ensure t
+  :mode (("\\.md\\'" . markdown-mode)
+         ("\\.markdown\\'" . markdown-mode)
+         ("README\\.md\\'" . gfm-mode))
+  :init
+  (setq markdown-header-scaling t
+        markdown-fontify-code-blocks-natively t
+        markdown-hide-urls t
+        markdown-enable-math t)
+  :config
+  ;; Evil-mode integration: Org-style TAB cycling and promotion/demotion in Normal state
+  (with-eval-after-load 'evil
+    (evil-define-key 'normal markdown-mode-map (kbd "<tab>") #'markdown-cycle)
+    (evil-define-key 'normal markdown-mode-map (kbd "TAB") #'markdown-cycle)
+    (evil-define-key 'normal markdown-mode-map (kbd "<backtab>") #'markdown-shifttab)
+    (evil-define-key 'normal markdown-mode-map (kbd "S-TAB") #'markdown-shifttab)
+    (evil-define-key 'normal markdown-mode-map (kbd "M-<left>") #'markdown-promote)
+    (evil-define-key 'normal markdown-mode-map (kbd "M-<right>") #'markdown-demote)
+    (evil-define-key 'normal markdown-mode-map (kbd "M-<up>") #'markdown-move-up)
+    (evil-define-key 'normal markdown-mode-map (kbd "M-<down>") #'markdown-move-down))
+
+  :bind (:map markdown-mode-map
+         ("<tab>" . markdown-cycle)
+         ("<backtab>" . markdown-shifttab)
+         ("M-<left>" . markdown-promote)
+         ("M-<right>" . markdown-demote)
+         ("M-<up>" . markdown-move-up)
+         ("M-<down>" . markdown-move-down)))
+
 (use-package polymode
   :ensure t)
 (use-package impatient-showdown
