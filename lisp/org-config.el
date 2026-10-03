@@ -2,7 +2,7 @@
 
 (use-package org
   :ensure nil
-  :bind (("C-c a" . org-agenda))
+  :bind (("C-c o a" . org-agenda))
   :hook ((org-mode . auto-fill-mode))
   :init
   (setq org-startup-numerated t
@@ -55,8 +55,9 @@
      (org        . t)
      (shell      . t)))
 
-  ;; Evil-mode TAB binding for org-mode
+  ;; Evil integration
   (with-eval-after-load 'evil
+    ;; TAB cycling in org buffers
     (evil-define-key 'normal org-mode-map (kbd "TAB")   #'org-cycle)
     (evil-define-key 'normal org-mode-map (kbd "<tab>") #'org-cycle)))
 
