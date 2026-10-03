@@ -1,37 +1,27 @@
-;;; git-config.el -*- lexical-binding: nil; -*-
+;;; git-config.el -*- lexical-binding: t; -*-
 
-(use-package transient
-  :ensure t
-  )
 (use-package magit
   :ensure t
+  :bind (("C-x g"   . magit-status)
+         ("C-x M-g" . magit-dispatch))
   :config
-  (setq-default magit-diff-refine-hunk 'all)
-  (global-set-key (kbd "C-x g") 'magit-status)
-  (add-hook 'magit-mode-hook 'visual-line-mode)
-  ;; (global-set-key (kbd "C-x M-g") 'magit-dispatch)
-  )
+  (setq-default magit-diff-refine-hunk 'all))
+
 (use-package forge
   :ensure t
   :after magit
-  )
+  :init
+  ;; Prevent Forge from installing default transient/key bindings that clash
+  ;; with modern Magit transients and evil-collection.
+  (setq forge-add-default-bindings nil))
+
 (use-package diff-hl
   :ensure t
+  :hook ((magit-post-refresh . diff-hl-magit-post-refresh)
+         (magit-pre-refresh  . diff-hl-magit-pre-refresh))
   :config
-  (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
-  (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
-  (add-hook 'after-init-hook 'global-diff-hl-mode)
-  )
+  (global-diff-hl-mode 1)
+  (diff-hl-flydiff-mode 1))
 
 (provide 'git-config)
-
-;; (use-package magit-todos
-;;   :ensure t
-;;   :after (magit)
-;;   :config
-;;   (let ((inhibit-message t))
-;;     (magit-todos-mode 1))
-;;   (transient-append-suffix 'magit-status-jump '(0 0 -1)
-;;     '("T " "Todos" magit-todos-jump-to-todos))
-;;   (setq magit-todos-exclude-globs '("*.html" "*.json" "*.map" "*.js"))
-;;   )
+;;; git-config.el ends here
