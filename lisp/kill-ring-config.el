@@ -1,16 +1,16 @@
-;;; kill-ring-config.el -*- lexical-binding: nil; -*-
+;;; kill-ring-config.el -*- lexical-binding: t; -*-
 
 (use-package browse-kill-ring
   :ensure t
+  :bind (("C-c y" . browse-kill-ring)
+         :map browse-kill-ring-mode-map
+         ("j" . browse-kill-ring-forward)
+         ("k" . browse-kill-ring-previous))
   :config
-  (global-set-key "\C-cy" 'browse-kill-ring)
-  )
-
-;; (use-package kill-ring-search
-;;   :ensure t
-;;   :config
-;;   (global-set-key "\M-\C-y" 'kill-ring-search)
-;;   )
+  (with-eval-after-load 'evil
+    ;; Global leader binding for quick access
+    (evil-define-key 'normal 'global
+      (kbd "<leader>y") #'browse-kill-ring)))
 
 (provide 'kill-ring-config)
-
+;;; kill-ring-config.el ends here
