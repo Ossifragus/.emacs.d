@@ -1,4 +1,4 @@
-;;; completion-config.el -*- lexical-binding: nil; -*-
+;;; completion-config.el -*- lexical-binding: t; -*-
 
 ;; Enable Vertico
 (use-package vertico
@@ -12,19 +12,18 @@
   ;; Tidy shadowed file names
   :hook (rfn-eshadow-update-overlay . vertico-directory-tidy)
   :init
-  (vertico-mode))
+  (vertico-mode 1))
 
-;; Persist history over Emacs restarts
+;; Persist history over Emacs restarts (built-in)
 (use-package savehist
-  :ensure t
   :init
-  (savehist-mode))
+  (savehist-mode 1))
 
 ;; Rich annotations in the minibuffer
 (use-package marginalia
   :ensure t
   :init
-  (marginalia-mode))
+  (marginalia-mode 1))
 
 ;; Advanced search and navigation
 (use-package consult
@@ -50,8 +49,9 @@
 
 ;; Emacs minibuffer configurations
 (use-package emacs
+  :init
+  (context-menu-mode 1)
   :custom
-  (context-menu-mode t)
   (enable-recursive-minibuffers t)
   (read-extended-command-predicate #'command-completion-default-include-p)
   (minibuffer-prompt-properties
@@ -66,6 +66,9 @@
   (completion-category-overrides '((file (styles partial-completion orderless))))
   (completion-category-defaults nil))
 
+;; Top-level definition to avoid compilation warnings in Emacs 31
+(defvar-local corfu-mode--set-explicitly nil)
+
 ;; Corfu for in-buffer completion
 (use-package corfu
   :ensure t
@@ -74,18 +77,15 @@
   (corfu-quit-no-match 'separator)
   (global-corfu-minibuffer nil)
   :init
-  ;; Emacs 31 global-mode hooks can refer to this before compiled Corfu
-  ;; initializes it.  Preserve any existing buffer-local value.
-  (defvar-local corfu-mode--set-explicitly nil)
   (global-corfu-mode 1))
 
-;; Extensions for completion
+;; Cape completion extensions
 (use-package cape
   :ensure t
   :init
-  (add-to-list 'completion-at-point-functions #'cape-dabbrev)
+  ;; Add file completion and append fallback dabbrev globally
   (add-to-list 'completion-at-point-functions #'cape-file)
-  (add-to-list 'completion-at-point-functions #'cape-elisp-block)
-  (add-to-list 'completion-at-point-functions #'cape-keyword))
+  (add-to-list 'completion-at-point-functions #'cape-dabbrev t))
 
 (provide 'completion-config)
+;;; completion-config.el ends here
