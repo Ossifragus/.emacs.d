@@ -1,4 +1,4 @@
-;;; chatgpt-config.el -*- lexical-binding: nil; -*-
+;;; chatgpt-config.el -*- lexical-binding: t; -*-
 
 (use-package chatgpt-shell
   :ensure t
@@ -7,6 +7,8 @@
   (let ((dir (expand-file-name "var/shell-maker/" user-emacs-directory)))
     (unless (file-exists-p dir)
       (make-directory dir t)))
+  :bind (:map chatgpt-shell-mode-map
+         ("C-c C-v" . chatgpt-shell-swap-model))
   :config
   (setq chatgpt-shell-openai-key
         (auth-source-pick-first-password :host "api.openai.com"))
@@ -16,211 +18,79 @@
         (auth-source-pick-first-password :host "openrouter.ai/api/v1"))
   (setq chatgpt-shell-anthropic-key
         (auth-source-pick-first-password :host "api.anthropic.com"))
-  (setq chatgpt-shell-model-version "gemini-pro-latest")
-  (define-key chatgpt-shell-mode-map (kbd "C-c C-v") #'chatgpt-shell-swap-model)
-  )
+  (setq chatgpt-shell-model-version "gemini-pro-latest"))
 
 (use-package dall-e-shell
   :ensure t
   :config
   (setq dall-e-shell-openai-key
         (auth-source-pick-first-password :host "api.openai.com"))
-  (setq dall-e-shell-image-output-directory "~/Desktop/")
-  )
-
-;; ;; Google Gemini
-;; (use-package gemini
-;;   :ensure t
-;;   :vc (:url "https://github.com/AllTheLife/Gemini.el.git"
-;;             :rev :newest)
-;;   :config
-;;   (require 'gemini)
-;;   (setq gemini-api-token
-;;         (auth-source-pick-first-password :host "aistudio.google.com"))
-;;   (gemini-start-process)
-;;   )
+  (setq dall-e-shell-image-output-directory "~/Desktop/"))
 
 ;; Github Copilot
-;; https://github.com/nvm-sh/nvm
-;; https://github.com/copilot-emacs/copilot.el
-;; https://robert.kra.hn/posts/2023-02-22-copilot-emacs-setup/
-;; run M-x copilot-install-server and M-x copilot-login.
 (use-package copilot
   :ensure t
-  ;; :vc (:url "https://github.com/copilot-emacs/copilot.el.git"
-  ;;           :rev :newest)
   :config
-  (require 'copilot)
   (setq copilot-indent-offset-warning-disable t)
   (setq copilot-max-char-warning-disable t)
-  ;; (cond
-   ;; ((eq system-type 'gnu/linux)
-   ;;  (progn (setq copilot-node-executable
-   ;;               "~/Dropbox/App/node-v20.11.1-linux-x64/bin/node")))
-   ;; ((eq system-type 'darwin)
-   ;;  (progn (setq copilot-node-executable
-   ;;               "~/Dropbox/App/node-v20.11.1-darwin-arm64/bin/node")))
-   ;; )
-  :hook ( julia-mode-hook LaTeX-mode-hook markdown-mode-hook org-mode-hook
-          python-mode-hook text-mode-hook)
-  :bind ( :map copilot-completion-map
-          ("<tab>" . copilot-accept-completion)
-          ("TAB" . copilot-accept-completion)
-          :map copilot-mode-map
-          ("C-<next>" . copilot-next-completion)
-          ("C-<prior>" . copilot-previous-completion)
-          ("C-<right>" . copilot-accept-completion-by-word)
-          ("C-<down>" . copilot-accept-completion-by-line))
-  )
+  :hook ((julia-mode LaTeX-mode markdown-mode org-mode python-mode text-mode) . copilot-mode)
+  :bind (:map copilot-completion-map
+         ("<tab>" . copilot-accept-completion)
+         ("TAB" . copilot-accept-completion)
+         :map copilot-mode-map
+         ("C-<next>" . copilot-next-completion)
+         ("C-<prior>" . copilot-previous-completion)
+         ("C-<right>" . copilot-accept-completion-by-word)
+         ("C-<down>" . copilot-accept-completion-by-line)))
 
 (use-package agent-shell
-    :ensure t
-    ;; :vc (:url "https://github.com/xenodium/agent-shell"
-    ;;           ;; :rev "d48c239046e28c49a551b3ffaa657891304091b9")
-    ;;           :rev :newest)
-    ;; :ensure-system-package
-    ;; Add agent installation configs here
-    ;; ((claude . "brew install claude-code")
-    ;;  (claude-code-acp . "npm install -g @zed-industries/claude-code-acp"))
-    :after evil
-    :config
-    ;; ;; Antigravity (ACP)
-    ;; ;; npm install -g agy-acp 
-    ;; (defcustom agent-shell-antigravity-acp-command
-    ;;   '("agy-acp")
-    ;;   "Command and parameters for the Antigravity ACP client."
-    ;;   :type '(repeat string)
-    ;;   :group 'agent-shell)
+  :ensure t
+  :after evil
+  :config
+  ;; Preferred default agent: 'antigravity or 'codex
+  (setq agent-shell-preferred-agent-config '(preselect . codex))
 
-    ;; (defun agent-shell-antigravity-make-config ()
-    ;;   "Create an Antigravity agent configuration."
-    ;;   (agent-shell-make-agent-config
-    ;;    :identifier 'antigravity
-    ;;    :mode-line-name "Antigravity"
-    ;;    :buffer-name "Antigravity"
-    ;;    :shell-prompt "Antigravity> "
-    ;;    :shell-prompt-regexp "Antigravity> "
-    ;;    :icon-name "gemini.png"
-    ;;    :client-maker (lambda (buffer)
-    ;;                    (agent-shell--make-acp-client
-    ;;                     :command (car agent-shell-antigravity-acp-command)
-    ;;                     :command-params (cdr agent-shell-antigravity-acp-command)
-    ;;                     :context-buffer buffer))
-    ;;    :install-instructions "Install with `npm install -g agy-acp` and ensure `agy` is installed."))
+  (setq agent-shell-anthropic-authentication
+        (agent-shell-anthropic-make-authentication
+         :api-key (lambda () (auth-source-pick-first-password :host "api.anthropic.com"))))
 
-    ;; (add-to-list 'agent-shell-agent-configs #'agent-shell-antigravity-make-config)
+  ;; Evil state-specific RET behavior: insert mode=newline, normal mode=send
+  (evil-define-key 'insert agent-shell-mode-map (kbd "RET") #'newline)
+  (evil-define-key 'normal agent-shell-mode-map (kbd "RET") #'comint-send-input)
 
-    ;; (defun agent-shell-antigravity ()
-    ;;   "Start an interactive Antigravity agent shell."
-    ;;   (interactive)
-    ;;   (agent-shell--dwim :config (agent-shell-antigravity-make-config)
-    ;;                      :new-shell t))
+  ;; Configure *agent-shell-diff* buffers to start in Emacs state
+  (add-hook 'diff-mode-hook
+            (lambda ()
+              (when (string-match-p "\\*agent-shell-diff\\*" (buffer-name))
+                (evil-emacs-state)))))
 
-    ;; (setq agent-shell-show-usage-at-turn-end t)
-    ;; Keep the agent picker, with Codex selected by default.
-    (setq agent-shell-preferred-agent-config '(preselect . codex))
-    (setq agent-shell-google-gemini-acp-command '("gemini" "--acp"))
-    (setq agent-shell-google-authentication
-          (agent-shell-google-make-authentication
-           :login t))
-           ;; :api-key (lambda () (auth-source-pick-first-password :host "aistudio.google.com"))))
-
-    (setq agent-shell-anthropic-authentication
-          (agent-shell-anthropic-make-authentication
-           :api-key (lambda () (auth-source-pick-first-password :host "api.anthropic.com"))))
-    (setq agent-shell-openai-authentication
-          (agent-shell-openai-make-authentication
-           :api-key (lambda () (auth-source-pick-first-password :host "api.openai.com"))))
-    ;; Evil state-specific RET behavior: insert mode=newline, normal mode=send
-    (evil-define-key 'insert agent-shell-mode-map (kbd "RET") #'newline)
-    (evil-define-key 'normal agent-shell-mode-map (kbd "RET") #'comint-send-input)
-    ;; Configure *agent-shell-diff* buffers to start in Emacs state
-    (add-hook 'diff-mode-hook
-	      (lambda ()
-	        (when (string-match-p "\\*agent-shell-diff\\*" (buffer-name))
-		  (evil-emacs-state))))
-    )
+;; Top-level definition for Emacs 31 to prevent byte-compile warnings
+(defvar-local agent-recall-transcript-mode--set-explicitly nil)
 
 (use-package agent-recall
   :ensure t
   :hook (agent-shell-mode . agent-recall-track-sessions)
-  :init
-  ;; Initialize the Emacs 31 global-mode hook variable before loading
-  ;; compiled agent-recall, preserving existing buffer-local values.
-  (defvar-local agent-recall-transcript-mode--set-explicitly nil)
   :config
   (setq agent-recall-search-paths '("~/Dropbox" "~/S" "~/.emacs.d"))
-  (global-agent-recall-transcript-mode 1)
-  )
+  (global-agent-recall-transcript-mode 1))
 
 (use-package ai-code
   :ensure t
-  ;; :straight (:host github :repo "tninja/ai-code-interface.el") ;; if you want to use straight to install, no need to have MELPA setting above
   :config
-  ;; Disable side-window behavior to use regular Emacs windows/frames (like agent-shell)
+  ;; Disable side-window behavior to use regular Emacs windows/frames
   (setq ai-code-backends-infra-use-side-window nil)
   ;; Open ai-code and backend session buffers in the current window
   (add-to-list 'display-buffer-alist
                '("\\*\\(ai-code\\|antigravity\\)"
                  (display-buffer-same-window)))
-  ;; use codex as backend, other options are 'claude-code, 'gemini, 'github-copilot-cli, 'opencode, 'grok, 'cursor, 'kiro, 'codebuddy, 'aider, 'agent-shell, 'claude-code-ide, 'claude-code-el
-  ;; (ai-code-set-backend 'agent-shell)
   (ai-code-set-backend 'antigravity)
-  ;; Enable global keybinding for the main menu
-  ;; (global-set-key (kbd "C-c a") #'ai-code-menu)
-  (bind-key* (kbd "C-c a") #'ai-code-menu); The * creates a super-global binding
-  ;; Optional: Use eat if you prefer, by default it is vterm
-  ;; (setq ai-code-backends-infra-terminal-backend 'eat) ;; config for native CLI backends. for external backends such as agent-shell, claude-code-ide.el and claude-code.el, please check their own config
-  ;; Optional: Enable @ file completion in comments and AI sessions
+  (bind-key* (kbd "C-c a") #'ai-code-menu)
   (ai-code-prompt-filepath-completion-mode 1)
-  ;; Optional: Ask AI to run test after code changes, for a tighter build-test loop
   (setq ai-code-auto-test-type 'ask-me)
-;;   ;; Evil state-specific RET behavior in AI terminal sessions:
-;;   ;; insert mode inserts a newline; normal mode submits the prompt.
-;;   (defcustom my-ai-code-default-multiline-input-sequence "\C-j"
-;;     "Fallback terminal sequence for inserting a newline in an AI prompt.
-;; An AI Code backend's own multiline sequence takes precedence when configured."
-;;     :type 'string
-;;     :group 'ai-code)
+  (setq auto-revert-interval 1)
 
-;;   (defun my-ai-code-insert-newline ()
-;;     "Insert a newline in the current AI terminal prompt."
-;;     (interactive)
-;;     (if ai-code-backends-infra--multiline-input-sequence
-;;         (ai-code-backends-infra--terminal-send-multiline-input)
-;;       (ai-code-backends-infra--terminal-send-string
-;;        my-ai-code-default-multiline-input-sequence)))
-
-;;   (defun my-ai-code-submit-prompt ()
-;;     "Submit the current AI terminal prompt."
-;;     (interactive)
-;;     (ai-code-backends-infra--terminal-send-return))
-
-;;   (defun my-ai-code-evil-ret-bindings (buffer &rest _)
-;;     "Install state-specific RET bindings in AI terminal BUFFER."
-;;     (with-current-buffer buffer
-;;       ;; Vterm distinguishes the control character RET from the GUI/terminal
-;;       ;; <return> event, so override both representations of the Enter key.
-;;       (dolist (key (list (kbd "RET") (kbd "<return>")))
-;;         (evil-local-set-key 'insert key #'my-ai-code-insert-newline)
-;;         (evil-local-set-key 'normal key #'my-ai-code-submit-prompt))))
-
-;;   ;; Also make SPC in Evil normal state trigger the prompt-entry UI.
-;;   (with-eval-after-load 'evil
-;;     (ai-code-backends-infra-evil-setup)
-;;     (advice-add 'ai-code-backends-infra--configure-session-buffer
-;;                 :after #'my-ai-code-evil-ret-bindings)
-;;     ;; Refresh sessions that were created before this configuration was loaded.
-;;     (dolist (buffer (buffer-list))
-;;       (when (buffer-local-value
-;;              'ai-code-backends-infra--session-terminal-backend buffer)
-;;         (my-ai-code-evil-ret-bindings buffer))))
-  ;; Optional: Turn on auto-revert buffer, so that the AI code change automatically appears in the buffer
-  (global-auto-revert-mode 1)
-  (setq auto-revert-interval 1) ;; set to 1 second for faster update
-  ;; Optional: Set up Magit integration for AI commands in Magit popups
   (with-eval-after-load 'magit
-    (ai-code-magit-setup-transients))
-  )
+    (ai-code-magit-setup-transients)))
 
 (provide 'chatgpt-config)
+;;; chatgpt-config.el ends here
