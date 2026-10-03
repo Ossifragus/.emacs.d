@@ -1,46 +1,50 @@
-;;; evil-config.el -*- lexical-binding: nil; -*-
+;;; evil-config.el -*- lexical-binding: t; -*-
 
 (use-package evil
   :ensure t
   :init
   (setq evil-want-keybinding nil)
+  (setq evil-motion-state-cursor 'box)
+  (setq evil-visual-state-cursor 'box)
+  (setq evil-normal-state-cursor 'box)
+  (setq evil-insert-state-cursor 'bar)
+  (setq evil-emacs-state-cursor  'hbar)
   :config
   (evil-mode 1)
   (evil-set-undo-system 'undo-redo)
 
-  ;;; esc quits
-  (define-key evil-normal-state-map [escape] 'keyboard-quit)
-  (define-key evil-visual-state-map [escape] 'keyboard-quit)
-  (define-key minibuffer-local-map [escape] 'minibuffer-keyboard-quit)
-  (define-key minibuffer-local-ns-map [escape] 'minibuffer-keyboard-quit)
-  (define-key minibuffer-local-completion-map [escape] 'minibuffer-keyboard-quit)
-  (define-key minibuffer-local-must-match-map [escape] 'minibuffer-keyboard-quit)
-  (define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
+  ;; ESC quits
+  (define-key evil-normal-state-map [escape] #'keyboard-quit)
+  (define-key evil-visual-state-map [escape] #'keyboard-quit)
+  (define-key minibuffer-local-map [escape] #'abort-minibuffers)
 
-  ;;; basic emacs commands
-  (define-key evil-normal-state-map "\C-y" 'yank)
-  (define-key evil-insert-state-map "\C-y" 'yank)
-  (define-key evil-visual-state-map "\C-y" 'yank)
-  (define-key evil-insert-state-map "\C-e" 'end-of-line)
-  (define-key evil-insert-state-map "\C-n" 'next-line)
-  ;; (define-key evil-normal-state-map "\C-w" 'evil-delete)
-  ;; (define-key evil-insert-state-map "\C-w" 'evil-delete)
-  ;; (define-key evil-visual-state-map "\C-w" 'evil-delete)
-  (define-key evil-insert-state-map "\C-p" 'previous-line)
-  (define-key evil-insert-state-map "\C-r" 'search-backward)
-  )
+  ;; Emacs standard key equivalents in insert/normal/visual
+  (define-key evil-normal-state-map (kbd "C-y") #'yank)
+  (define-key evil-insert-state-map (kbd "C-y") #'yank)
+  (define-key evil-visual-state-map (kbd "C-y") #'yank)
+  (define-key evil-insert-state-map (kbd "C-e") #'end-of-line)
+  (define-key evil-insert-state-map (kbd "C-n") #'next-line)
+  (define-key evil-insert-state-map (kbd "C-p") #'previous-line)
+  (define-key evil-insert-state-map (kbd "C-r") #'search-backward)
+
+  ;; Leader configuration (SPC)
+  (evil-set-leader '(normal visual motion) (kbd "SPC"))
+  (evil-define-key 'normal 'global (kbd "<leader>fs") #'save-buffer)
+  (evil-define-key 'visual 'global (kbd "<leader>gc") #'comment-or-uncomment-region)
+
+  (with-eval-after-load 'agent-shell
+    (evil-define-key 'visual 'global (kbd "<leader>aic") #'agent-shell-send-region-to)
+    (evil-define-key 'visual 'global (kbd "<leader>ais") #'agent-shell-send-region)))
 
 (use-package evil-better-visual-line
   :ensure t
   :config
-  (evil-better-visual-line-on)
-  )
+  (evil-better-visual-line-on))
 
 (use-package evil-surround
   :ensure t
   :config
-  (global-evil-surround-mode 1)
-  )
+  (global-evil-surround-mode 1))
 
 (use-package evil-collection
   :after evil
@@ -51,81 +55,29 @@
 (use-package evil-matchit
   :ensure t
   :config
-	(global-evil-matchit-mode 1)
-  )
+  (global-evil-matchit-mode 1))
 
 (use-package evil-visual-mark-mode
   :ensure t
   :config
-  (evil-visual-mark-mode 0)
-  )
+  (evil-visual-mark-mode 0))
 
-(unless (display-graphic-p)
-  (use-package evil-terminal-cursor-changer
-    :ensure t
-    :config
-    (evil-terminal-cursor-changer-activate)))
-(setq evil-motion-state-cursor 'box)  ; █
-(setq evil-visual-state-cursor 'box)  ; █
-(setq evil-normal-state-cursor 'box)  ; █
-(setq evil-insert-state-cursor 'bar)  ; ⎸
-(setq evil-emacs-state-cursor  'hbar) ; _
+(use-package evil-terminal-cursor-changer
+  :ensure t
+  :unless (display-graphic-p)
+  :config
+  (evil-terminal-cursor-changer-activate))
 
-(use-package evil-extra-operator ; gG google search
+(use-package evil-extra-operator
   :ensure t
   :config
-  (global-evil-extra-operator-mode 1)
-  )
+  (global-evil-extra-operator-mode 1))
 
 (use-package evil-tex
-  :ensure t
-  )
+  :ensure t)
+
 (use-package evil-textobj-line
-  :ensure t
-  )
-
-(evil-set-leader 'motion (kbd "SPC"))
-(evil-set-leader 'normal (kbd "SPC"))
-(evil-set-leader 'visual (kbd "SPC"))
-
-(evil-define-key 'normal 'global (kbd "<leader>fs") 'save-buffer)
-(evil-define-key 'visual 'global (kbd "<leader>aic") #'agent-shell-send-region-to)
-(evil-define-key 'visual 'global (kbd "<leader>ais") #'agent-shell-send-region)
-(evil-define-key 'visual 'global (kbd "<leader>gc") 'comment-or-uncomment-region)
-;;; Leader
-;; (define-prefix-command 'my-leader-map)
-
-;; (keymap-set evil-motion-state-map "SPC" 'my-leader-map)
-;; (keymap-set evil-normal-state-map "SPC" 'my-leader-map)
-
-;; (evil-define-key nil my-leader-map
-;;     ;; add your bindings here:
-;;     "b"  'switch-to-buffer
-;;     "B"  'project-switch-to-buffer
-;;     "pf" 'project-find-file
-;;     "ps" 'project-shell-command
-;;     "l" 'julia-repl-send-line
-;;     ;; etc.
-;;     )
+  :ensure t)
 
 (provide 'evil-config)
-
-;; ;; Enable Evil
-;; (require 'evil)
-;; (evil-mode 1)
-;; (global-undo-tree-mode) ;; need undo tree before Emacs 28
-;; (evil-set-undo-system 'undo-tree)
-;; (use-package evil-better-visual-line
-;;   :ensure t
-;;   :config
-;;   (evil-better-visual-line-on))
-;; (require 'evil-surround)
-;; (global-evil-surround-mode 1)
-
-;; (add-hook 'LaTeX-mode-hook
-;; 					(lambda ()
-;;             (push '(?\} . ("\{" . "\}")) evil-surround-pairs-alist)
-;; 						))
-;; (lambda ()
-;;       (add-to-list 'evil-embrace-evil-surround-keys ?o)))
-;; (evil-embrace-enable-evil-surround-integration)
+;;; evil-config.el ends here
