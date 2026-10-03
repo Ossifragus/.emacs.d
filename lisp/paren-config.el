@@ -1,42 +1,32 @@
-;;; paren-config.el -*- lexical-binding: nil; -*-
+;;; paren-config.el -*- lexical-binding: t; -*-
 
-(require 'paren)
-(show-paren-mode t)
-;; (set-face-background 'show-paren-match (face-foreground 'font-lock-comment-face))
-(set-face-background 'show-paren-match "Black")
-(set-face-foreground 'show-paren-match "#def")
-(set-face-attribute 'show-paren-match nil :weight 'extra-bold)
+;;; Built-in show-paren-mode
+(use-package paren
+  :ensure nil
+  :init
+  (setq show-paren-delay 0)
+  :config
+  (show-paren-mode 1)
+  (set-face-attribute 'show-paren-match nil
+                      :background "Black"
+                      :foreground "#def"
+                      :weight 'extra-bold))
 
-;; ;;; Match Parentheses, enable skeleton-pair insert globally
-;; (electric-pair-mode 1)
-;; (setq electric-pair-preserve-balance nil)
-;; ;; make electric-pair-mode work on more brackets
-;; (setq electric-pair-pairs '(
-;;                             (?\" . ?\")
-;;                             (?\{ . ?\})
-;;                             ) )
-
+;;; Smartparens: Auto-pairing and delimiter management
 (use-package smartparens
-  :ensure smartparens  ;; install the package
-  :hook (prog-mode text-mode markdown-mode org-mode)
+  :ensure t
+  :hook ((prog-mode text-mode) . smartparens-mode)
   :config
   (require 'smartparens-config))
 
-;;; Highlight Parentheses
-;; (show-paren-mode 1)
-;; (setq show-paren-delay 0)
+;;; Highlight Parentheses: Rainbow highlighting around point
 (use-package highlight-parentheses
   :ensure t
+  :init
+  (setq highlight-parentheses-colors
+        '("red" "yellow" "green" "IndianRed" "cyan" "orange" "magenta" "purple"))
   :config
-  (require 'highlight-parentheses)
-  (setq hl-paren-colors '("red" "yellow" "green" "IndianRed" "cyan" "orange"  "magenta" "purple"))
-  (define-globalized-minor-mode global-highlight-parentheses-mode
-    highlight-parentheses-mode
-    (lambda ()
-      (highlight-parentheses-mode t)))
-  (global-highlight-parentheses-mode t)
-  )
-
+  (global-highlight-parentheses-mode 1))
 
 (provide 'paren-config)
-
+;;; paren-config.el ends here
