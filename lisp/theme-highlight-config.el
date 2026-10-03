@@ -1,4 +1,4 @@
-;;; theme-highlight-config.el -*- lexical-binding: nil; -*-
+;;; theme-highlight-config.el -*- lexical-binding: t; -*-
 
 (add-to-list 'default-frame-alist '(foreground-color . "White"))
 (add-to-list 'default-frame-alist '(background-color . "Black"))
@@ -8,63 +8,53 @@
   :config
   (global-hl-line-mode 1))
 
-;; load theme - pkg: color-theme-sanityinc-tomorrow
+;; Theme: color-theme-sanityinc-tomorrow
 (use-package color-theme-sanityinc-tomorrow
   :ensure t
   :init
   (setq custom-safe-themes t)
   :config
   (setq-default custom-enabled-themes '(sanityinc-tomorrow-bright))
-  (color-theme-sanityinc-tomorrow--define-theme bright)
   (load-theme 'sanityinc-tomorrow-bright t)
-  
-  ;; Apply manual face overrides after theme is loaded
-  (set-background-color "Black")
-  (set-foreground-color "White")
-  (set-face-background 'mode-line "lightgoldenrod2")
-  (set-face-foreground 'mode-line "DarkSlateGray")
-  (set-cursor-color "Orchid")
-  (set-face-foreground 'font-lock-comment-face "chocolate4")
-  (set-face-foreground 'font-lock-string-face "forest green")
-  (set-face-foreground 'font-lock-function-name-face "deep sky blue")
-  (set-face-foreground 'font-lock-keyword-face "cyan1")
-  (set-face-foreground 'font-lock-type-face "Violet")
-  (set-face-foreground 'font-lock-builtin-face "Cyan")
-  (set-face-foreground 'font-lock-variable-name-face "Gold")
-  (set-face-foreground 'font-lock-constant-face "Magenta")
-  (set-face-foreground 'scroll-bar "Wheat")
-  (set-face-background 'scroll-bar "lightgoldenrod2")
-  (set-face-foreground 'tool-bar "Wheat")
-  (set-face-background 'tool-bar "lightgoldenrod2")
-  (set-face-foreground 'font-lock-builtin-face "Cyan")
-  (set-face-foreground 'minibuffer-prompt "GreenYellow")
-  (set-face-background 'mode-line-inactive "tomato4")
-  
-  (set-face-attribute 'hl-line nil :inherit nil :background "gray11")
-  (when (boundp 'highlight-numbers-number)
-    (set-face-foreground 'highlight-numbers-number "light salmon")))
+
+  ;; Face overrides applied across all frames
+  (custom-set-faces
+   '(default ((t (:background "Black" :foreground "White"))))
+   '(mode-line ((t (:background "lightgoldenrod2" :foreground "DarkSlateGray"))))
+   '(mode-line-inactive ((t (:background "tomato4"))))
+   '(minibuffer-prompt ((t (:foreground "GreenYellow"))))
+   '(font-lock-comment-face ((t (:foreground "chocolate4"))))
+   '(font-lock-string-face ((t (:foreground "forest green"))))
+   '(font-lock-function-name-face ((t (:foreground "deep sky blue"))))
+   '(font-lock-keyword-face ((t (:foreground "cyan1"))))
+   '(font-lock-type-face ((t (:foreground "Violet"))))
+   '(font-lock-builtin-face ((t (:foreground "Cyan"))))
+   '(font-lock-variable-name-face ((t (:foreground "Gold"))))
+   '(font-lock-constant-face ((t (:foreground "Magenta"))))
+   '(hl-line ((t (:inherit nil :background "gray11"))))))
 
 (window-divider-mode 1)
 
 (use-package highlight-numbers
-  :ensure t)
+  :ensure t
+  :config
+  (set-face-foreground 'highlight-numbers-number "light salmon"))
 
 (use-package highlight-indentation
   :ensure t)
 
-;; column width
+;; Column settings
 (setq-default fill-column 80)
-;; fill column indicator
 (global-display-fill-column-indicator-mode 1)
-;; show column number
-(setq column-number-mode t)
+(column-number-mode 1)
 
 (use-package auto-highlight-symbol
   :ensure t)
 
-(use-package beacon ; Never lose your cursor again
+(use-package beacon
   :ensure t
   :config
   (beacon-mode 1))
 
 (provide 'theme-highlight-config)
+;;; theme-highlight-config.el ends here
