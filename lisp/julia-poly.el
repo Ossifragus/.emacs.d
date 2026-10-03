@@ -1,82 +1,62 @@
-;; poly-julia.el --- Polymode for Julia language -*- lexical-binding: t -*-
-;;
-;; Copyright (C) 2020 Shigeaki Nishina
-;; Author: Shigeaki Nishina
-;; Maintainer: Shigeaki Nishina
-;; URL: https://github.com/shg/poly-julia
-;; Version: 0.1
-;;
-;; This file is not part of GNU Emacs.
-;;
-;;; Commentary:
-;;
-;;; License:
-;;
-;; This program is free software: you can redistribute it and/or modify
-;; it under the terms of the GNU General Public License as published by
-;; the Free Software Foundation, either version 3 of the License, or (at
-;; your option) any later version.
-;;
-;; This program is distributed in the hope that it will be useful, but
-;; WITHOUT ANY WARRANTY; without even the implied warranty of
-;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-;; General Public License for more details.
-;;
-;; You should have received a copy of the GNU General Public License
-;; along with this program.  If not, see https://www.gnu.org/licenses/.
-;;
-;;; Code:
+;;; julia-poly.el --- Polymode for Julia language -*- lexical-binding: t; -*-
 
-;; (require 'julia-mode)
-;; (require 'poly-markdown)
+(require 'polymode)
 (use-package poly-markdown
   :ensure t)
 
+(declare-function julia-repl-inferior-buffer "julia-repl")
+(declare-function julia-repl--send-string "julia-repl")
+(declare-function julia-repl "julia-repl")
+
+;;; Polymode Definitions
+
 (define-innermode poly-julia-markdown-inline-code-innermode poly-markdown-inline-code-innermode
   :mode 'julia-mode
-  :head-matcher (cons "^[ \t]*\\(```{?[Jj]ulia.*\n\\)" 1)
+  :head-matcher (cons "^[ \t]*\\(```{?[Jj]ulia.*\\n\\)" 1)
   :tail-matcher (cons "^[ \t]*\\(```\\)[ \t]*$" 1)
   :head-mode 'host
   :tail-mode 'host)
 
-(define-polymode poly-markdown+julia-mode poly-markdown-mode :lighter " PM-jmd"
+(define-polymode poly-markdown+julia-mode poly-markdown-mode
+  :lighter " PM-jmd"
   :innermodes '(poly-julia-markdown-inline-code-innermode))
 
 ;;;###autoload
-(add-to-list 'auto-mode-alist '("\\.[jJ]md" . poly-markdown+julia-mode))
+(add-to-list 'auto-mode-alist '("\\.[jJ]md\\'" . poly-markdown+julia-mode))
 
-;;; Weave.jl settings
-(defun poly-julia-run-command (command callback &rest _ignore)
+;; Keybindings for poly-markdown+julia-mode
+(let ((map poly-markdown+julia-mode-map))
+  (define-key map (kbd "C-c o")   #'julia-repl)
+  (define-key map (kbd "C-c C-z") #'julia-repl)
+  (define-key map (kbd "C-c w")   #'jmarkdown-weave-to-markdown)
+  (define-key map (kbd "C-l")     #'recenter-top-bottom))
+
+;;; Weave.jl Integration
+
+(defun poly-julia-run-command (command _callback &rest _ignore)
   (let ((inferior-buffer (julia-repl-inferior-buffer)))
     (display-buffer inferior-buffer)
     (julia-repl--send-string command)))
 
-(defun poly-julia-callback (proc string))
+(defun poly-julia-callback (_proc _string))
 
 (defvar poly-julia-weavejl-weavers
   (pm-callback-weaver :name "JMarkdown"
-		      :from-to
-		      '(("markdown" "\\.j?md]\\'" "md" "Markdown" "using Weave; weave(\"%I\", mod=Main, doctype=\"multimarkdown\", fig_path=\"pdf\/%i\/\", fig_ext=\".pdf\", cache=:on)"))
-		      :function 'poly-julia-run-command
-		      :callback 'poly-julia-callback))
+                      :from-to
+                      '(("markdown" "\\.j?md\\'" "md" "Markdown"
+                         "using Weave; weave(\"%I\", mod=Main, doctype=\"multimarkdown\", fig_path=\"pdf/%i/\", fig_ext=\".pdf\", cache=:on)"))
+                      :function #'poly-julia-run-command
+                      :callback #'poly-julia-callback))
 
 (polymode-register-weaver poly-julia-weavejl-weavers nil
                           poly-markdown-polymode)
 
 (defun jmarkdown-weave-to-markdown ()
+  "Weave the current buffer to markdown via Weave.jl."
   (interactive)
   (oset pm/polymode :weaver 'poly-julia-weavejl-weavers)
   (save-excursion
     (polymode-weave "markdown")))
 
-;; Hooks
-(add-hook 'markdown-mode-hook
-	  (lambda ()
-	    (when (boundp 'poly-markdown+julia-mode)
-	      (define-key poly-markdown+julia-mode-map (kbd "C-c o") #'julia-repl)
-	      (define-key poly-markdown+julia-mode-map (kbd "C-c C-z") #'julia-repl)
-	      (define-key poly-markdown+julia-mode-map (kbd "C-c w") 'jmarkdown-weave-to-markdown)
-	      (define-key poly-markdown+julia-mode-map (kbd "C-l") 'recenter-top-bottom)))
-	  'append)
-
 (provide 'julia-poly)
+;;; julia-poly.el ends here
