@@ -1,39 +1,8 @@
-;;; edit-server-config.el -*- lexical-binding: nil; -*-
+;;; edit-server-config.el -*- lexical-binding: t; -*-
 
-;; ;; (require 'edit-server)
-;; ;; (edit-server-start)
-;; (use-package edit-server-htmlize
-;;   :ensure t
-;;   )
-;; (when (locate-library "edit-server")
-;;   (require 'edit-server)
-;;   ;; (setq edit-server-new-frame nil)
-;;   (edit-server-start))
-
-;; (autoload 'edit-server-maybe-dehtmlize-buffer "edit-server-htmlize" "edit-server-htmlize" t)
-;; (autoload 'edit-server-maybe-htmlize-buffer   "edit-server-htmlize" "edit-server-htmlize" t)
-;; (add-hook 'edit-server-start-hook 'edit-server-maybe-dehtmlize-buffer)
-;; ;; (add-hook 'edit-server-start-hook 'LaTeX-mode)
-;; (add-hook 'edit-server-start-hook 'org-mode)
-;; (add-hook 'edit-server-done-hook  'edit-server-maybe-htmlize-buffer)
-
-(use-package atomic-chrome
-  :ensure t
-  :config
-  (evil-set-initial-state 'atomic-chrome-edit-mode 'normal)
-  (setq atomic-chrome-default-major-mode 'org-mode)
-  (setq atomic-chrome-buffer-open-style 'frame)
-  (setq atomic-chrome-select-frame 'current)
-  (setq ghost-text-display-buffer-function 'switch-to-buffer)
-  (setq atomic-chrome-url-major-mode-alist
-        '(("github\\.com" . gfm-mode)
-          ("localhost:8888" . python-mode)
-          ;; ("redmine" . textile-mode)
-          )))
-(atomic-chrome-start-server)
-
-;; https://emacs.stackexchange.com/questions/69133/how-to-write-an-elisp-function-to-insert-some-text-at-the-beginning-and-end-of-a
+;; Functions for email/web-form formatting
 (defun ES-htmlize (beg end)
+  "Wrap selected region in <pre> tags with signature."
   (interactive "r")
   (save-excursion
     (narrow-to-region beg end)
@@ -45,32 +14,36 @@
     (widen)))
 
 (defun ES-init ()
+  "Insert template with <pre> tag and signature."
   (interactive)
-    (goto-char (point-min))
-    (insert "<pre>\n\nBest regards,\nHaiYing\n</pre>")
-    (previous-line 3))
+  (goto-char (point-min))
+  (insert "<pre>\n\nBest regards,\nHaiYing\n</pre>")
+  (forward-line -2))
 
-(global-set-key ( kbd "C-c i") 'ES-init)
-(global-set-key ( kbd "C-c h") 'ES-htmlize)
+(defun my/atomic-chrome-email-setup ()
+  "Auto-insert email template when opening an empty browser edit buffer."
+  (when (and (derived-mode-p 'org-mode)
+             (= (buffer-size) 0))
+    (ES-init)))
+
+(use-package atomic-chrome
+  :ensure t
+  :bind (:map atomic-chrome-edit-mode-map
+         ("C-c i" . ES-init)
+         ("C-c h" . ES-htmlize))
+  :hook (atomic-chrome-edit-mode . my/atomic-chrome-email-setup)
+  :config
+  (with-eval-after-load 'evil-collection
+    (evil-set-initial-state 'atomic-chrome-edit-mode 'normal))
+  (setq atomic-chrome-default-major-mode 'org-mode)
+  (setq atomic-chrome-buffer-open-style 'frame)
+  (setq atomic-chrome-url-major-mode-alist
+        '(("github\\.com" . gfm-mode)
+          ("localhost:8888" . python-mode)))
+  (atomic-chrome-start-server))
 
 (use-package emacs-everywhere
   :ensure t)
 
-(use-package overleaf
-  ;; https://github.com/vale981/overleaf.el
-  ;; https://github.com/mozilla/geckodriver
-  :ensure t
-  :custom
-  (overleaf-use-nerdfont t "Use nerfont icons for the modeline.")
-  :config
-  ;; Example: load/save cookies from GPG encrypted file.
-  ;;          (remove the .gpg extension to save unencrypted)
-  ;; (let ((cookie-file "~/.overleaf-cookies.gpg"))
-  (let ((cookie-file "~/.overleaf-cookies"))
-    (setq overleaf-save-cookies
-          (overleaf-save-cookies-to-file cookie-file))
-    (setq overleaf-cookies
-          (overleaf-read-cookies-from-file cookie-file)))
-  )
-
 (provide 'edit-server-config)
+;;; edit-server-config.el ends here
