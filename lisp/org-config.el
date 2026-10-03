@@ -1,12 +1,75 @@
-;;; org-config.el -*- lexical-binding: nil; -*-
+;;; org-config.el -*- lexical-binding: t; -*-
 
-(require 'org)
-(setq org-startup-numerated t)
-(require 'oc-csl)
-(setq org-cite-csl-styles-dir (expand-file-name "~/Dropbox/mydoc/web/style/"))
-(with-eval-after-load 'oc ;; Remove citation fontification rules to speed up
-  (setq org-cite-activate-processor 'nil))
-(require 'ox-ipynb)
+(use-package org
+  :ensure nil
+  :bind (("C-c a" . org-agenda))
+  :hook ((org-mode . auto-fill-mode))
+  :init
+  (setq org-startup-numerated t
+        org-highlight-latex-and-related '(latex)
+        org-format-latex-options (plist-put org-format-latex-options :scale 2.0)
+        org-agenda-files '("~/Dropbox/mydoc/agenda.org"
+                           "~/Dropbox/mydoc/notes.org")
+        org-safe-remote-resources '("\\`https://fniessen\\.github\\.io\\(?:/\\'\\)")
+        org-confirm-babel-evaluate nil
+        org-time-stamp-rounding-minutes '(0 1)
+        org-hide-emphasis-markers t
+        org-html-validation-link nil
+        org-latex-listings 'minted
+        org-latex-packages-alist '(("" "minted"))
+        org-latex-pdf-process
+        '("lualatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+          "lualatex -shell-escape -interaction nonstopmode -output-directory %o %f")
+        org-edit-src-content-indentation 0
+        org-src-tab-acts-natively t
+        org-src-preserve-indentation t
+        org-src-fontify-natively t)
+
+  (setq org-todo-keywords
+        '((sequence "IDEA(i)" "TODO(t)" "STARTED(s)" "FEEDBACK(f)" "WAITING(w)" "|" "DONE(d)")
+          (sequence "|" "CANCELED(c)" "REJECTED(r)")))
+
+  (setq org-todo-keyword-faces
+        '(("IDEA"     . (:foreground "GoldenRod"  :weight bold))
+          ("FEEDBACK" . (:foreground "IndianRed1" :weight bold))
+          ("STARTED"  . (:foreground "OrangeRed"  :weight bold))
+          ("WAITING"  . (:foreground "coral"      :weight bold))
+          ("CANCELED" . (:foreground "LimeGreen"  :weight bold))
+          ("REJECTED" . (:foreground "firebrick"  :weight bold))))
+
+  (add-to-list 'auto-mode-alist '("\\.org\\.txt\\'" . org-mode))
+
+  :config
+  ;; Disable C-tab in org-mode-map so window/tab switching isn't intercepted
+  (define-key org-mode-map [C-tab] nil)
+
+  ;; Load Babel languages
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((R          . t)
+     (emacs-lisp . t)
+     (gnuplot    . t)
+     (julia      . t)
+     (latex      . t)
+     (python     . t)
+     (org        . t)
+     (shell      . t)))
+
+  ;; Evil-mode TAB binding for org-mode
+  (with-eval-after-load 'evil
+    (evil-define-key 'normal org-mode-map (kbd "TAB")   #'org-cycle)
+    (evil-define-key 'normal org-mode-map (kbd "<tab>") #'org-cycle)))
+
+;; Citation & Export Plugins
+(use-package oc-csl
+  :after org
+  :init
+  (setq org-cite-csl-styles-dir (expand-file-name "~/Dropbox/mydoc/web/style/"))
+  (with-eval-after-load 'oc
+    (setq org-cite-activate-processor nil)))
+
+(use-package ox-ipynb
+  :after org)
 
 (use-package ox-pandoc
   :ensure t
@@ -14,274 +77,62 @@
 
 (use-package org-modern
   :ensure t
-  :defer t
- )
+  :defer t)
+
 (use-package citeproc
   :ensure t
-  :defer t
- )
-(use-package poly-org
-  :ensure t
-  :config
-  (require 'poly-org)
- )
+  :defer t)
 
-;; (use-package ox-reveal
-;;   :ensure t
-;;   :config
-;;   (require 'ox-reveal)
-;;  )
+(use-package poly-org
+  :ensure t)
 
 (use-package org-re-reveal
   :ensure t
-  :defer t
-  :config
-  (require 'org-re-reveal)
- )
+  :defer t)
 
 (use-package org-appear
   :ensure t
   :hook (org-mode . org-appear-mode)
   :config
-  ;; Repair links: show the full [[url][description]] when cursor is on it
-  (setq org-appear-autolinks t)
-  ;; Reveal emphasis markers (*bold*, /italic/, etc.)
-  (setq org-appear-autoemphasis t)
-  ;; Optional: Reveal sub/superscripts (_{lower}, ^{upper})
-  (setq org-appear-autosubmarkers t)
-  ;; Optional: Reveal entities (\sigma, \alpha, etc.)
-  (setq org-appear-autoentities t)
-  ;; Optional: Delay (in seconds) before the markers appear/disappear
-  ;; (setq org-appear-delay 0.0) 
-  )
-
-(add-to-list 'auto-mode-alist '("\\.org.txt" . org-mode))
-;; (setq org-re-reveal-root "file:///home/ossifragus/Dropbox/mydoc/reinstallOS/reveal.js")
-
-;; (setq org-todo-keywords
-;;       '((sequence "TODO" "DOING" "NEED-INFO" "FEEDBACK" "|" "DONE")))
-
-(setq org-todo-keywords
-      '(
-        (sequence "IDEA(i)" "TODO(t)" "STARTED(s)" "FEEDBACK(f)" "WAITING(w)" "|" "DONE(d)")
-        (sequence "|" "CANCELED(c)" "REJECTED(r)") ;; "DELEGATED(l)" "SOMEDAY(f)"
-        ))
-
-(setq org-todo-keyword-faces
-      '(("IDEA" . (:foreground "GoldenRod" :weight bold))
-        ("FEEDBACK" . (:foreground "IndianRed1" :weight bold))
-        ("STARTED" . (:foreground "OrangeRed" :weight bold))
-        ("WAITING" . (:foreground "coral" :weight bold))
-        ("CANCELED" . (:foreground "LimeGreen" :weight bold))
-        ("REJECTED" . (:foreground "firebrick" :weight bold))
-        ;; ("DELEGATED" . (:foreground "LimeGreen" :weight bold))
-        ;; ("SOMEDAY" . (:foreground "LimeGreen" :weight bold))
-        ))
-
-;; (use-package julia-vterm
-;;   :ensure t
-;;   )
-;; (require 'julia-vterm)
-;; (use-package ob-julia-vterm
-;;   :ensure t
-;;   )
-
-(eval-after-load 'org
-  '(progn
-     ;; toggle C-TAB (org-force-cycle-archived) in org-mode
-     (define-key org-mode-map [C-tab] nil)
-   (setf org-highlight-latex-and-related '(latex))
-     ;; (define-key org-mode-map (kbd "C-c l") 'org-store-link)
-   (define-key org-mode-map (kbd "C-c a") 'org-agenda)
-     ;; (define-key org-mode-map (kbd "C-c c") 'org-capture)
-     ;; (define-key org-mode-map (kbd "C-c b") 'org-iswitchb)
-     ;; (define-key org-mode-map (kbd "M-q") 'org-fill-paragraph)
-     (org-babel-do-load-languages
-      'org-babel-load-languages
-      '((R . t)
-        ;; (C . t)
-        ;; (dot . t)
-        (emacs-lisp . t)
-        (gnuplot . t)
-        ;; (julia-vterm . t)
-        (julia . t)
-        (latex . t)
-        (python . t)
-        ;; (awk . t)
-        ;; (css . t)
-        ;; (js . t)
-        ;; (lisp . t)
-        (org . t)
-        (shell . t)
-        ;; (sed . t)
-        ;; (sql . t)
-        ;; (sqlite . t)
-        ))))
-;; (defalias 'org-babel-execute:julia 'org-babel-execute:julia-vterm)
-;; (add-hook 'org-mode-hook 'turn-on-org-cdlatex)
-
-;; various preferences
-(setq
- ;; org-agenda-files nil
- org-agenda-files '( "~/Dropbox/mydoc/agenda.org"
-                     "~/Dropbox/mydoc/notes.org")
- org-safe-remote-resources '("\\`https://fniessen\\.github\\.io\\(?:/\\|\\'\\)")
- ;; org-catch-invisible-edits 'show
- org-confirm-babel-evaluate nil
- ;; org-edit-timestamp-down-means-later t
- org-time-stamp-rounding-minutes '(0 1)
- ;; org-export-coding-system 'utf-8
- ;; org-export-kill-product-buffer-when-displayed t
- ;; org-export-latex-default-packages-alist nil
- ;; org-fast-tag-selection-single-key 'expert
- org-hide-emphasis-markers t
- ;; ;; org-html-htmlize-output-type 'css
- org-html-validation-link nil
- org-latex-listings 'minted
- org-latex-packages-alist '(("" "minted"))
- ;; org-latex-pdf-process '("lualatex -halt-on-error -shell-escape -pdf %f")
- org-latex-pdf-process
- '("lualatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-   "lualatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-   ;; "lualatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-  )
- org-edit-src-content-indentation 0
- org-src-tab-acts-natively t
- org-src-preserve-indentation t
- ;; org-log-done t
- ;; org-reverse-note-order t
- org-src-fontify-natively t
- ;; org-tags-column 80
- )
-
-;; ;; https://zzamboni.org/post/how-to-easily-create-and-use-human-readable-ids-in-org-mode-and-doom-emacs/
-;; (require 'org-id)
-;; (use-package counsel
-;;   :ensure t
-;;   :config
-;;   (require 'counsel)
-;;  )
-
-;; (eval-after-load 'counsel
-(add-hook 'org-mode-hook
-          (lambda ()
-            ;; (define-key org-mode-map (kbd "C-c )") #'counsel-org-link)
-            (define-key evil-normal-state-map (kbd "TAB") 'org-cycle)
-            ;; (org-expose-emphasis-markers-mode t)
-            ))
-;; )
-
-;; (setq counsel-outline-display-style 'title)
-;; (setq org-id-link-to-org-use-id 'create-if-interactive-and-no-custom-id)
-;; (defun zz/make-id-for-title (title)
-;;   "Return an ID based on TITLE."
-;;   (let* ((new-id (replace-regexp-in-string "[^[:alnum:]]" "-" (downcase title))))
-;;     new-id))
-;; (defun zz/org-custom-id-create ()
-;;   "Create and store CUSTOM_ID for current heading."
-;;   (let* ((title (or (nth 4 (org-heading-components)) ""))
-;;          (new-id (zz/make-id-for-title title)))
-;;     (org-entry-put nil "CUSTOM_ID" new-id)
-;;     (org-id-add-location new-id (buffer-file-name (buffer-base-buffer)))
-;;     new-id))
-
-;; (defun zz/org-custom-id-get-create (&optional where force)
-;;   "Get or create CUSTOM_ID for heading at WHERE. If FORCE is t, always recreate the property."
-;;  (org-with-point-at where
-;;     (let ((old-id (org-entry-get nil "CUSTOM_ID")))
-;;       ;; If CUSTOM_ID exists and FORCE is false, return it
-;;       (if (and (not force) old-id (stringp old-id))
-;;           old-id
-;;         ;; otherwise, create it
-;;         (zz/org-custom-id-create)))))
-
-;; ;; Now override counsel-org-link-action
-;; ;; (after! counsel
-;; (defun counsel-org-link-action (x)
-;;  "Insert a link to X. X is expected to be a cons of the form (title . point), as passed by `counsel-org-link'. If X does not have a CUSTOM_ID, create it based on the headline title."
-;;  (let* ((id (zz/org-custom-id-get-create (cdr x))))
-;;   (org-insert-link nil (concat "#" id) (car x))))
-;; ;; )
-
-(setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
-
-;; publishing
-;; (setq org-publish-project-alist
-;;       '(
-;;     ;; ... add all the components here (see below)...
-;;     ("org-myweb"
-;;      :base-directory "~/Dropbox/mydoc/web/"
-;;      :base-extension "org"
-;;      :publishing-directory "~/Dropbox/mydoc/web/"
-;;      :exclude "\\(?:\\(?:style/o\\)?thers\\)"
-;;          :exclude (regexp-opt '("others" "style/others"))
-;;      :recursive t
-;;      :publishing-function publish-html-and-patch
-;;      )
-;;       ))
-
-(defvar OS--publish-project-alist
-  (list
-   (list "myweb"
-     :base-directory "~/Dropbox/mydoc/web/"
-     :base-extension "org"
-     :publishing-directory "~/Dropbox/mydoc/web/"
-         :exclude (regexp-opt '("others" "style/others"))
-         :recursive t
-         :publishing-function 'publish-html-and-patch)
-   ;; (list "attachments"
-   ;;       :base-directory "./"
-   ;;       :exclude (regexp-opt '("assets" "public"))
-   ;;       ;; :include '("CNAME" "keybase.txt" "LICENSE" ".nojekyll" "publish.el")
-   ;;       :recursive t
-   ;;       :base-extension (regexp-opt '("jpg" "gif" "png" "svg" "css" "pdf"))
-   ;;       :publishing-directory "./public"
-   ;;       :publishing-function 'org-publish-attachment)
-  ))
-
-(setq org-publish-project-alist OS--publish-project-alist)
-
-(defun publish-html-and-patch (plist filename pub-dir)
-  "Export a HTML file then bold the author name 'Wang, H.'."
-  (let ((outfile (org-html-publish-to-html plist filename pub-dir)))
-    (when (file-exists-p outfile)
-      (with-temp-file outfile
-        (insert-file-contents outfile)
-        (goto-char (point-min))
-        (while (search-forward "Wang, H." nil t)
-          (replace-match "<strong>Wang, H.</strong>" t t))))
-    outfile))
-
-(with-eval-after-load 'ox-latex
-   (add-to-list 'org-latex-classes
-                '("ltxdoc"
-                  "\\documentclass{ltxdoc}"
-         ("\\section{%s}" . "\\section*{%s}")
-         ("\\subsection{%s}" . "\\subsection*{%s}")
-         ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-         ("\\paragraph{%s}" . "\\paragraph*{%s}")
-         ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
-
-(add-hook 'org-mode-hook 'turn-on-auto-fill)
+  (setq org-appear-autolinks t
+        org-appear-autoemphasis t
+        org-appear-autosubmarkers t
+        org-appear-autoentities t))
 
 (use-package org-unique-id
-  :ensure t
-  :config
-  (require 'org-unique-id)
-    ;; :init
-    ;; (add-hook 'org-mode-hook
-    ;;    (lambda ()
-    ;;      (add-hook 'before-save-hook
-    ;;                (lambda ()
-    ;;                  (when (and (eq major-mode       'org-mode)
-    ;;                             (eq buffer-read-only nil))
-    ;;                    (org-unique-id))))))
-    )
+  :ensure t)
 
-;; (use-package evil-org
-;;   :ensure t)
-;; (use-package org-evil
-;;   :ensure t
-;;   :defer t)
+;; ;;; Publishing Configuration
+
+;; (defun publish-html-and-patch (plist filename pub-dir)
+;;   "Export a HTML file then bold the author name 'Wang, H.'."
+;;   (let ((outfile (org-html-publish-to-html plist filename pub-dir)))
+;;     (when (file-exists-p outfile)
+;;       (with-temp-file outfile
+;;         (insert-file-contents outfile)
+;;         (goto-char (point-min))
+;;         (while (search-forward "Wang, H." nil t)
+;;           (replace-match "<strong>Wang, H.</strong>" t t))))
+;;     outfile))
+
+;; (setq org-publish-project-alist
+;;       `(("myweb"
+;;          :base-directory "~/Dropbox/mydoc/web/"
+;;          :base-extension "org"
+;;          :publishing-directory "~/Dropbox/mydoc/web/"
+;;          :exclude ,(regexp-opt '("others" "style/others"))
+;;          :recursive t
+;;          :publishing-function publish-html-and-patch)))
+
+;; (with-eval-after-load 'ox-latex
+;;   (add-to-list 'org-latex-classes
+;;                '("ltxdoc"
+;;                  "\\documentclass{ltxdoc}"
+;;                  ("\\section{%s}"       . "\\section*{%s}")
+;;                  ("\\subsection{%s}"    . "\\subsection*{%s}")
+;;                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+;;                  ("\\paragraph{%s}"     . "\\paragraph*{%s}")
+;;                  ("\\subparagraph{%s}"  . "\\subparagraph*{%s}"))))
 
 (provide 'org-config)
+;;; org-config.el ends here
