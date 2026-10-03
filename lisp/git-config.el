@@ -19,9 +19,10 @@
   :ensure t
   :hook ((magit-post-refresh . diff-hl-magit-post-refresh)
          (magit-pre-refresh  . diff-hl-magit-pre-refresh))
-  :config
+  :init
   (global-diff-hl-mode 1)
+  :config
   (diff-hl-flydiff-mode 1))
-
+  
 (provide 'git-config)
 ;;; git-config.el ends here
