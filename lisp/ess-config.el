@@ -4,7 +4,7 @@
   :ensure t
   :config
   (with-eval-after-load 'evil
-    (evil-define-key '(normal insert) 'inferior-ess-mode-map
+    (evil-define-key '(normal insert) inferior-ess-mode-map
       (kbd "RET") #'inferior-ess-send-input
       [return] #'inferior-ess-send-input))
 

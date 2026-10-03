@@ -2,7 +2,7 @@
 
 (use-package markdown-mode
   :ensure t
-  :mode (("\\.md\\'" . markdown-mode)
+  :mode (("\\.md\\'"       . markdown-mode)
          ("\\.markdown\\'" . markdown-mode)
          ("README\\.md\\'" . gfm-mode))
   :init
@@ -13,7 +13,7 @@
   :config
   ;; Evil-mode integration: Org-style TAB cycling and outline movement
   (with-eval-after-load 'evil
-    (evil-define-key 'normal 'markdown-mode-map
+    (evil-define-key 'normal markdown-mode-map
       (kbd "<tab>") #'markdown-cycle
       (kbd "TAB") #'markdown-cycle
       (kbd "<backtab>") #'markdown-shifttab
