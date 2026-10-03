@@ -1,28 +1,106 @@
-;;; latex-config.el -*- lexical-binding: nil; -*-
+;;; latex-config.el -*- lexical-binding: t; -*-
 
-;; (setenv "PATH"
-;; 				(concat
-;; 				 "/usr/local/texlive/2019/bin/x86_64-linux" ":"
-;; 				 (getenv "PATH")))
-(setq reftex-plug-into-auctex t)
-(setq preview-scale-function 1.5)
-;; (setq TeX-auto-save nil)
-(setq TeX-auto-save t)
-(setq TeX-PDF-mode t)
-(setq TeX-save-query  nil)
-(setq bibtex-align-at-equal-sign t)
-;; (server-start)
-(setq TeX-source-correlate-mode t)
-(setq TeX-source-correlate-method 'synctex)
-(setq TeX-source-correlate-start-server t)
-(setq TeX-command-extra-options "--shell-escape")
+(use-package tex
+  :ensure auctex
+  :init
+  (setq TeX-auto-save t
+        TeX-parse-self t
+        TeX-PDF-mode t
+        TeX-save-query nil
+        TeX-source-correlate-mode t
+        TeX-source-correlate-method 'synctex
+        TeX-source-correlate-start-server t
+        TeX-command-extra-options "--shell-escape"
+        preview-scale-function 1.5
+        reftex-plug-into-auctex t
+        bibtex-align-at-equal-sign t)
+
+  :config
+  ;; Viewer and SyncTeX configuration
+  (cond
+   ((or (eq system-type 'darwin) (string= (system-name) "MBP16.local"))
+    (setq TeX-view-program-list
+          '(("Skim" "/Applications/Skim.app/Contents/SharedSupport/displayline -g -b %n %o %b"))
+          TeX-view-program-selection '((output-pdf "Skim"))))
+   ((eq system-type 'gnu/linux)
+    (unless (assoc "Okular" TeX-view-program-list)
+      (add-to-list 'TeX-view-program-list
+                   '("Okular" my-TeX-okular-sync-view)))
+    (setq TeX-view-program-selection '((output-pdf "Okular")))))
+
+  ;; Focus strategy for PGTK/Wayland/GNOME
+  (setq TeX-raise-frame-function
+        (lambda ()
+          (let ((frame (selected-frame)))
+            (run-at-time 0.2 nil
+                         (lambda (f)
+                           (when (frame-live-p f)
+                             (make-frame-visible f)
+                             (raise-frame f)
+                             (select-frame-set-input-focus f)
+                             (when (fboundp 'x-focus-frame) (x-focus-frame f))
+                             (when (fboundp 'pgtk-focus-frame) (pgtk-focus-frame f))
+                             ;; Fallback for GNOME/X11
+                             (when (executable-find "wmctrl")
+                               (let ((name (frame-parameter f 'name)))
+                                 (if (and name (not (string= name "")))
+                                     (call-process "wmctrl" nil nil nil "-a" name)
+                                   (call-process "wmctrl" nil nil nil "-x" "-a" "Emacs"))))))
+                         frame)))))
+
+(use-package latex
+  :ensure nil
+  :after tex
+  :bind (:map LaTeX-mode-map
+         ("C-c C-f" . tex-frame)
+         ("$"       . insert-dollar-sign)
+         ("TAB"     . TeX-complete-symbol))
+  :hook ((LaTeX-mode . turn-on-reftex)
+         (LaTeX-mode . evil-tex-mode)
+         (LaTeX-mode . my-LaTeX-hook))
+  :config
+  (with-eval-after-load 'evil
+    (evil-define-key '(normal visual) LaTeX-mode-map
+      (kbd "<leader>ca") #'TeX-command-run-all
+      (kbd "<leader>cc") #'TeX-command-master)))
+
+;;; Helper Functions
+
+(defun insert-dollar-sign ()
+  "Insert a pair of dollar signs and place point between them."
+  (interactive)
+  (insert "$$")
+  (backward-char 1))
+
+(defun tex-frame ()
+  "Run `TeX-command-region' on the current Beamer frame environment."
+  (interactive)
+  (save-mark-and-excursion
+    (while (not (looking-at-p "\\\\begin *{frame}"))
+      (LaTeX-find-matching-begin))
+    (forward-char)
+    (LaTeX-mark-environment)
+    (TeX-command-region)))
+
+(defun my-LaTeX-hook ()
+  "Custom setup for `LaTeX-mode'."
+  (set-face-foreground 'font-latex-math-face "burlywood")
+  (set-face-foreground 'font-latex-warning-face "red")
+  (tex-fold-mode 1)
+  (LaTeX-math-mode 1)
+  (visual-line-mode 1)
+  (flyspell-mode 1)
+  (auto-fill-mode 1)
+  (display-line-numbers-mode 1))
+
+;;; Okular DBus SyncTeX Integration (Linux)
 
 (defun my-TeX-okular--document-spec ()
   (let ((pdf-file (expand-file-name
                    (TeX-active-master (TeX-output-extension))))
         (source-file (expand-file-name (TeX-buffer-file-name))))
     (list pdf-file
-          (format "file:%s#src:%s%s"
+          (format "file:%s#src:%s %s"
                   pdf-file
                   (TeX-current-line)
                   source-file))))
@@ -64,90 +142,5 @@
            (start-process "okular" nil "okular" document-spec)))
       (start-process "okular" nil "okular" document-spec))))
 
-(defun my-LaTeX-hook ()
-	(set-face-foreground 'font-latex-math-face "burlywood")
-	(set-face-foreground 'font-latex-warning-face "red")
-
-	(local-set-key (kbd "C-c C-f") 'tex-frame)
-	(local-set-key (kbd "$") 'insert-dollar-sign)
-	(setq TeX-parse-self t)
-	(define-key LaTeX-mode-map (kbd "TAB") 'TeX-complete-symbol)
-	(tex-fold-mode t)
-	(LaTeX-math-mode t)
-	(visual-line-mode t)
-	(flyspell-mode t)
-	(auto-fill-mode t)
-        (display-line-numbers-mode t)
-	;; (outline-minor-mode t)
-	)
-
-(defun insert-dollar-sign ()
-  (interactive)
-  (insert "$$")
-  (backward-char 1))
-
-;; http://mbork.pl/2016-07-04_Compiling_a_single_Beamer_frame_in_AUCTeX
-(defun tex-frame ()
-  "Run `TeX-command-region' on the current frame environment."
-  (interactive)
-  (save-mark-and-excursion
-    (while (not (looking-at-p "\\\\begin *{frame}"))
-      (LaTeX-find-matching-begin))
-    (forward-char)
-    (LaTeX-mark-environment)
-    (TeX-command-region)))
-
-(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
-(add-hook 'LaTeX-mode-hook 'my-LaTeX-hook)
-(add-hook 'LaTeX-mode-hook #'evil-tex-mode)
-(add-hook 'LaTeX-mode-hook
-          (lambda ()
-            (define-key evil-normal-state-local-map
-                        (kbd "<leader>ca") 'TeX-command-run-all)
-            (define-key evil-visual-state-local-map
-                        (kbd "<leader>ca") 'TeX-command-run-all)
-            (define-key evil-normal-state-local-map
-                        (kbd "<leader>cc") 'TeX-command-master)
-            (define-key evil-visual-state-local-map
-                        (kbd "<leader>cc") 'TeX-command-master)
-            ))
-
-(with-eval-after-load 'tex
-  (cond
-   ((or (eq system-type 'darwin) (string= (system-name) "MBP16.local"))
-    (setq TeX-source-correlate-method 'synctex
-          TeX-view-program-list
-          '(("Skim" "/Applications/Skim.app/Contents/SharedSupport/displayline -g -b %n %o %b"))
-          TeX-view-program-selection '((output-pdf "Skim"))))
-   ((eq system-type 'gnu/linux)
-    (unless (assoc "Okular" TeX-view-program-list)
-      (add-to-list 'TeX-view-program-list
-                   '("Okular" my-TeX-okular-sync-view)))
-    (setq TeX-view-program-selection '((output-pdf "Okular")))))
-
-  ;; Focus strategy for PGTK/Wayland/GNOME
-  ;; install Just Perfection; turn on Window Demand Attention Focus
-  (setq TeX-raise-frame-function
-        (lambda ()
-          (let ((frame (selected-frame)))
-            (run-at-time 0.2 nil
-                         (lambda (f)
-                           (when (frame-live-p f)
-                             (make-frame-visible f)
-                             (raise-frame f)
-                             (select-frame-set-input-focus f)
-                             (if (fboundp 'x-focus-frame) (x-focus-frame f))
-                             (if (fboundp 'pgtk-focus-frame) (pgtk-focus-frame f))
-                             ;; Fallback for GNOME/X11
-                             (when (executable-find "wmctrl")
-                               (let ((name (frame-parameter f 'name)))
-                                 (if (and name (not (string= name "")))
-                                     (call-process "wmctrl" nil nil nil "-a" name)
-                                   (call-process "wmctrl" nil nil nil "-x" "-a" "Emacs"))))))
-                         frame)))))
-
 (provide 'latex-config)
-
-;; Okular inverse search:
-;; Configure Okular -> Settings -> Configure Okular -> Editor:
-;;   Custom Text Editor: emacsclient --no-wait +%l %f
+;;; latex-config.el ends here
