@@ -1,133 +1,21 @@
-;;; term-config.el -*- lexical-binding: nil; -*-
+;;; term-config.el -*- lexical-binding: t; -*-
 
-;;; use vterm
 (use-package vterm
   :ensure t
   :config
-  ;; (setq vterm-kill-buffer-on-exit nil)
-  (defun starts-with-p (line prompt)
-    "Check if LINE starts with PROMPT."
-    (and line (string-prefix-p prompt line)))
-  (defun is-a-prompt-p (line)
-    "Check if the LINE is the input line of some interactive process."
-    (and line
-         (or
-          (starts-with-p line "$")
-          (starts-with-p line "gnuplot>")
-          (starts-with-p line "julia>")
-          (starts-with-p line ">>>"))))
-  (defun send-command-input (command &optional args)
-    "Check if the point is in the input line, if it is, send the
-     command with vterm. This works only if the first characters
-     of the line are in the database of is-a-prompt-p."
-    (if (is-a-prompt-p (thing-at-point 'line))
-        (vterm--self-insert)            ; Prompt line
-      (funcall command args)
-      )
-    )
+  ;; Automatically delete empty closing pair on backspace: () -> empty
   (defun vterm-remove-empty-pairs ()
-    "Remove right-char for empty pairs in vterm."
-    (if (or (and (char-equal (following-char) ?\)) (char-equal (char-before) ?\())
-            (and (char-equal (following-char) ?\}) (char-equal (char-before) ?\{))
-            (and (char-equal (following-char) ?\]) (char-equal (char-before) ?\[))
-            ;; (and (char-equal (following-char) ?\") (char-equal (char-before) ?\"))
-            ;; (and (char-equal (following-char) ?\') (char-equal (char-before) ?\'))
-            ;; (and (char-equal (following-char) ?\`) (char-equal (char-before) ?\`))
-            )
-        (vterm-send-C-d))
-    )
-  ;;; define shortcut for vterm-yank
-  (defun set-vterm-keys ()
-    "Set shortcuts for vterm"
-    (evil-define-key 'insert vterm-mode-map "\C-y" 'vterm-yank)
-    ;; (define-key vterm-mode-map (kbd "C-y") 'vterm-yank)
-    ;; (define-key vterm-mode-map (kbd "M-p") 'vterm-send-C-p)
-    ;; (define-key vterm-mode-map (kbd "M-n") 'vterm-send-C-n)
-    ;; (define-key vterm-mode-map (kbd "M->") 'vterm-reset-cursor-point)
-    ;; (define-key vterm-mode-map (kbd "C-SPC")
-    ;;   '(lambda () (interactive) (send-command-input 'set-mark-command)))
-    ;; (define-key vterm-mode-map (kbd "C-f")
-    ;;   '(lambda () (interactive) (send-command-input 'forward-char)))
-    ;; (define-key vterm-mode-map (kbd "C-b")
-    ;;   '(lambda () (interactive) (send-command-input 'backward-char)))
-    ;; (define-key vterm-mode-map (kbd "C-l")
-    ;;   '(lambda () (interactive) (send-command-input 'recenter-top-bottom)))
-    ;; (define-key vterm-mode-map (kbd "C-n") nil)
-    ;; (define-key vterm-mode-map (kbd "C-p") nil)
-    ;; (define-key vterm-mode-map (kbd "M-s") nil)
-    ;; (define-key vterm-mode-map (kbd "C-s")
-    ;;   '(lambda () (interactive) (send-command-input 'counsel-grep-or-swiper)))
-    ;; (define-key vterm-mode-map (kbd "C-r")
-    ;;   '(lambda () (interactive) (send-command-input 'counsel-grep-or-swiper)))
-    ;; (define-key vterm-mode-map (kbd "M-f")
-    ;;   '(lambda () (interactive) (send-command-input 'forward-word)))
-    ;; (define-key vterm-mode-map (kbd "M-b")
-    ;;   '(lambda () (interactive) (send-command-input 'backward-word)))
-    ;; (define-key vterm-mode-map (kbd "C-e")
-    ;;   '(lambda () (interactive) (send-command-input 'move-end-of-line)))
-    ;; (define-key vterm-mode-map (kbd "C-a")
-    ;;   '(lambda () (interactive) (send-command-input 'move-beginning-of-line)))
-    ;; (define-key vterm-mode-map (kbd "M-w")
-    ;;   '(lambda () (interactive)
-    ;;      (send-command-input
-    ;;       '(lambda (interactive) (kill-ring-save (point) (mark t)))
-    ;;       )))
-    ;; (define-key vterm-mode-map (kbd "(")
-    ;;   '(lambda () (interactive)
-    ;;      (vterm-send-string "()")
-    ;;      (vterm-send-left)
-    ;;      ))
-    ;; (define-key vterm-mode-map (kbd "[")
-    ;;   '(lambda () (interactive)
-    ;;      (vterm-send-string "[]")
-    ;;      (vterm-send-left)
-    ;;      ))
-    ;; (define-key vterm-mode-map (kbd "{")
-    ;;   '(lambda () (interactive)
-    ;;      (vterm-send-string "{}")
-    ;;      (vterm-send-left)
-    ;;      ))
-    ;; (define-key vterm-mode-map (kbd "\"")
-    ;;   '(lambda () (interactive)
-    ;;      (vterm-send-string "\"\"")
-    ;;      (vterm-send-left)
-    ;;      ))
-    ;; ;; (define-key vterm-mode-map (kbd "'")
-    ;; ;;   '(lambda () (interactive)
-    ;; ;;      (vterm-send-string "''")
-    ;; ;;      (vterm-send-left)
-    ;; ;;      ))
-    ;; (define-key vterm-mode-map (kbd "`")
-    ;;   '(lambda () (interactive)
-    ;;      (vterm-send-string "``")
-    ;;      (vterm-send-left)
-    ;;      ))
-    (advice-add 'vterm-send-backspace
-                :before (lambda () (vterm-remove-empty-pairs)))
-    )
-  (add-hook 'vterm-mode-hook #'set-vterm-keys))
+    "Delete matching closing delimiter if backspacing an empty pair."
+    (when (or (and (char-equal (following-char) ?\)) (char-equal (char-before) ?\())
+              (and (char-equal (following-char) ?\}) (char-equal (char-before) ?\{))
+              (and (char-equal (following-char) ?\]) (char-equal (char-before) ?\[)))
+      (vterm-send-C-d)))
 
-;; (with-eval-after-load 'vterm
-;;   (when (facep 'vterm-color-black)
-;;     (set-face-attribute 'vterm-color-black nil   :foreground "#3F3F3F" :background "#992323"))
-;;   (when (facep 'vterm-color-blue)
-;;     (set-face-attribute 'vterm-color-blue nil    :foreground "#7CB8BB" :background "#4C7073"))
-;;   (when (facep 'vterm-color-cyan)
-;;     (set-face-attribute 'vterm-color-cyan nil    :foreground "#93E0E3" :background "#8CD0D3"))
-;;   (when (facep 'vterm-color-green)
-;;     (set-face-attribute 'vterm-color-green nil   :foreground "#7F9F7F" :background "#9FC59F"))
-;;   (when (facep 'vterm-color-magenta)
-;;     (set-face-attribute 'vterm-color-magenta nil :foreground "#DC8CC3" :background "#CC9393"))
-;;   (when (facep 'vterm-color-red)
-;;     (set-face-attribute 'vterm-color-red nil     :foreground "#AC7373" :background "#8C5353"))
-;;   (when (facep 'vterm-color-white)
-;;     (set-face-attribute 'vterm-color-white nil   :foreground "#DCDCCC" :background "#656555"))
-;;   (when (facep 'vterm-color-yellow)
-;;     (set-face-attribute 'vterm-color-yellow nil  :foreground "#DFAF8F" :background "#9FC59F"))
-;;   (when (facep 'vterm-default-bg-color)
-;;     (set-face-attribute 'vterm-default-bg-color nil :inherit 'vterm-color-black))
-;;   (when (facep 'vterm-default-fg-color)
-;;     (set-face-attribute 'vterm-default-fg-color nil :inherit 'vterm-color-white))
-;; )
+  (advice-add 'vterm-send-backspace :before #'vterm-remove-empty-pairs)
+
+  ;; Evil integration: ensure C-y yanks in insert state
+  (with-eval-after-load 'evil
+    (evil-define-key 'insert vterm-mode-map (kbd "C-y") #'vterm-yank)))
 
 (provide 'term-config)
+;;; term-config.el ends here
