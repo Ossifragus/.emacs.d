@@ -1,55 +1,24 @@
-;;; encoding-config.el -*- lexical-binding: nil; -*-
+;;; encoding-config.el -*- lexical-binding: t; -*-
 
-;;;;;;;;;;;for chinese
-;; (set-language-environment 'Chinese-GB)
-;; (set-clipboard-coding-system 'euc-cn)
-;; (set-buffer-file-coding-system 'euc-cn)
-;; (set-selection-coding-system 'euc-cn)
-;; (setq default-process-coding-system '(euc-cn . euc-cn))
-(modify-coding-system-alist 'process "*" 'utf-8)
-(set-buffer-file-coding-system 'utf-8)
-(set-clipboard-coding-system 'utf-8)
-(set-keyboard-coding-system 'utf-8)
+;; Set UTF-8 as the primary language environment and coding system
 (set-language-environment "UTF-8")
-(set-selection-coding-system 'utf-8)
-(set-terminal-coding-system 'utf-8)
-(setq default-process-coding-system '(utf-8-unix . utf-8-unix))
-(setq-default pathname-coding-system 'utf-8)
 (prefer-coding-system 'utf-8)
+(set-default-coding-systems 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(set-selection-coding-system 'utf-8)
+(setq-default pathname-coding-system 'utf-8)
+(setq default-process-coding-system '(utf-8-unix . utf-8-unix))
 
-;; ;; Emoji: 󠁧󠁢󠁳󠁣󠁴󠁿
-;; (set-fontset-font t 'symbol "Noto Color Emoji")
-;; (set-fontset-font t 'symbol "Symbola" nil 'append)
-(defun my-emoji-fonts ()
-  (set-fontset-font t 'symbol "JuliaMono")
-  ;; (set-fontset-font t 'symbol "Noto Color Emoji")
-  (set-fontset-font t 'symbol "Symbola" nil 'append))
+;; Fontset configurations for symbols/emoji
+(defun my-emoji-fonts (&optional frame)
+  "Configure symbol and emoji fallback fonts."
+  (set-fontset-font t 'symbol "JuliaMono" frame)
+  (set-fontset-font t 'symbol "Symbola" frame 'append))
 
 (if (daemonp)
-    (add-hook 'server-after-make-frame-hook #'my-emoji-fonts)
+    (add-hook 'after-make-frame-functions #'my-emoji-fonts)
   (my-emoji-fonts))
 
 (provide 'encoding-config)
-
-;; ;;; Chinese input
-;; (use-package pyim
-;;   :ensure t
-;;   :config
-;;   (setq default-input-method "pyim")
-;;   (setq pyim-page-length 10)
-;; ;;; fuzzy pinyin
-;;   (setq pyim-fuzzy-pinyin-alist
-;;         '(("c" "ch")
-;;           ("s" "sh")
-;;           ("z" "zh")
-;;           ("en" "eng")
-;;           ("in" "ing"))
-;;         )
-;;   )
-;; (use-package pyim-basedict
-;;   :ensure t
-;;   :config
-;;   (pyim-basedict-enable))
-
-;; (provide 'init-chinese)
-;; ;;; init-chinese.el ends here
+;;; encoding-config.el ends here
