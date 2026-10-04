@@ -9,21 +9,15 @@
     (goto-char (point-min))
     (insert "<pre>\n")
     (goto-char (point-max))
-    (insert "\nBest regards,\nHaiYing\n</pre>")
+    (insert "\nBest regards,\nHaiYing</pre>")
     (widen)))
 
 (defun ES-init ()
   "Insert template with <pre> tag and signature."
   (interactive)
   (goto-char (point-min))
-  (insert "<pre>\n\nBest regards,\nHaiYing\n</pre>")
+  (insert "<pre>\n\nBest regards,\nHaiYing</pre>")
   (forward-line -2))
-
-(defun my/atomic-chrome-email-setup ()
-  "Auto-insert email template when opening an empty browser edit buffer."
-  (when (and (derived-mode-p 'org-mode)
-             (= (buffer-size) 0))
-    (ES-init)))
 
 (use-package atomic-chrome
   :ensure t
@@ -31,19 +25,38 @@
   :bind (:map atomic-chrome-edit-mode-map
          ("C-c i" . ES-init)
          ("C-c h" . ES-htmlize))
-  :hook (atomic-chrome-edit-mode . my/atomic-chrome-email-setup)
   :config
-  (with-eval-after-load 'evil-collection
-    (evil-set-initial-state 'atomic-chrome-edit-mode 'normal))
+  (evil-set-initial-state 'atomic-chrome-edit-mode 'normal)
   (setq atomic-chrome-default-major-mode 'org-mode)
   (setq atomic-chrome-buffer-open-style 'frame)
+  (setq atomic-chrome-select-frame 'current)
+  (setq ghost-text-display-buffer-function 'switch-to-buffer)
   (setq atomic-chrome-url-major-mode-alist
         '(("github\\.com" . gfm-mode)
           ("localhost:8888" . python-mode)))
   (atomic-chrome-start-server))
 
 (use-package emacs-everywhere
-  :ensure t)
+  :ensure t
+  :bind (:map emacs-everywhere-mode-map
+         ("C-c i" . ES-init)
+         ("C-c h" . ES-htmlize)))
+
+(use-package overleaf
+  ;; https://github.com/vale981/overleaf.el
+  ;; https://github.com/mozilla/geckodriver
+  :ensure t
+  :custom
+  (overleaf-use-nerdfont t "Use nerfont icons for the modeline.")
+  :config
+  ;; Example: load/save cookies from GPG encrypted file.
+  ;;          (remove the .gpg extension to save unencrypted)
+  ;; (let ((cookie-file "~/.overleaf-cookies.gpg"))
+  (let ((cookie-file "~/.overleaf-cookies"))
+    (setq overleaf-save-cookies
+          (overleaf-save-cookies-to-file cookie-file))
+    (setq overleaf-cookies
+          (overleaf-read-cookies-from-file cookie-file))))
 
 (provide 'edit-server-config)
 ;;; edit-server-config.el ends here
