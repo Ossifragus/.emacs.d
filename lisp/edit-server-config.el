@@ -6,9 +6,8 @@
   (interactive "r")
   (save-excursion
     (narrow-to-region beg end)
-    (set-mark nil)
     (goto-char (point-min))
-    (insert "<pre>")
+    (insert "<pre>\n")
     (goto-char (point-max))
     (insert "\nBest regards,\nHaiYing\n</pre>")
     (widen)))
@@ -28,6 +27,7 @@
 
 (use-package atomic-chrome
   :ensure t
+  :demand t
   :bind (:map atomic-chrome-edit-mode-map
          ("C-c i" . ES-init)
          ("C-c h" . ES-htmlize))
