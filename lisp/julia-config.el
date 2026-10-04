@@ -75,17 +75,22 @@
   :ensure t
   :demand t
   :config
+  (setq eglot-jl-language-server-project "@languageserver")
   (eglot-jl-init)
   ;; LanguageServer 5.1+ uses JuliaWorkspaces and starts via `runserver'.
   ;; This avoids the legacy SymbolServer entry point, which is incompatible
   ;; with Julia 1.13.
   (defun my-eglot-jl--ls-invocation (&rest _ignored)
     "Start the Julia language server for the current buffer."
-    `(,eglot-jl-julia-command
-      "--startup-file=no"
-      ,(concat "--project=" eglot-jl-language-server-project)
-      "-e" "using LanguageServer; runserver()"
-      ,(file-name-directory (buffer-file-name))))
+    (let ((proj-dir (or (and (buffer-file-name)
+                             (file-name-directory (buffer-file-name)))
+                        default-directory)))
+      `(,eglot-jl-julia-command
+        "--startup-file=no"
+        "--history-file=no"
+        ,(concat "--project=" eglot-jl-language-server-project)
+        "-e" "using LanguageServer; runserver()"
+        ,proj-dir)))
   (advice-add 'eglot-jl--ls-invocation :override
               #'my-eglot-jl--ls-invocation)
   (setq eglot-connect-timeout 300))
