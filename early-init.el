@@ -27,8 +27,10 @@
 
  ((string= (system-name) "yoga")
   (setq default-frame-alist
-        '((height . 39)
-          (width . 81)
+        '((top . 0)
+          (left . 0)
+          (height . 38)
+          (width . 88)
           (font . "JuliaMono-12"))))
 
  ((or (eq system-type 'darwin) (string= (system-name) "MBP16.local"))
