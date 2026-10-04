@@ -47,16 +47,12 @@
   ;; https://github.com/mozilla/geckodriver
   :ensure t
   :custom
-  (overleaf-use-nerdfont t "Use nerfont icons for the modeline.")
+  (overleaf-use-nerdfont t "Use nerdfont icons for the modeline.")
   :config
-  ;; Example: load/save cookies from GPG encrypted file.
-  ;;          (remove the .gpg extension to save unencrypted)
-  ;; (let ((cookie-file "~/.overleaf-cookies.gpg"))
-  (let ((cookie-file "~/.overleaf-cookies"))
-    (setq overleaf-save-cookies
-          (overleaf-save-cookies-to-file cookie-file))
-    (setq overleaf-cookies
-          (overleaf-read-cookies-from-file cookie-file))))
+  (setq overleaf-cookies
+        (overleaf-read-cookies-from-firefox
+         :firefox-folder "~/snap/firefox/common/.mozilla/firefox/"
+         :profile "default")))
 
 (provide 'edit-server-config)
 ;;; edit-server-config.el ends here
