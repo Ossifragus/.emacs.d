@@ -82,6 +82,50 @@
     (LaTeX-mark-environment)
     (TeX-command-region)))
 
+(defun tex-remove-comments (&optional beg end)
+  "Remove all LaTeX comments in the current buffer or active region.
+Full-line comments are deleted along with their trailing newline so as not
+to introduce spurious paragraph breaks (\\par).  Inline comments are deleted
+along with any preceding horizontal whitespace.  Escaped percent characters
+(\\%) and verbatim/macro constructs are preserved."
+  (interactive
+   (if (use-region-p)
+       (list (region-beginning) (region-end))
+     (list (point-min) (point-max))))
+  (let ((count 0))
+    (save-excursion
+      (save-restriction
+        (narrow-to-region (or beg (point-min)) (or end (point-max)))
+        (syntax-propertize (point-max))
+        (goto-char (point-min))
+        (while (re-search-forward "%" nil t)
+          (let ((state (syntax-ppss (point))))
+            (when (and (nth 4 state)
+                       (not (nth 3 state))
+                       (not (and (fboundp 'LaTeX-verbatim-p)
+                                 (LaTeX-verbatim-p (1- (point))))))
+              (setq count (1+ count))
+              (let ((comment-start (1- (point))))
+                (if (string-match-p "\\`[ \t]*\\'"
+                                    (buffer-substring-no-properties
+                                     (line-beginning-position)
+                                     comment-start))
+                    ;; Full-line comment (only whitespace before `%').
+                    ;; Delete the line including the newline (if any).
+                    (delete-region (line-beginning-position)
+                                   (if (= (line-end-position) (point-max))
+                                       (point-max)
+                                     (1+ (line-end-position))))
+                  ;; Inline comment: delete from comment-start to end-of-line.
+                  (goto-char comment-start)
+                  (skip-chars-backward " \t")
+                  (delete-region (point) (line-end-position)))))))))
+    (when (called-interactively-p 'interactive)
+      (message "Removed %d comment%s." count (if (= count 1) "" "s")))
+    count))
+
+(defalias 'latex-remove-comments #'tex-remove-comments)
+
 (defun my-LaTeX-hook ()
   "Custom setup for `LaTeX-mode'."
   (set-face-foreground 'font-latex-math-face "burlywood")
