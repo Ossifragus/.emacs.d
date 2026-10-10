@@ -1,4 +1,4 @@
-;;; init.el -*- lexical-binding: nil; -*-
+;;; init.el --- Emacs initialization file -*- lexical-binding: t; -*-
 
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
@@ -81,4 +81,4 @@
 (setq default-input-method "TeX")
 
 (provide 'init)
-;;; init ends here
+;;; init.el ends here
