@@ -36,11 +36,23 @@
   :hook ((markdown-mode . pandoc-mode)
          (pandoc-mode   . my-pandoc-mode-setup))
   :init
-  (setq pandoc-use-async t
+  (setq pandoc-binary (expand-file-name "lisp/pandoc-synctex.py" user-emacs-directory)
+        pandoc-use-async t
         pandoc-process-connection-type nil
         pandoc-pdf-viewer #'my-pandoc-view-pdf)
   :config
   (add-hook 'pandoc-async-success-hook #'my-pandoc--maybe-view-after-async)
+
+  (define-advice pandoc--call-external (:around (orig-fn &rest args) my-pandoc-source-env)
+    "Pass the source Markdown file path to `pandoc-synctex.py' via environment."
+    (let* ((src-file (or (pandoc--get 'master-file) (buffer-file-name)))
+           (process-environment
+            (if src-file
+                (cons (concat "PANDOC_SOURCE_FILE=" (expand-file-name src-file))
+                      process-environment)
+              process-environment)))
+      (apply orig-fn args)))
+
   (with-eval-after-load 'evil
     (evil-define-key '(normal visual) markdown-mode-map
       (kbd "<leader>cp") #'my-pandoc-export-pdf
@@ -51,8 +63,18 @@
 (defvar my-pandoc--view-after-async-buffer nil
   "Buffer whose PDF output should be opened after an async Pandoc run.")
 
+(defun my-pandoc-raise-frame ()
+  "Raise the Emacs frame when returning from inverse search via `emacsclient'."
+  (when (and (boundp 'TeX-raise-frame-function)
+             (functionp TeX-raise-frame-function))
+    (funcall TeX-raise-frame-function)))
+
 (defun my-pandoc-mode-setup ()
-  "Configure default PDF export settings for `pandoc-mode'."
+  "Configure default PDF export and SyncTeX server for `pandoc-mode'."
+  (require 'server)
+  (unless (server-running-p)
+    (ignore-errors (server-start)))
+  (add-hook 'server-switch-hook #'my-pandoc-raise-frame)
   (unless (pandoc--load-settings-profile "default" 'no-confirm)
     (pandoc--set 'write "latex")
     (pandoc--set 'pdf-engine "xelatex")
@@ -92,11 +114,19 @@
     (pandoc-view-output)))
 
 (defun my-pandoc-view-pdf (pdf-file)
-  "Open PDF-FILE in Okular (Linux) or Skim (macOS)."
-  (let ((pdf-file (expand-file-name pdf-file)))
+  "Open PDF-FILE in Okular (Linux) or Skim (macOS) with SyncTeX forward search."
+  (let* ((pdf-file (expand-file-name pdf-file))
+         (src-file (and (buffer-file-name)
+                        (expand-file-name (or (pandoc--get 'master-file)
+                                              (buffer-file-name)))))
+         (line (line-number-at-pos))
+         (synctex-p (file-exists-p (concat (file-name-sans-extension pdf-file) ".synctex.gz"))))
     (cond
      ((eq system-type 'gnu/linux)
-      (let ((instance (and (fboundp 'my-TeX-okular--find-instance)
+      (let ((doc-spec (if (and src-file synctex-p)
+                          (format "file:%s#src:%d %s" pdf-file line src-file)
+                        pdf-file))
+            (instance (and (fboundp 'my-TeX-okular--find-instance)
                            (my-TeX-okular--find-instance pdf-file))))
         (if instance
             (condition-case nil
@@ -104,18 +134,23 @@
                   (dbus-call-method
                    :session (car instance) (cdr instance)
                    "org.kde.okular" "openDocument"
-                   (concat "file:" pdf-file))
+                   doc-spec)
                   (ignore-errors
                     (dbus-call-method
                      :session (car instance) "/okularshell"
                      "org.kde.okular" "tryRaise" "")))
               (error
-               (start-process "okular" nil "okular" pdf-file)))
-          (start-process "okular" nil (if (executable-find "okular") "okular" "xdg-open") pdf-file))))
+               (start-process "okular" nil "okular" doc-spec)))
+          (start-process "okular" nil (if (executable-find "okular") "okular" "xdg-open") doc-spec))))
      ((eq system-type 'darwin)
-      (if (file-directory-p "/Applications/Skim.app")
-          (start-process "skim" nil "open" "-a" "Skim" pdf-file)
-        (start-process "open" nil "open" pdf-file)))
+      (let ((displayline "/Applications/Skim.app/Contents/SharedSupport/displayline"))
+        (cond
+         ((and src-file synctex-p (file-executable-p displayline))
+          (start-process "skim" nil displayline "-g" "-b" (number-to-string line) pdf-file src-file))
+         ((file-directory-p "/Applications/Skim.app")
+          (start-process "skim" nil "open" "-a" "Skim" pdf-file))
+         (t
+          (start-process "open" nil "open" pdf-file)))))
      (t
       (find-file-other-window pdf-file)))))
 
