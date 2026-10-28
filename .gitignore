@@ -17,3 +17,5 @@ history
 /.agent-shell/
 .antigravitycli/
 ai-code-backends-history.el
+skills/
+auto/

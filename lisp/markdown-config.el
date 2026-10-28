@@ -1,4 +1,4 @@
-;;; polymode-config.el -*- lexical-binding: t; -*-
+;;; markdown-config.el -*- lexical-binding: t; -*-
 
 (use-package markdown-mode
   :ensure t
@@ -76,5 +76,5 @@
   (setq markdown-command
         "/usr/local/bin/pandoc --from=markdown -t html5 --standalone --mathjax")))
 
-(provide 'polymode-config)
-;;; polymode-config.el ends here
+(provide 'markdown-config)
+;;; markdown-config.el ends here
