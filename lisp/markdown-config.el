@@ -59,9 +59,103 @@ Move with h/j/k/l, press RET to select, or q to cancel."
     (setq my/markdown-date-target target)
     (my/markdown-date-picker-mode 1)))
 
+(defun my/markdown-fenced-code-bounds ()
+  "Return bounds of the complete backtick or tilde code block at point."
+  (syntax-propertize (point-max))
+  (let ((bounds (markdown-get-enclosing-fenced-block-construct)))
+    (when (and bounds (cadr bounds)
+               (save-excursion
+                 (goto-char (car bounds))
+                 (looking-at "[ \t]*\\(?:`\\{3,\\}\\|~\\{3,\\}\\)")))
+      bounds)))
+
+(defun my/markdown-hs-block-start-p ()
+  "Recognize an opening code fence using Markdown's parser."
+  (let ((bounds (my/markdown-fenced-code-bounds)))
+    (when (and bounds
+               (= (line-beginning-position) (car bounds)))
+      (set-match-data (list (car bounds) (line-end-position)))
+      t)))
+
+(defun my/markdown-hs-forward-block (_arg)
+  "Move past the complete fenced code block at point."
+  (if-let* ((bounds (my/markdown-fenced-code-bounds)))
+      (goto-char (cadr bounds))
+    (user-error "No complete fenced code block at point")))
+
+(defun my/markdown-hs-find-block ()
+  "Move to the opening fence of the code block containing point."
+  (when-let* ((bounds (my/markdown-fenced-code-bounds)))
+    (goto-char (car bounds))
+    t))
+
+(defun my/markdown-hideshow-setup ()
+  "Enable Hideshow for Markdown code fences using Emacs 31's local API."
+  (require 'hideshow)
+  (setq-local hs-block-start-regexp "^[ \t]*\\(?:`\\{3,\\}\\|~\\{3,\\}\\)"
+              hs-block-end-regexp nil
+              hs-forward-sexp-function #'my/markdown-hs-forward-block
+              hs-find-block-beginning-function #'my/markdown-hs-find-block
+              hs-looking-at-block-start-predicate #'my/markdown-hs-block-start-p
+              hs-inside-comment-predicate #'ignore
+              hs-hide-comments-when-hiding-all nil)
+  (hs-minor-mode 1))
+
+(defun my/markdown-toggle-code-block (&optional bounds)
+  "Toggle the fenced code block at point, or the supplied BOUNDS."
+  (interactive)
+  (unless hs-minor-mode (my/markdown-hideshow-setup))
+  (if-let* ((bounds (or bounds (my/markdown-fenced-code-bounds))))
+      (progn
+        (goto-char (car bounds))
+        (hs-toggle-hiding))
+    (user-error "No complete fenced code block at point")))
+
+(defun my/markdown-tab (&optional arg)
+  "Toggle code on fence lines; otherwise retain Markdown TAB behavior.
+With ARG, perform Markdown's global visibility cycling."
+  (interactive "P")
+  (let ((bounds (and (not arg) (my/markdown-fenced-code-bounds))))
+    (cond
+     ((and bounds
+           (or (= (line-beginning-position)
+                  (save-excursion
+                    (goto-char (car bounds)) (line-beginning-position)))
+               (= (line-beginning-position)
+                  (save-excursion
+                    (goto-char (cadr bounds)) (line-beginning-position)))))
+      (my/markdown-toggle-code-block bounds))
+     ((and bounds (not arg)) (indent-for-tab-command))
+     (t (markdown-cycle arg)))))
+
+(defun my/markdown-start-in-overview ()
+  "Show headings, keeping pre-heading content accessible.
+Fold a leading fenced code block with Hideshow so TAB can reveal it."
+  (syntax-propertize (point-max))
+  (outline-hide-body)
+  (markdown-outline-fix-visibility)
+  (save-excursion
+    (goto-char (point-min))
+    (let ((first-heading
+           (catch 'heading
+             (while (re-search-forward outline-regexp nil t)
+               (unless (markdown-code-block-at-point-p (match-beginning 0))
+                 (throw 'heading (match-beginning 0))))
+             (point-max))))
+      (outline-flag-region (point-min) first-heading nil))
+    (goto-char (point-min))
+    (skip-chars-forward " \t\n")
+    (when (my/markdown-fenced-code-bounds)
+      (unless (bound-and-true-p hs-minor-mode)
+        (my/markdown-hideshow-setup))
+      (hs-hide-block)))
+  (setq markdown-cycle-global-status 2))
+
 (use-package markdown-mode
   :ensure t
-  :hook (markdown-mode . display-line-numbers-mode)
+  :hook ((markdown-mode . display-line-numbers-mode)
+         (markdown-mode . my/markdown-hideshow-setup)
+         (markdown-mode . my/markdown-start-in-overview))
   :mode (("\\.md\\'"       . markdown-mode)
          ("\\.markdown\\'" . markdown-mode)
          ("README\\.md\\'" . gfm-mode))
@@ -74,8 +168,8 @@ Move with h/j/k/l, press RET to select, or q to cancel."
   ;; Evil-mode integration: Org-style TAB cycling and outline movement
   (with-eval-after-load 'evil
     (evil-define-key 'normal markdown-mode-map
-      (kbd "<tab>") #'markdown-cycle
-      (kbd "TAB") #'markdown-cycle
+      (kbd "<tab>") #'my/markdown-tab
+      (kbd "TAB") #'my/markdown-tab
       (kbd "<backtab>") #'markdown-shifttab
       (kbd "S-TAB") #'markdown-shifttab
       (kbd "M-<left>") #'markdown-promote
@@ -85,7 +179,8 @@ Move with h/j/k/l, press RET to select, or q to cancel."
 
   :bind (:map markdown-mode-map
          ("C-c d" . my/markdown-insert-date)
-         ("<tab>" . markdown-cycle)
+         ("<tab>" . my/markdown-tab)
+         ("TAB" . my/markdown-tab)
          ("<backtab>" . markdown-shifttab)
          ("M-<left>" . markdown-promote)
          ("M-<right>" . markdown-demote)
