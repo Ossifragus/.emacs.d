@@ -165,6 +165,15 @@ Fold a leading fenced code block with Hideshow so TAB can reveal it."
         markdown-hide-urls t
         markdown-enable-math t)
   :config
+  ;; Distinct heading colors from the Tomorrow Bright palette.
+  (dolist (heading-color '((markdown-header-face-1 . "#7aa6da")
+                           (markdown-header-face-2 . "#c397d8")
+                           (markdown-header-face-3 . "#70c0b1")
+                           (markdown-header-face-4 . "#e7c547")
+                           (markdown-header-face-5 . "#e78c45")
+                           (markdown-header-face-6 . "#b9ca4a")))
+    (set-face-foreground (car heading-color) (cdr heading-color)))
+
   ;; Evil-mode integration: Org-style TAB cycling and outline movement
   (with-eval-after-load 'evil
     (evil-define-key 'normal markdown-mode-map
