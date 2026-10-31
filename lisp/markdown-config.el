@@ -1,7 +1,67 @@
 ;;; markdown-config.el -*- lexical-binding: t; -*-
 
+(defvar-local my/markdown-date-target nil
+  "Marker where the Calendar date picker will insert its selected date.")
+
+(define-minor-mode my/markdown-date-picker-mode
+  "Select a Markdown date with RET, or cancel with q."
+  :lighter " Date"
+  :keymap (let ((map (make-sparse-keymap)))
+            (define-key map (kbd "RET") #'my/markdown-date-select)
+            (define-key map (kbd "<return>") #'my/markdown-date-select)
+            (define-key map (kbd "q") #'my/markdown-date-cancel)
+            map)
+  (unless my/markdown-date-picker-mode
+    (when (markerp my/markdown-date-target)
+      (set-marker my/markdown-date-target nil))
+    (setq my/markdown-date-target nil)))
+
+(with-eval-after-load 'evil
+  (evil-define-minor-mode-key 'normal 'my/markdown-date-picker-mode
+    (kbd "RET") #'my/markdown-date-select
+    (kbd "<return>") #'my/markdown-date-select
+    (kbd "q") #'my/markdown-date-cancel))
+
+(defun my/markdown-date-cancel ()
+  "Close the date picker without inserting a date."
+  (interactive)
+  (my/markdown-date-picker-mode -1)
+  (calendar-exit))
+
+(defun my/markdown-date-select ()
+  "Insert the Calendar date at the saved Markdown position."
+  (interactive)
+  (let* ((date (calendar-cursor-to-date t))
+         (target (and my/markdown-date-target
+                      (copy-marker my/markdown-date-target)))
+         (system-time-locale "C")
+         (text (format-time-string
+                "%A, %B %-d, %Y"
+                (encode-time 0 0 12 (nth 1 date) (car date) (nth 2 date)))))
+    (unless (and target (marker-buffer target))
+      (user-error "The destination buffer is no longer available"))
+    (unwind-protect
+        (progn
+          (my/markdown-date-cancel)
+          (pop-to-buffer (marker-buffer target))
+          (goto-char target)
+          (insert text))
+      (set-marker target nil))))
+
+(defun my/markdown-insert-date ()
+  "Open Calendar to insert a date as Monday, Month Day, Year.
+Move with h/j/k/l, press RET to select, or q to cancel."
+  (interactive "*")
+  (require 'calendar)
+  (let ((target (point-marker)))
+    (calendar)
+    (my/markdown-date-picker-mode -1)
+    (setq my/markdown-date-target target)
+    (my/markdown-date-picker-mode 1)))
+
 (use-package markdown-mode
   :ensure t
+  :hook (markdown-mode . display-line-numbers-mode)
   :mode (("\\.md\\'"       . markdown-mode)
          ("\\.markdown\\'" . markdown-mode)
          ("README\\.md\\'" . gfm-mode))
@@ -24,6 +84,7 @@
       (kbd "M-<down>") #'markdown-move-down))
 
   :bind (:map markdown-mode-map
+         ("C-c d" . my/markdown-insert-date)
          ("<tab>" . markdown-cycle)
          ("<backtab>" . markdown-shifttab)
          ("M-<left>" . markdown-promote)
