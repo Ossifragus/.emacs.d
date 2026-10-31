@@ -57,9 +57,14 @@
 
   ;; Evil integration
   (with-eval-after-load 'evil
-    ;; TAB cycling in org buffers
-    (evil-define-key 'normal org-mode-map (kbd "TAB")   #'org-cycle)
-    (evil-define-key 'normal org-mode-map (kbd "<tab>") #'org-cycle)))
+    ;; TAB cycling and outline movement in org buffers
+    (evil-define-key 'normal org-mode-map
+      (kbd "TAB") #'org-cycle
+      (kbd "<tab>") #'org-cycle
+      (kbd "M-H") #'org-metaleft
+      (kbd "M-L") #'org-metaright
+      (kbd "M-K") #'org-metaup
+      (kbd "M-J") #'org-metadown)))
 
 ;; Citation & Export Plugins
 (use-package oc-csl

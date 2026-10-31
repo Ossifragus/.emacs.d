@@ -172,20 +172,16 @@ Fold a leading fenced code block with Hideshow so TAB can reveal it."
       (kbd "TAB") #'my/markdown-tab
       (kbd "<backtab>") #'markdown-shifttab
       (kbd "S-TAB") #'markdown-shifttab
-      (kbd "M-<left>") #'markdown-promote
-      (kbd "M-<right>") #'markdown-demote
-      (kbd "M-<up>") #'markdown-move-up
-      (kbd "M-<down>") #'markdown-move-down))
+      (kbd "M-H") #'markdown-promote
+      (kbd "M-L") #'markdown-demote
+      (kbd "M-K") #'markdown-move-up
+      (kbd "M-J") #'markdown-move-down))
 
   :bind (:map markdown-mode-map
          ("C-c d" . my/markdown-insert-date)
          ("<tab>" . my/markdown-tab)
          ("TAB" . my/markdown-tab)
-         ("<backtab>" . markdown-shifttab)
-         ("M-<left>" . markdown-promote)
-         ("M-<right>" . markdown-demote)
-         ("M-<up>" . markdown-move-up)
-         ("M-<down>" . markdown-move-down)))
+         ("<backtab>" . markdown-shifttab)))
 
 (use-package pandoc-mode
   :ensure t
