@@ -4,6 +4,10 @@
   :ensure t
   :bind (("C-x g"   . magit-status)
          ("C-x M-g" . magit-dispatch))
+  :hook ((magit-diff-mode   . visual-line-mode)
+         (magit-diff-mode   . visual-wrap-prefix-mode)
+         (magit-status-mode . visual-line-mode)
+         (magit-status-mode . visual-wrap-prefix-mode))
   :config
   (setq-default magit-diff-refine-hunk 'all)
   (define-advice magit-diff-visit-file--internal (:around (orig-fn force-worktree display) reuse-window)
