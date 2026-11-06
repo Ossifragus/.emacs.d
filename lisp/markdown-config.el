@@ -60,13 +60,15 @@ Move with h/j/k/l, press RET to select, or q to cancel."
     (my/markdown-date-picker-mode 1)))
 
 (defun my/markdown-fenced-code-bounds ()
-  "Return bounds of the complete backtick or tilde code block at point."
+  "Return bounds of the complete code block or YAML front matter at point."
   (syntax-propertize (point-max))
   (let ((bounds (markdown-get-enclosing-fenced-block-construct)))
     (when (and bounds (cadr bounds)
                (save-excursion
                  (goto-char (car bounds))
-                 (looking-at "[ \t]*\\(?:`\\{3,\\}\\|~\\{3,\\}\\)")))
+                 (or (looking-at "[ \t]*\\(?:`\\{3,\\}\\|~\\{3,\\}\\)")
+                     (and (= (car bounds) (point-min))
+                          (looking-at "---[ \t]*$")))))
       bounds)))
 
 (defun my/markdown-hs-block-start-p ()
@@ -90,9 +92,9 @@ Move with h/j/k/l, press RET to select, or q to cancel."
     t))
 
 (defun my/markdown-hideshow-setup ()
-  "Enable Hideshow for Markdown code fences using Emacs 31's local API."
+  "Enable Hideshow for Markdown code fences and YAML front matter."
   (require 'hideshow)
-  (setq-local hs-block-start-regexp "^[ \t]*\\(?:`\\{3,\\}\\|~\\{3,\\}\\)"
+  (setq-local hs-block-start-regexp "^\\(?:[ \t]*\\(?:`\\{3,\\}\\|~\\{3,\\}\\)\\|---[ \t]*$\\)"
               hs-block-end-regexp nil
               hs-forward-sexp-function #'my/markdown-hs-forward-block
               hs-find-block-beginning-function #'my/markdown-hs-find-block
@@ -130,8 +132,9 @@ With ARG, perform Markdown's global visibility cycling."
 
 (defun my/markdown-start-in-overview ()
   "Show headings, keeping pre-heading content accessible.
-Fold a leading fenced code block with Hideshow so TAB can reveal it."
+Fold a leading fenced code block or YAML front matter with Hideshow so TAB can reveal it."
   (syntax-propertize (point-max))
+  (font-lock-ensure)
   (outline-hide-body)
   (markdown-outline-fix-visibility)
   (save-excursion
@@ -249,6 +252,30 @@ Fold a leading fenced code block with Hideshow so TAB can reveal it."
       (with-current-buffer buf
         (pandoc-view-output)))))
 
+(defun my-pandoc--sync-yaml-output ()
+  "Read `output:' from top YAML front matter and sync `pandoc-mode' output settings."
+  (save-excursion
+    (goto-char (point-min))
+    (when (looking-at "\\`---[ \t]*\n")
+      (let ((yaml-end (save-excursion
+                        (forward-line 1)
+                        (when (re-search-forward "^\\(?:---\\|\\.\\.\\.\\)[ \t]*$" nil t)
+                          (match-beginning 0)))))
+        (when (and yaml-end
+                   (re-search-forward "^[ \t]*output:[ \t]*\\(?:\"\\([^\"\n]+\\)\"\\|'\\([^'\n]+\\)'\\|\\([^# \t\n]+\\)\\)" yaml-end t))
+          (let* ((raw (or (match-string-no-properties 1)
+                          (match-string-no-properties 2)
+                          (match-string-no-properties 3)))
+                 (base-dir (file-name-directory (expand-file-name (or (pandoc--get 'master-file) (buffer-file-name)))))
+                 (full-path (expand-file-name raw base-dir))
+                 (out-dir (directory-file-name (file-name-directory full-path)))
+                 (out-file (file-name-nondirectory full-path)))
+            (unless (file-directory-p out-dir)
+              (make-directory out-dir t))
+            (pandoc--set 'output-dir out-dir)
+            (pandoc--set 'output out-file)
+            (setq pandoc--settings-modified-flag nil)))))))
+
 (defun my-pandoc-export-pdf (&optional prefix)
   "Save the current Markdown buffer and convert it to PDF via `pandoc-mode'."
   (interactive "P")
@@ -256,6 +283,7 @@ Fold a leading fenced code block with Hideshow so TAB can reveal it."
     (pandoc-mode 1))
   (when (and (buffer-file-name) (buffer-modified-p))
     (save-buffer))
+  (my-pandoc--sync-yaml-output)
   (setq my-pandoc--view-after-async-buffer nil)
   (pandoc-convert-to-pdf prefix))
 
@@ -266,6 +294,7 @@ Fold a leading fenced code block with Hideshow so TAB can reveal it."
     (pandoc-mode 1))
   (when (and (buffer-file-name) (buffer-modified-p))
     (save-buffer))
+  (my-pandoc--sync-yaml-output)
   (if pandoc-use-async
       (progn
         (setq my-pandoc--view-after-async-buffer (current-buffer))
