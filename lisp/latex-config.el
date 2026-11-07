@@ -168,6 +168,22 @@ along with any preceding horizontal whitespace.  Escaped percent characters
                          (string= (expand-file-name current-document) pdf-file))
                 (throw 'instance (cons service object-path))))))))))
 
+(defun my-TeX-okular--raise (service)
+  "Raise the Okular window belonging to D-Bus SERVICE.
+Use the optional GNOME extension for native Wayland windows, falling
+back to Okular's own activation request when it is unavailable."
+  (or (ignore-errors
+        (let ((pid (dbus-call-method
+                    :session "org.freedesktop.DBus" "/org/freedesktop/DBus"
+                    "org.freedesktop.DBus" "GetConnectionUnixProcessID"
+                    service)))
+          (dbus-call-method
+           :session "org.gnome.Shell" "/org/gnome/Shell/OkularForwardSearch"
+           "org.gnome.Shell.OkularForwardSearch" "RaiseOkular" :uint32 pid)))
+      (ignore-errors
+        (dbus-call-method
+         :session service "/okularshell" "org.kde.okular" "tryRaise" ""))))
+
 (defun my-TeX-okular-sync-view ()
   (pcase-let* ((`(,pdf-file ,document-spec) (my-TeX-okular--document-spec))
                (instance (my-TeX-okular--find-instance pdf-file)))
@@ -178,10 +194,7 @@ along with any preceding horizontal whitespace.  Escaped percent characters
                :session (car instance) (cdr instance)
                "org.kde.okular" "openDocument"
                document-spec)
-              (ignore-errors
-                (dbus-call-method
-                 :session (car instance) "/okularshell"
-                 "org.kde.okular" "tryRaise" "")))
+              (my-TeX-okular--raise (car instance)))
           (error
            (start-process "okular" nil "okular" document-spec)))
       (start-process "okular" nil "okular" document-spec))))
