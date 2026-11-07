@@ -28,25 +28,9 @@
                    '("Okular" my-TeX-okular-sync-view)))
     (setq TeX-view-program-selection '((output-pdf "Okular")))))
 
-  ;; Focus strategy for PGTK/Wayland/GNOME
-  (setq TeX-raise-frame-function
-        (lambda ()
-          (let ((frame (selected-frame)))
-            (run-at-time 0.2 nil
-                         (lambda (f)
-                           (when (frame-live-p f)
-                             (make-frame-visible f)
-                             (raise-frame f)
-                             (select-frame-set-input-focus f)
-                             (when (fboundp 'x-focus-frame) (x-focus-frame f))
-                             (when (fboundp 'pgtk-focus-frame) (pgtk-focus-frame f))
-                             ;; Fallback for GNOME/X11
-                             (when (executable-find "wmctrl")
-                               (let ((name (frame-parameter f 'name)))
-                                 (if (and name (not (string= name "")))
-                                     (call-process "wmctrl" nil nil nil "-a" name)
-                                   (call-process "wmctrl" nil nil nil "-x" "-a" "Emacs"))))))
-                         frame)))))
+  (setq TeX-raise-frame-function #'my-TeX-emacs-raise)
+  ;; Okular's Emacsclient editor bypasses AUCTeX's D-Bus inverse search.
+  (add-hook 'server-switch-hook #'my-TeX-emacs-raise-from-server))
 
 (use-package latex
   :ensure nil
@@ -138,6 +122,42 @@ along with any preceding horizontal whitespace.  Escaped percent characters
   (display-line-numbers-mode 1))
 
 ;;; Okular DBus SyncTeX Integration (Linux)
+
+(defun my-TeX-emacs-raise-from-server ()
+  "Focus the source frame after an emacsclient visit to a TeX buffer."
+  (when (derived-mode-p 'tex-mode 'TeX-mode)
+    (my-TeX-emacs-raise)))
+
+(defun my-TeX-emacs-raise ()
+  "Activate the selected source frame, using GNOME Shell on Wayland."
+  ;; Wait for emacsclient's buffer selection and window title to settle.
+  (run-at-time 0.2 nil #'my-TeX-emacs--raise-frame (selected-frame)))
+
+(defun my-TeX-emacs--raise-frame (frame)
+  "Activate FRAME through the optional GNOME extension or normal APIs."
+  (when (frame-live-p frame)
+    (make-frame-visible frame)
+    (unless (and (eq system-type 'gnu/linux)
+                 (display-graphic-p frame)
+                 (ignore-errors
+                   (require 'dbus)
+                   (dbus-call-method
+                    :session "org.gnome.Shell"
+                    "/org/gnome/Shell/OkularForwardSearch"
+                    "org.gnome.Shell.OkularForwardSearch" "RaiseEmacs"
+                    :uint32 (emacs-pid)
+                    (or (frame-parameter frame 'title)
+                        (frame-parameter frame 'name)))))
+      (raise-frame frame)
+      (select-frame-set-input-focus frame)
+      (when (fboundp 'x-focus-frame) (x-focus-frame frame))
+      (when (fboundp 'pgtk-focus-frame) (pgtk-focus-frame frame))
+      ;; wmctrl can only activate X11/XWayland windows.
+      (when (and (eq system-type 'gnu/linux) (executable-find "wmctrl"))
+        (let ((name (frame-parameter frame 'name)))
+          (if (and name (not (string= name "")))
+              (call-process "wmctrl" nil nil nil "-a" name)
+            (call-process "wmctrl" nil nil nil "-x" "-a" "Emacs")))))))
 
 (defun my-TeX-okular--document-spec ()
   (let ((pdf-file (expand-file-name
