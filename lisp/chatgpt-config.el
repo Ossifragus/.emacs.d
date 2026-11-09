@@ -64,6 +64,17 @@
               (when (string-match-p "\\*agent-shell-diff\\*" (buffer-name))
                 (evil-emacs-state)))))
 
+;; Render LaTeX math in agent-shell output as SVG (latex -> dvisvgm)
+(use-package agent-shell-math-renderer
+  :ensure t
+  :hook (agent-shell-mode . agent-shell-math-renderer-mode)
+  :config
+  ;; Re-tint/rescale equations immediately on theme or frame font change
+  (add-hook 'enable-theme-functions
+            #'agent-shell-math-renderer-on-appearance-change)
+  (add-hook 'after-setting-font-hook
+            #'agent-shell-math-renderer-on-appearance-change))
+
 ;; Top-level definition for Emacs 31 to prevent byte-compile warnings
 (defvar-local agent-recall-transcript-mode--set-explicitly nil)
 
