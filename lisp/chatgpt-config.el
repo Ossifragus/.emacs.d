@@ -58,6 +58,19 @@
   (evil-define-key 'insert agent-shell-mode-map (kbd "RET") #'newline)
   (evil-define-key 'normal agent-shell-mode-map (kbd "RET") #'comint-send-input)
 
+  ;; Switchable YOLO: auto-approve every permission request while ON.
+  ;; Works mid-session for all agents (the new `agy acp' has no yolo mode).
+  ;; Global: affects all agent-shell buffers.
+  (defun my-agent-shell-toggle-yolo ()
+    "Toggle auto-approval of all agent-shell permission requests."
+    (interactive)
+    (setq agent-shell-permission-responder-function
+          (unless agent-shell-permission-responder-function
+            #'agent-shell-permission-allow-always))
+    (message "agent-shell YOLO %s"
+             (if agent-shell-permission-responder-function "ON" "OFF")))
+  (define-key agent-shell-mode-map (kbd "C-c C-y") #'my-agent-shell-toggle-yolo)
+
   ;; Configure *agent-shell-diff* buffers to start in Emacs state
   (add-hook 'diff-mode-hook
             (lambda ()
