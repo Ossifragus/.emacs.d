@@ -46,7 +46,9 @@
   (with-eval-after-load 'evil
     (evil-define-key '(normal visual) LaTeX-mode-map
       (kbd "<leader>ca") #'TeX-command-run-all
-      (kbd "<leader>cc") #'TeX-command-master)))
+      (kbd "<leader>cc") #'TeX-command-master
+      (kbd "<leader>cv") #'TeX-view
+      )))
 
 ;;; Helper Functions
 
