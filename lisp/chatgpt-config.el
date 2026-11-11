@@ -82,6 +82,9 @@
   :ensure t
   :hook (agent-shell-mode . agent-shell-math-renderer-mode)
   :config
+  ;; Don't pop up warnings for equations that fail to compile (e.g. a
+  ;; project's own macros); they just stay as raw LaTeX text
+  (add-to-list 'warning-suppress-types '(latex-to-svg-backend))
   ;; Re-tint/rescale equations immediately on theme or frame font change
   (add-hook 'enable-theme-functions
             #'agent-shell-math-renderer-on-appearance-change)
