@@ -30,7 +30,7 @@
 (fset 'yes-or-no-p 'y-or-n-p)    ;; 'y' for 'yes', 'n' for 'no'
 (delete-selection-mode t)        ;; replace the active region by typing
 (tool-bar-mode -1)               ;; disable the toolbar
-;; (scroll-bar-mode -1)             ;; disable scrollbar
+(scroll-bar-mode -1)             ;; disable scrollbar
 (setq inhibit-startup-message t) ;; disable the welcome window
 (setq frame-title-format "%b")   ;; show current buffer name in title bar
 (global-auto-revert-mode 1)      ;; revert buffer when file changes on disk
